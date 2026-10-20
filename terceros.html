@@ -51,7 +51,7 @@
       <div>
         <h1 class="text-2xl font-bold text-[#232429] flex items-center gap-2">
           <i class="fa-solid me-2 fa-shield-halved brand-orange"></i>
-          Módulo de Verificación de Documentos — Terceros
+          Módulo de Verificación de Documentos - Terceros
         </h1>
         <p class="text-gray-500 text-sm">Ingresa tus datos y adjunta los 4 requisitos solicitados para validación instantánea.</p>
       </div>
@@ -68,13 +68,9 @@
 
         <form id="form-titular" class="space-y-3 text-sm" onsubmit="return false;">
           <div>
-            <label class="block text-gray-700 font-medium mb-1">Correo del solicitante (institucional)</label>
-            <input type="email" id="correoInstitucional" placeholder="nombre@unbosque.edu.co"
+            <label class="block text-gray-700 font-medium mb-1">Correo del solicitante</label>
+            <input type="email" id="correoInstitucional" placeholder="Correo"
                    class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-[#232429] focus:outline-none focus:border-[#FD7519]">
-            <p id="correoAyuda" class="text-[11px] text-gray-500 mt-1">
-              Solo se aceptan solicitudes enviadas desde un correo <strong>@unbosque.edu.co</strong>. Si eres proveedor
-              externo, remite tu documentación al área o facultad que gestiona tu contratación.
-            </p>
           </div>
 
           <div>
@@ -128,14 +124,18 @@
           </div>
 
           <div>
-            <label class="block text-gray-700 font-medium mb-1">Dirección de Residencia / Sede</label>
+            <label class="block text-gray-700 font-medium mb-1">Dirección de Residencia</label>
             <input type="text" id="direccion" placeholder="Calle 100 # 15 - 20, Apto 301" class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-[#232429] focus:outline-none focus:border-[#FD7519]">
           </div>
 
-          <div class="grid grid-cols-2 gap-3">
+          <div class="grid grid-cols-3 gap-3">
             <div>
-              <label class="block text-gray-700 font-medium mb-1">Lugar de Nacimiento / Constitución</label>
+              <label class="block text-gray-700 font-medium mb-1">Lugar de Nacimiento</label>
               <input type="text" id="lugarNacimiento" placeholder="Bogotá, D.C." class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-[#232429] focus:outline-none focus:border-[#FD7519]">
+            </div>
+            <div>
+              <label class="block text-gray-700 font-medium mb-1">País de Nacimiento</label>
+              <input type="text" id="paisNacimiento" placeholder="Colombia / Otro" class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-[#232429] focus:outline-none focus:border-[#FD7519]">
             </div>
             <div>
               <label class="block text-gray-700 font-medium mb-1">Fecha Expedición Cédula</label>
