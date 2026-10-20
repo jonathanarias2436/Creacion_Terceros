@@ -82,8 +82,182 @@
             <input type="text" id="nombre" placeholder="Ej. Ana María Gómez / Empresa SAS" class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-[#232429] focus:outline-none focus:border-[#FD7519]">
           </div>
 
-          <!-- Selectores de Tipo de Persona, Nacionalidad y Calidad -->
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+          <!-- Selectores de Tipo de Persona y Nacionalidad -->
+          <div class="grid grid-cols-2 gap-3">
             <div>
-              <label class="block text-gray-700 font-medium mb-1">Tipo Persona</label>
-              <select id="tipoPersona" class="w-full bg-white border border-gray-300 rounded-lg px-2.5
+              <label class="block text-gray-700 font-medium mb-1">Persona</label>
+              <select id="tipoPersona" class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-[#232429] focus:outline-none focus:border-[#FD7519]">
+                <option value="1">Natural</option>
+                <option value="2">Jurídica</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-gray-700 font-medium mb-1">Nacionalidad</label>
+              <select id="nacionalidad" class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-[#232429] focus:outline-none focus:border-[#FD7519]">
+                <option value="2">Nacional</option>
+                <option value="1">Extranjero</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block text-gray-700 font-medium mb-1">Cédula</label>
+              <input type="text" id="cedula" placeholder="1.032.456.789" class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-[#232429] focus:outline-none focus:border-[#FD7519]">
+            </div>
+            <div>
+              <label class="block text-gray-700 font-medium mb-1">NIT</label>
+              <input type="text" id="nit" placeholder="900123456-1" class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-[#232429] focus:outline-none focus:border-[#FD7519]">
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-gray-700 font-medium mb-1">Celular</label>
+            <input type="text" id="celular" placeholder="300 123 4567" class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-[#232429] focus:outline-none focus:border-[#FD7519]">
+          </div>
+
+          <div>
+            <label class="block text-gray-700 font-medium mb-1">Dirección de Residencia / Sede</label>
+            <input type="text" id="direccion" placeholder="Calle 100 # 15 - 20, Apto 301" class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-[#232429] focus:outline-none focus:border-[#FD7519]">
+          </div>
+
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block text-gray-700 font-medium mb-1">Lugar de Nacimiento / Constitución</label>
+              <input type="text" id="lugarNacimiento" placeholder="Bogotá, D.C." class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-[#232429] focus:outline-none focus:border-[#FD7519]">
+            </div>
+            <div>
+              <label class="block text-gray-700 font-medium mb-1">Fecha Expedición Cédula</label>
+              <input type="date" id="fechaExpedicionCedula" class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-[#232429] focus:outline-none focus:border-[#FD7519]">
+            </div>
+          </div>
+        </form>
+      </section>
+
+      <!-- PANEL DERECHO: Carga de Documentos y Validación (7 columnas) -->
+      <section class="lg:col-span-7 bg-gray-50 border border-gray-200 rounded-xl p-5 space-y-4">
+        <h2 class="text-lg font-semibold brand-orange flex items-center justify-between border-b border-gray-200 pb-2">
+          <span><i class="fa-solid fa-file-shield me-2"></i> Documentos Solicitados y Validación</span>
+          <span class="text-xs bg-orange-50 brand-orange border border-[#FD7519]/30 px-2 py-0.5 rounded-full">Análisis en Tiempo Real</span>
+        </h2>
+
+        <div class="space-y-4">
+
+          <!-- DOCUMENTO 1: Cédula de Ciudadanía -->
+          <div class="bg-white border border-gray-200 rounded-lg p-4 flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div class="space-y-1 flex-1">
+              <div class="flex items-center gap-2">
+                <i class="fa-solid fa-id-card brand-orange"></i>
+                <span class="font-medium text-[#232429]">1. Documento de Cédula / Representación</span>
+              </div>
+              <p class="text-xs text-gray-500">Debe ser legible por ambos lados y coincidir con el número e historial digitado.</p>
+              <input type="file" id="file-cedula" data-doc="cedula" class="doc-input text-xs text-gray-500 file:mr-2 file:py-1 file:px-3 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-brand-orange file:text-white hover:file:bg-[#e4660f] cursor-pointer">
+            </div>
+            <div id="status-cedula" class="status-box bg-gray-100 border border-gray-300 rounded-lg p-2.5 min-w-[220px] text-xs">
+              <div class="flex items-center gap-1.5 text-gray-500 font-semibold">
+                <i class="fa-regular fa-circle"></i> Esperando documento
+              </div>
+            </div>
+          </div>
+
+          <!-- DOCUMENTO 2: RUT -->
+          <div class="bg-white border border-gray-200 rounded-lg p-4 flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div class="space-y-1 flex-1">
+              <div class="flex items-center gap-2">
+                <i class="fa-solid fa-file-invoice brand-orange"></i>
+                <span class="font-medium text-[#232429]">2. Copia del RUT</span>
+              </div>
+              <p class="text-xs text-gray-500">Copia del Registro Único Tributario con el NIT correspondiente.</p>
+              <input type="file" id="file-rut" data-doc="rut" class="doc-input text-xs text-gray-500 file:mr-2 file:py-1 file:px-3 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-brand-orange file:text-white hover:file:bg-[#e4660f] cursor-pointer">
+            </div>
+            <div id="status-rut" class="status-box bg-gray-100 border border-gray-300 rounded-lg p-2.5 min-w-[220px] text-xs">
+              <div class="flex items-center gap-1.5 text-gray-500 font-semibold">
+                <i class="fa-regular fa-circle"></i> Esperando documento
+              </div>
+            </div>
+          </div>
+
+          <!-- DOCUMENTO 3: Certificación Bancaria -->
+          <div class="bg-white border border-amber-300 rounded-lg p-4 flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div class="space-y-1 flex-1">
+              <div class="flex items-center gap-2">
+                <i class="fa-solid fa-building-columns brand-orange"></i>
+                <span class="font-medium text-[#232429]">3. Certificación Bancaria</span>
+              </div>
+              <p class="text-xs text-gray-500">Expedición <strong class="text-amber-600">no superior a 30 días</strong>.</p>
+              <div class="flex flex-wrap items-center gap-2 mt-1">
+                <input type="file" id="file-certBancaria" data-doc="certBancaria" class="doc-input text-xs text-gray-500 file:mr-2 file:py-1 file:px-3 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-brand-orange file:text-white hover:file:bg-[#e4660f] cursor-pointer">
+                <label class="text-[11px] text-gray-600 flex items-center gap-1">
+                  Fecha de expedición:
+                  <input type="date" id="fechaCertBancaria" class="doc-input border border-gray-300 rounded px-1.5 py-0.5 text-[11px]">
+                </label>
+              </div>
+            </div>
+            <div id="status-certBancaria" class="status-box bg-gray-100 border border-gray-300 rounded-lg p-2.5 min-w-[220px] text-xs">
+              <div class="flex items-center gap-1.5 text-gray-500 font-semibold">
+                <i class="fa-regular fa-circle"></i> Esperando documento
+              </div>
+            </div>
+          </div>
+
+          <!-- DOCUMENTO 4: Formato de Creación de Terceros (firmado) -->
+          <div class="bg-white border border-gray-200 rounded-lg p-4 flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div class="space-y-1 flex-1">
+              <div class="flex items-center gap-2">
+                <i class="fa-solid fa-file-signature brand-orange"></i>
+                <span class="font-medium text-[#232429]">4. Formato de Creación de Terceros</span>
+              </div>
+              <p class="text-xs text-gray-500">Debe estar diligenciado y <strong>firmado</strong> por el titular.</p>
+              <input type="file" id="file-formatoFirmado" data-doc="formatoFirmado" class="doc-input text-xs text-gray-500 file:mr-2 file:py-1 file:px-3 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-brand-orange file:text-white hover:file:bg-[#e4660f] cursor-pointer">
+              <label class="flex items-center gap-1.5 text-[11px] text-gray-600 mt-1">
+                <input type="checkbox" id="confirmaFirmado" class="doc-input rounded border-gray-300">
+                Confirmo que el documento adjunto está firmado por el titular.
+              </label>
+            </div>
+            <div id="status-formatoFirmado" class="status-box bg-gray-100 border border-gray-300 rounded-lg p-2.5 min-w-[220px] text-xs">
+              <div class="flex items-center gap-1.5 text-gray-500 font-semibold">
+                <i class="fa-regular fa-circle"></i> Esperando documento
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Resultado del envío -->
+        <div id="resultado-envio" class="hidden rounded-lg p-4 text-sm"></div>
+
+        <!-- Botón de envío -->
+        <div class="pt-2">
+          <button id="btn-enviar" class="w-full bg-brand-orange hover:bg-[#e4660f] text-white font-medium py-2.5 rounded-lg transition-colors flex items-center justify-center gap-2">
+            <i class="fa-solid fa-cloud-arrow-up"></i> Validar Todo y Enviar
+          </button>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <script>
+    const docs = ['cedula', 'rut', 'certBancaria', 'formatoFirmado'];
+    const state = {}; // docKey -> { status: 'empty'|'pending'|'valid'|'invalid', message: string }
+    docs.forEach(d => state[d] = { status: 'empty', message: '' });
+
+    const $ = (id) => document.getElementById(id);
+
+    function diasDesde(fechaStr) {
+      if (!fechaStr) return null;
+      const fecha = new Date(fechaStr + 'T00:00:00');
+      const hoy = new Date();
+      hoy.setHours(0, 0, 0, 0);
+      return Math.round((hoy - fecha) / (1000 * 60 * 60 * 24));
+    }
+
+    function renderStatus(docKey) {
+      const box = $('status-' + docKey);
+      const s = state[docKey];
+      if (s.status === 'empty') {
+        box.className = 'status-box bg-gray-100 border border-gray-300 rounded-lg p-2.5 min-w-[220px] text-xs';
+        box.innerHTML = `<div class="flex items-center gap-1.5 text-gray-500 font-semibold"><i class="fa-regular fa-circle"></i> Esperando documento</div>`;
+      } else if (s.status === 'pending') {
+        box.className = 'status-box bg-blue-50 border border-blue-300 rounded-lg p-2.5 min-w-[220px] text-xs';
+        box.innerHTML = `<div class="flex items-center gap-1.5 text-blue-600 font-semibold
