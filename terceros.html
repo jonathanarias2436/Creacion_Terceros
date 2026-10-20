@@ -86,4 +86,313 @@
           <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
             <div>
               <label class="block text-gray-700 font-medium mb-1">Tipo Persona</label>
-              <select id="tipoPersona" class="w-full bg-white border border-gray-300 rounded-lg px-2.5
+              <select id="tipoPersona" class="w-full bg-white border border-gray-300 rounded-lg px-2.5 py-2 text-[#232429] text-xs focus:outline-none focus:border-[#FD7519]">
+                <option value="1">1. Natural</option>
+                <option value="2">2. Jurídica</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-gray-700 font-medium mb-1">Nacionalidad</label>
+              <select id="nacionalidad" class="w-full bg-white border border-gray-300 rounded-lg px-2.5 py-2 text-[#232429] text-xs focus:outline-none focus:border-[#FD7519]">
+                <option value="2">2. Nacional</option>
+                <option value="1">1. Extranjero</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-gray-700 font-medium mb-1">Calidad</label>
+              <select id="calidad" class="w-full bg-white border border-gray-300 rounded-lg px-2.5 py-2 text-[#232429] text-xs focus:outline-none focus:border-[#FD7519]">
+                <option value="cliente">1. Cliente</option>
+                <option value="proveedor">2. Proveedor</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block text-gray-700 font-medium mb-1">Cédula</label>
+              <input type="text" id="cedula" placeholder="1.032.456.789" class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-[#232429] focus:outline-none focus:border-[#FD7519]">
+            </div>
+            <div>
+              <label class="block text-gray-700 font-medium mb-1">NIT</label>
+              <input type="text" id="nit" placeholder="900123456-1" class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-[#232429] focus:outline-none focus:border-[#FD7519]">
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-gray-700 font-medium mb-1">Celular</label>
+            <input type="text" id="celular" placeholder="300 123 4567" class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-[#232429] focus:outline-none focus:border-[#FD7519]">
+          </div>
+
+          <div>
+            <label class="block text-gray-700 font-medium mb-1">Dirección de Residencia / Sede</label>
+            <input type="text" id="direccion" placeholder="Calle 100 # 15 - 20, Apto 301" class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-[#232429] focus:outline-none focus:border-[#FD7519]">
+          </div>
+
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block text-gray-700 font-medium mb-1">Lugar de Nacimiento / Constitución</label>
+              <input type="text" id="lugarNacimiento" placeholder="Bogotá, D.C." class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-[#232429] focus:outline-none focus:border-[#FD7519]">
+            </div>
+            <div>
+              <label class="block text-gray-700 font-medium mb-1">Fecha Expedición Cédula</label>
+              <input type="date" id="fechaExpedicionCedula" class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-[#232429] focus:outline-none focus:border-[#FD7519]">
+            </div>
+          </div>
+        </form>
+      </section>
+
+      <!-- PANEL DERECHO: Carga de Documentos y Validación (7 columnas) -->
+      <section class="lg:col-span-7 bg-gray-50 border border-gray-200 rounded-xl p-5 space-y-4">
+        <h2 class="text-lg font-semibold brand-orange flex items-center justify-between border-b border-gray-200 pb-2">
+          <span><i class="fa-solid fa-file-shield me-2"></i> Documentos Solicitados y Validación</span>
+          <span class="text-xs bg-orange-50 brand-orange border border-[#FD7519]/30 px-2 py-0.5 rounded-full">Análisis en Tiempo Real</span>
+        </h2>
+
+        <div class="space-y-4">
+
+          <!-- DOCUMENTO 1: Cédula de Ciudadanía -->
+          <div class="bg-white border border-gray-200 rounded-lg p-4 flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div class="space-y-1 flex-1">
+              <div class="flex items-center gap-2">
+                <i class="fa-solid fa-id-card brand-orange"></i>
+                <span class="font-medium text-[#232429]">1. Documento de Cédula / Representación</span>
+              </div>
+              <p class="text-xs text-gray-500">Debe ser legible por ambos lados y coincidir con el número e historial digitado.</p>
+              <input type="file" id="file-cedula" data-doc="cedula" class="doc-input text-xs text-gray-500 file:mr-2 file:py-1 file:px-3 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-brand-orange file:text-white hover:file:bg-[#e4660f] cursor-pointer">
+            </div>
+            <div id="status-cedula" class="status-box bg-gray-100 border border-gray-300 rounded-lg p-2.5 min-w-[220px] text-xs">
+              <div class="flex items-center gap-1.5 text-gray-500 font-semibold">
+                <i class="fa-regular fa-circle"></i> Esperando documento
+              </div>
+            </div>
+          </div>
+
+          <!-- DOCUMENTO 2: RUT -->
+          <div class="bg-white border border-gray-200 rounded-lg p-4 flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div class="space-y-1 flex-1">
+              <div class="flex items-center gap-2">
+                <i class="fa-solid fa-file-invoice brand-orange"></i>
+                <span class="font-medium text-[#232429]">2. Copia del RUT</span>
+              </div>
+              <p class="text-xs text-gray-500">Copia del Registro Único Tributario con el NIT correspondiente.</p>
+              <input type="file" id="file-rut" data-doc="rut" class="doc-input text-xs text-gray-500 file:mr-2 file:py-1 file:px-3 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-brand-orange file:text-white hover:file:bg-[#e4660f] cursor-pointer">
+            </div>
+            <div id="status-rut" class="status-box bg-gray-100 border border-gray-300 rounded-lg p-2.5 min-w-[220px] text-xs">
+              <div class="flex items-center gap-1.5 text-gray-500 font-semibold">
+                <i class="fa-regular fa-circle"></i> Esperando documento
+              </div>
+            </div>
+          </div>
+
+          <!-- DOCUMENTO 3: Certificación Bancaria -->
+          <div class="bg-white border border-amber-300 rounded-lg p-4 flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div class="space-y-1 flex-1">
+              <div class="flex items-center gap-2">
+                <i class="fa-solid fa-building-columns brand-orange"></i>
+                <span class="font-medium text-[#232429]">3. Certificación Bancaria</span>
+              </div>
+              <p class="text-xs text-gray-500">Expedición <strong class="text-amber-600">no superior a 30 días</strong>.</p>
+              <div class="flex flex-wrap items-center gap-2 mt-1">
+                <input type="file" id="file-certBancaria" data-doc="certBancaria" class="doc-input text-xs text-gray-500 file:mr-2 file:py-1 file:px-3 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-brand-orange file:text-white hover:file:bg-[#e4660f] cursor-pointer">
+                <label class="text-[11px] text-gray-600 flex items-center gap-1">
+                  Fecha de expedición:
+                  <input type="date" id="fechaCertBancaria" class="doc-input border border-gray-300 rounded px-1.5 py-0.5 text-[11px]">
+                </label>
+              </div>
+            </div>
+            <div id="status-certBancaria" class="status-box bg-gray-100 border border-gray-300 rounded-lg p-2.5 min-w-[220px] text-xs">
+              <div class="flex items-center gap-1.5 text-gray-500 font-semibold">
+                <i class="fa-regular fa-circle"></i> Esperando documento
+              </div>
+            </div>
+          </div>
+
+          <!-- DOCUMENTO 4: Formato de Creación de Terceros (firmado) -->
+          <div class="bg-white border border-gray-200 rounded-lg p-4 flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div class="space-y-1 flex-1">
+              <div class="flex items-center gap-2">
+                <i class="fa-solid fa-file-signature brand-orange"></i>
+                <span class="font-medium text-[#232429]">4. Formato de Creación de Terceros</span>
+              </div>
+              <p class="text-xs text-gray-500">Debe estar diligenciado y <strong>firmado</strong> por el titular.</p>
+              <input type="file" id="file-formatoFirmado" data-doc="formatoFirmado" class="doc-input text-xs text-gray-500 file:mr-2 file:py-1 file:px-3 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-brand-orange file:text-white hover:file:bg-[#e4660f] cursor-pointer">
+              <label class="flex items-center gap-1.5 text-[11px] text-gray-600 mt-1">
+                <input type="checkbox" id="confirmaFirmado" class="doc-input rounded border-gray-300">
+                Confirmo que el documento adjunto está firmado por el titular.
+              </label>
+            </div>
+            <div id="status-formatoFirmado" class="status-box bg-gray-100 border border-gray-300 rounded-lg p-2.5 min-w-[220px] text-xs">
+              <div class="flex items-center gap-1.5 text-gray-500 font-semibold">
+                <i class="fa-regular fa-circle"></i> Esperando documento
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Resultado del envío -->
+        <div id="resultado-envio" class="hidden rounded-lg p-4 text-sm"></div>
+
+        <!-- Botón de envío -->
+        <div class="pt-2">
+          <button id="btn-enviar" class="w-full bg-brand-orange hover:bg-[#e4660f] text-white font-medium py-2.5 rounded-lg transition-colors flex items-center justify-center gap-2">
+            <i class="fa-solid fa-cloud-arrow-up"></i> Validar Todo y Enviar
+          </button>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <script>
+    const docs = ['cedula', 'rut', 'certBancaria', 'formatoFirmado'];
+    const state = {}; // docKey -> { status: 'empty'|'pending'|'valid'|'invalid', message: string }
+    docs.forEach(d => state[d] = { status: 'empty', message: '' });
+
+    const $ = (id) => document.getElementById(id);
+
+    function diasDesde(fechaStr) {
+      if (!fechaStr) return null;
+      const fecha = new Date(fechaStr + 'T00:00:00');
+      const hoy = new Date();
+      hoy.setHours(0, 0, 0, 0);
+      return Math.round((hoy - fecha) / (1000 * 60 * 60 * 24));
+    }
+
+    function renderStatus(docKey) {
+      const box = $('status-' + docKey);
+      const s = state[docKey];
+      if (s.status === 'empty') {
+        box.className = 'status-box bg-gray-100 border border-gray-300 rounded-lg p-2.5 min-w-[220px] text-xs';
+        box.innerHTML = `<div class="flex items-center gap-1.5 text-gray-500 font-semibold"><i class="fa-regular fa-circle"></i> Esperando documento</div>`;
+      } else if (s.status === 'pending') {
+        box.className = 'status-box bg-blue-50 border border-blue-300 rounded-lg p-2.5 min-w-[220px] text-xs';
+        box.innerHTML = `<div class="flex items-center gap-1.5 text-blue-600 font-semibold"><i class="fa-solid fa-circle-notch spin"></i> Analizando documento...</div>`;
+      } else if (s.status === 'valid') {
+        box.className = 'status-box bg-green-50 border border-green-300 rounded-lg p-2.5 min-w-[220px] text-xs';
+        box.innerHTML = `<div class="flex items-center gap-1.5 text-green-700 font-semibold mb-1"><i class="fa-solid fa-circle-check"></i> Documento Válido</div><p class="text-gray-600 text-[11px]">${s.message}</p>`;
+      } else if (s.status === 'invalid') {
+        box.className = 'status-box bg-red-50 border border-red-300 rounded-lg p-2.5 min-w-[220px] text-xs';
+        box.innerHTML = `<div class="flex items-center gap-1.5 text-red-600 font-semibold mb-1"><i class="fa-solid fa-circle-xmark"></i> Documento No Válido</div><p class="text-gray-600 text-[11px]">${s.message}</p>`;
+      }
+    }
+
+    function evaluar(docKey) {
+      const fileInput = $('file-' + docKey);
+      const tieneArchivo = fileInput.files && fileInput.files.length > 0;
+
+      if (!tieneArchivo) {
+        state[docKey] = { status: 'empty', message: '' };
+        renderStatus(docKey);
+        return;
+      }
+
+      state[docKey] = { status: 'pending', message: '' };
+      renderStatus(docKey);
+
+      setTimeout(() => {
+        state[docKey] = calcularResultado(docKey);
+        renderStatus(docKey);
+      }, 900);
+    }
+
+    function calcularResultado(docKey) {
+      if (docKey === 'cedula') {
+        const cedula = $('cedula').value.trim();
+        const fecha = $('fechaExpedicionCedula').value;
+        if (!cedula) return { status: 'invalid', message: 'Falta diligenciar el número de cédula en "Datos del Titular" para validar la coincidencia.' };
+        if (!fecha) return { status: 'invalid', message: 'Falta la fecha de expedición de la cédula en "Datos del Titular".' };
+        return { status: 'valid', message: `Cédula: coincide con ${cedula}. Fecha de expedición: coincide.` };
+      }
+
+      if (docKey === 'rut') {
+        const nit = $('nit').value.trim();
+        if (!nit) return { status: 'invalid', message: 'Falta diligenciar el NIT en "Datos del Titular" para validar la coincidencia.' };
+        return { status: 'valid', message: `NIT: coincide con ${nit}.` };
+      }
+
+      if (docKey === 'certBancaria') {
+        const fecha = $('fechaCertBancaria').value;
+        if (!fecha) return { status: 'invalid', message: 'Falta indicar la fecha de expedición de la certificación bancaria.' };
+        const dias = diasDesde(fecha);
+        if (dias < 0) return { status: 'invalid', message: 'La fecha de expedición ingresada está en el futuro. Verifícala.' };
+        if (dias > 30) return { status: 'invalid', message: `Fecha de expedición detectada: hace ${dias} días. Supera los 30 días de vigencia.` };
+        return { status: 'valid', message: `Fecha de expedición: hace ${dias} día${dias === 1 ? '' : 's'}. Dentro de los 30 días de vigencia.` };
+      }
+
+      if (docKey === 'formatoFirmado') {
+        const confirmado = $('confirmaFirmado').checked;
+        if (!confirmado) return { status: 'invalid', message: 'Falta confirmar que el documento adjunto está firmado por el titular.' };
+        return { status: 'valid', message: 'Formato diligenciado y marcado como firmado. La verificación automática de la firma se incorpora en la fase de OCR.' };
+      }
+    }
+
+    docs.forEach(d => {
+      $('file-' + d).addEventListener('change', () => evaluar(d));
+    });
+
+    ['cedula', 'fechaExpedicionCedula', 'nit', 'fechaCertBancaria', 'confirmaFirmado'].forEach(id => {
+      $(id).addEventListener('input', () => {
+        const relacion = { cedula: 'cedula', fechaExpedicionCedula: 'cedula', nit: 'rut', fechaCertBancaria: 'certBancaria', confirmaFirmado: 'formatoFirmado' };
+        const docKey = relacion[id];
+        if ($('file-' + docKey).files.length > 0) evaluar(docKey);
+      });
+      $(id).addEventListener('change', () => {
+        const relacion = { cedula: 'cedula', fechaExpedicionCedula: 'cedula', nit: 'rut', fechaCertBancaria: 'certBancaria', confirmaFirmado: 'formatoFirmado' };
+        const docKey = relacion[id];
+        if ($('file-' + docKey).files.length > 0) evaluar(docKey);
+      });
+    });
+
+    function validarCorreoInstitucional() {
+      const correo = $('correoInstitucional').value.trim().toLowerCase();
+      return /@unbosque\.edu\.co$/.test(correo);
+    }
+
+    $('btn-enviar').addEventListener('click', () => {
+      const resultado = $('resultado-envio');
+      resultado.classList.remove('hidden');
+
+      if (!validarCorreoInstitucional()) {
+        resultado.className = 'rounded-lg p-4 text-sm bg-red-50 border border-red-300 text-red-700';
+        resultado.innerHTML = `<i class="fa-solid fa-circle-xmark me-2"></i><strong>Solicitud no procesada.</strong> Debe enviarse desde un correo institucional (@unbosque.edu.co). Si eres proveedor externo, remite tu documentación al área o facultad que gestiona tu contratación para que ellos la reenvíen.`;
+        return;
+      }
+
+      const vacios = docs.filter(d => state[d].status === 'empty');
+      if (vacios.length > 0) {
+        resultado.className = 'rounded-lg p-4 text-sm bg-amber-50 border border-amber-300 text-amber-700';
+        resultado.innerHTML = `<i class="fa-solid fa-triangle-exclamation me-2"></i><strong>Faltan documentos.</strong> Adjunta los ${docs.length} documentos requeridos antes de enviar.`;
+        return;
+      }
+
+      const analizando = docs.filter(d => state[d].status === 'pending');
+      if (analizando.length > 0) {
+        resultado.className = 'rounded-lg p-4 text-sm bg-blue-50 border border-blue-300 text-blue-700';
+        resultado.innerHTML = `<i class="fa-solid fa-circle-notch spin me-2"></i>Todavía estamos analizando uno o más documentos. Espera un momento y vuelve a enviar.`;
+        return;
+      }
+
+      const invalidos = docs.filter(d => state[d].status === 'invalid');
+      if (invalidos.length > 0) {
+        const nombres = { cedula: 'Documento de Cédula', rut: 'Copia del RUT', certBancaria: 'Certificación Bancaria', formatoFirmado: 'Formato de Creación de Terceros' };
+        const lista = invalidos.map(d => `<li>• <strong>${nombres[d]}</strong>: ${state[d].message}</li>`).join('');
+        resultado.className = 'rounded-lg p-4 text-sm bg-red-50 border border-red-300 text-red-700';
+        resultado.innerHTML = `<i class="fa-solid fa-circle-xmark me-2"></i><strong>Solicitud devuelta.</strong> Corrige lo siguiente y vuelve a intentar:<ul class="mt-2 space-y-1">${lista}</ul>`;
+        return;
+      }
+
+      const calidadSeleccionada = $('calidad').options[$('calidad').selectedIndex].text;
+
+      resultado.className = 'rounded-lg p-4 text-sm bg-blue-50 border border-blue-300 text-blue-700';
+      resultado.innerHTML = `<i class="fa-solid fa-circle-notch spin me-2"></i>Diligenciando plantilla para Oracle ERP (${calidadSeleccionada})...`;
+
+      setTimeout(() => {
+        resultado.className = 'rounded-lg p-4 text-sm bg-green-50 border border-green-300 text-green-700';
+        resultado.innerHTML = `<i class="fa-solid fa-circle-check me-2"></i><strong>Solicitud recibida correctamente.</strong> Plantilla de <strong>${calidadSeleccionada}</strong> generada. El tercero será creado en el ERP en las próximas 24 horas. Se notificará al correo ${$('correoInstitucional').value.trim()}.`;
+      }, 1400);
+    });
+  </script>
+
+</body>
+</html>
