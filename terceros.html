@@ -24,31 +24,43 @@
 </head>
 <body class="bg-white text-[#232429] min-h-screen pb-16">
 
+  <!-- ENCABEZADO INSTITUCIONAL Y RETORNO -->
+  <header class="border-b border-gray-200 bg-white sticky top-0 z-50">
+    <div class="max-w-4xl mx-auto px-4 md:px-6 py-3 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <img src="./assets/logo.svg" alt="Universidad El Bosque" class="h-9 w-auto object-contain" onerror="this.src='https://www.unbosque.edu.co/sites/default/files/logo-universidad-el-bosque.png'">
+      </div>
+      <a href="index.html" class="text-xs text-gray-600 hover:text-[#FD7519] flex items-center gap-1.5 font-medium transition-colors">
+        <i class="fa-solid fa-arrow-left"></i> Volver al inicio
+      </a>
+    </div>
+  </header>
+
   <div class="max-w-4xl mx-auto px-4 md:px-6 mt-8 space-y-6">
 
-    <!-- Encabezado principal exacto al de tu imagen -->
+    <!-- Encabezado del Trámite -->
     <div>
       <h1 class="text-2xl font-bold text-[#232429] flex items-center gap-2">
         <i class="fa-solid fa-shield-halved brand-orange"></i>
         Solicitud de trámite
       </h1>
-      <p class="text-gray-500 text-sm mt-1" id="subtitulo-etapa">Por favor completa la siguiente información para continuar[cite: 5].</p>
+      <p class="text-gray-500 text-sm mt-1" id="subtitulo-etapa">Por favor completa la siguiente información para continuar.</p>
       <hr class="border-gray-200 mt-4">
     </div>
 
-    <!-- Alerta de cambio de datos (Paso 5)[cite: 5] -->
+    <!-- Alerta de cambio de datos -->
     <div id="alerta-cambio" class="hidden bg-amber-50 border border-amber-300 text-amber-800 text-xs rounded-xl p-4 flex items-start gap-3">
       <i class="fa-solid fa-triangle-exclamation text-amber-600 mt-0.5 text-base"></i>
       <div>
-        <strong>Al cambiar el tipo de persona o nacionalidad, se actualizarán los documentos requeridos[cite: 5].</strong> Revisa la nueva lista antes de continuar[cite: 5].
+        <strong>Al cambiar el tipo de persona o nacionalidad, se actualizarán los documentos requeridos.</strong> Revisa la nueva lista antes de continuar.
       </div>
     </div>
 
-    <!-- Alerta de éxito de validación[cite: 5] -->
+    <!-- Alerta de éxito de validación -->
     <div id="alerta-exito" class="hidden bg-emerald-50 border border-emerald-300 text-emerald-800 text-xs rounded-xl p-4 flex items-center gap-3 shadow-sm">
       <i class="fa-solid fa-circle-check text-emerald-600 text-lg"></i>
       <div>
-        <strong>Información validada correctamente[cite: 5].</strong><br><span>Ahora puedes cargar los documentos requeridos[cite: 5].</span>
+        <strong>Información validada correctamente.</strong><br><span>Ahora puedes cargar los documentos requeridos.</span>
       </div>
     </div>
 
@@ -65,7 +77,7 @@
         </button>
       </div>
 
-      <!-- Formulario con la estructura idéntica a tu imagen -->
+      <!-- Formulario Activo -->
       <form id="form-titular" class="space-y-4 text-sm" onsubmit="return false;">
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div>
@@ -150,12 +162,12 @@
 
         <div class="pt-3">
           <button id="btn-ejecutar" class="w-full btn-green-inst font-semibold py-3.5 rounded-xl transition-colors flex items-center justify-center gap-2 shadow-sm text-sm cursor-pointer">
-            <i class="fa-solid fa-check"></i> Validar información[cite: 5]
+            <i class="fa-solid fa-check"></i> Validar información
           </button>
         </div>
       </form>
 
-      <!-- Vista Resumen (Se muestra compacta cuando se valida la Etapa 1)[cite: 5] -->
+      <!-- Vista Resumen -->
       <div id="resumen-titular" class="hidden grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs bg-gray-50 border border-gray-200 rounded-xl p-4">
         <div>
           <span class="text-gray-400 block mb-0.5">Perfil</span>
@@ -173,31 +185,31 @@
 
     </div>
 
-    <!-- ================= ETAPA 2: Documentos requeridos (Oculta hasta validar)[cite: 5] ================= -->
+    <!-- ================= ETAPA 2: Documentos requeridos ================= -->
     <div id="seccion-documentos" class="bg-white border border-gray-200 rounded-2xl p-6 md:p-8 space-y-4 hidden shadow-sm">
       <div class="flex items-center justify-between border-b border-gray-100 pb-4">
         <div class="flex items-center gap-3">
           <div class="w-7 h-7 rounded-full bg-[#012820] text-white flex items-center justify-center text-xs font-bold">2</div>
           <h2 class="text-base font-bold text-[#232429]">Documentos requeridos</h2>
         </div>
-        <span class="text-xs text-gray-500 hidden sm:inline">Según tu perfil, adjunta los soportes en PDF[cite: 5]:</span>
+        <span class="text-xs text-gray-500 hidden sm:inline">Según tu perfil, adjunta los soportes en PDF:</span>
       </div>
 
       <!-- Contenedor dinámico de archivos -->
       <div id="contenedor-documentos" class="space-y-3"></div>
 
-      <!-- Botones de descarga de formatos institucionales -->
+      <!-- Botones de descarga de formatos institucionales reales -->
       <div class="pt-4 border-t border-gray-100 flex flex-wrap gap-3">
-        <a id="btn-descargar-xlsx" download="Formato_creacion_proveedores.xlsx" class="inline-flex items-center gap-1.5 text-xs bg-white border border-[#FD7519] text-[#FD7519] px-3.5 py-2.5 rounded-xl font-medium hover:bg-orange-50 transition-colors shadow-xs">
+        <a id="btn-descargar-xlsx" href="Formato único de creación de proveedores, compras bienes y servicios V.07.xlsx" download="Formato único de creación de proveedores, compras bienes y servicios V.07.xlsx" class="inline-flex items-center gap-1.5 text-xs bg-white border border-[#FD7519] text-[#FD7519] px-3.5 py-2.5 rounded-xl font-medium hover:bg-orange-50 transition-colors shadow-xs cursor-pointer">
           <i class="fa-solid fa-file-excel"></i> Descargar Formato Proveedores (.xlsx)
         </a>
-        <a id="btn-descargar-docx" download="Formato_solicitud_factura.docx" class="inline-flex items-center gap-1.5 text-xs bg-white border border-[#FD7519] text-[#FD7519] px-3.5 py-2.5 rounded-xl font-medium hover:bg-orange-50 transition-colors shadow-xs">
+        <a id="btn-descargar-docx" href="Formato solicitud emisión factura creación  cliente.docx" download="Formato solicitud emisión factura creación  cliente.docx" class="inline-flex items-center gap-1.5 text-xs bg-white border border-[#FD7519] text-[#FD7519] px-3.5 py-2.5 rounded-xl font-medium hover:bg-orange-50 transition-colors shadow-xs cursor-pointer">
           <i class="fa-solid fa-file-word"></i> Descargar Solicitud de Factura (.docx)
         </a>
       </div>
     </div>
 
-    <!-- Navegación final (Volver / Continuar) -->
+    <!-- Navegación final -->
     <div id="seccion-navegacion" class="hidden flex items-center justify-between pt-2">
       <button id="btn-volver" class="px-5 py-2.5 bg-white border border-gray-300 text-gray-700 text-xs font-semibold rounded-xl hover:bg-gray-100 transition-colors shadow-xs cursor-pointer">
         Volver
@@ -407,7 +419,6 @@
       const hayErrores = validarFormularioTitular();
       if (hayErrores) return;
 
-      // Contraer la Etapa 1 a resumen y desplegar la Etapa 2[cite: 5]
       $('form-titular').classList.add('hidden');
       $('resumen-titular').classList.remove('hidden');
       $('btn-editar').classList.remove('hidden');
@@ -418,7 +429,7 @@
       
       $('badge-paso-1').innerHTML = '<i class="fa-solid fa-check text-xs"></i>';
       $('badge-paso-1').className = 'w-7 h-7 rounded-full bg-emerald-600 text-white flex items-center justify-center text-xs font-bold';
-      $('subtitulo-etapa').innerText = 'Se validan los datos y, si son correctos, se muestra la carga de documentos requeridos[cite: 5].';
+      $('subtitulo-etapa').innerText = 'Se validan los datos y, si son correctos, se muestra la carga de documentos requeridos.';
 
       const c = $('calidad').options[$('calidad').selectedIndex].text;
       const n = $('nacionalidad').options[$('nacionalidad').selectedIndex].text;
@@ -436,7 +447,7 @@
       $('resumen-titular').classList.add('hidden');
       $('btn-editar').classList.add('hidden');
       $('alerta-exito').classList.add('hidden');
-      $('alerta-cambio').classList.remove('hidden'); // Alerta amarilla de cambio del paso 5[cite: 5]
+      $('alerta-cambio').classList.remove('hidden');
       $('seccion-documentos').classList.add('hidden');
       $('seccion-navegacion').classList.add('hidden');
       $('badge-paso-1').innerText = '1';
