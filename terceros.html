@@ -54,7 +54,7 @@
           </h2>
           <ol class="list-decimal list-inside text-xs text-gray-700 space-y-1.5 leading-relaxed">
             <li><strong>Diligencia los datos del titular:</strong> Completa todos los campos obligatorios.</li>
-            <li><strong>Ejecuta el filtro:</strong> Haz clic en el botón <strong>"Mostrar Requisitos"</strong> para desplegar los documentos obligatorios requeridos según tu perfil.</li>
+            <li><strong>Ejecuta la validación:</strong> Haz clic en el botón <strong>"Validar información"</strong> para verificar los datos y desplegar los requisitos.</li>
             <li><strong>Descarga y diligencia:</strong> Obtén el formato requerido, complétalo y fírmalo.</li>
             <li><strong>Adjunta en PDF:</strong> Sube cada soporte en formato PDF.</li>
             <li><strong>Valida:</strong> Presiona <strong>"Validar Documentos"</strong> para procesar la información.</li>
@@ -82,7 +82,7 @@
         <i class="fa-solid me-2 fa-shield-halved brand-orange"></i>
         Módulo de Verificación de Documentos - Terceros
       </h1>
-      <p class="text-gray-500 text-sm">Ingresa los datos del titular, ejecuta el filtro y adjunta los requisitos en formato PDF.</p>
+      <p class="text-gray-500 text-sm">Ingresa los datos del titular, valida la información y adjunta los requisitos en formato PDF.</p>
     </div>
 
     <!-- Contenedor Principal -->
@@ -169,28 +169,22 @@
           
           <div class="pt-2 space-y-3">
             <button id="btn-ejecutar" class="w-full btn-green-inst font-medium py-2.5 rounded-lg transition-colors flex items-center justify-center gap-2 shadow-sm">
-              <i class="fa-solid fa-filter"></i> Mostrar Requisitos
+              <i class="fa-solid fa-check-circle"></i> Validar información
             </button>
-            <!-- Mensaje de validación posicionado justo debajo del botón del formulario -->
+            <!-- Mensaje de validación posicionado justo debajo del botón en el panel izquierdo -->
             <div id="resultado-envio" class="hidden rounded-lg p-3 text-xs"></div>
           </div>
         </form>
       </section>
 
-      <!-- PANEL DERECHO: Documentos y Validación -->
-      <section class="lg:col-span-7 bg-gray-50 border border-gray-200 rounded-xl p-5 space-y-4">
+      <!-- PANEL DERECHO: Documentos y Validación (Oculto inicialmente) -->
+      <section id="panel-documentos-section" class="lg:col-span-7 bg-gray-50 border border-gray-200 rounded-xl p-5 space-y-4 hidden">
         <h2 class="text-lg font-semibold brand-orange flex items-center justify-between border-b border-gray-200 pb-2">
           <span><i class="fa-solid fa-file-shield me-2"></i> Documentos Solicitados</span>
           <span class="text-xs bg-orange-50 brand-orange border border-[#FD7519]/30 px-2 py-0.5 rounded-full">Obligatorio en PDF</span>
         </h2>
 
-        <div id="contenedor-documentos" class="space-y-4">
-          <div class="text-center py-12 text-gray-400 text-sm">
-            <i class="fa-solid fa-hand-pointer text-3xl mb-3 text-gray-300 block lg:hidden"></i>
-            <i class="fa-solid fa-hand-pointer fa-rotate-270 text-3xl mb-3 text-gray-300 hidden lg:block mx-auto"></i>
-            <p>Diligencia todos los campos correctamente y haz clic en <strong>"Mostrar Requisitos"</strong> para desplegar los documentos requeridos.</p>
-          </div>
-        </div>
+        <div id="contenedor-documentos" class="space-y-4"></div>
 
         <div id="seccion-validar" class="pt-2 hidden">
           <button id="btn-validar" class="w-full btn-green-inst font-medium py-2.5 rounded-lg transition-colors flex items-center justify-center gap-2 shadow-sm">
@@ -305,4 +299,85 @@
       });
 
       documentosActuales.forEach(docKey => {
-        $('file-' + docKey)?.addEventListener('change', (e
+        $('file-' + docKey)?.addEventListener('change', (e) => {
+          const file = e.target.files[0];
+          const box = $('status-' + docKey);
+          if (!file) {
+            estadoDocumentos[docKey] = { status: 'empty' };
+            box.className = 'status-box bg-red-50 border border-red-200 rounded-lg p-2.5 min-w-[200px] text-xs';
+            box.innerHTML = `<div class="flex items-center gap-1.5 text-red-600 font-semibold"><i class="fa-solid fa-circle-xmark"></i> Falta archivo PDF</div>`;
+            return;
+          }
+          const esPdf = file.type === 'application/pdf' || file.name.toLowerCase().endsWith('.pdf');
+          if (!esPdf) {
+            estadoDocumentos[docKey] = { status: 'invalid' };
+            box.className = 'status-box bg-red-50 border border-red-300 rounded-lg p-2.5 min-w-[200px] text-xs';
+            box.innerHTML = `<div class="flex items-center gap-1.5 text-red-700 font-semibold"><i class="fa-solid fa-circle-xmark"></i> Formato inválido (Solo PDF)</div>`;
+          } else {
+            estadoDocumentos[docKey] = { status: 'valid' };
+            box.className = 'status-box bg-green-50 border border-green-300 rounded-lg p-2.5 min-w-[200px] text-xs';
+            box.innerHTML = `<div class="flex items-center gap-1.5 text-green-700 font-semibold"><i class="fa-solid fa-circle-check"></i> Cargado correctamente (PDF)</div>`;
+          }
+        });
+      });
+
+      $('seccion-validar').classList.remove('hidden');
+      $('panel-documentos-section').classList.remove('hidden');
+    }
+
+    $('btn-ejecutar')?.addEventListener('click', () => {
+      const resultado = $('resultado-envio');
+      const errores = validarFormularioTitular();
+
+      if (errores.length > 0) {
+        resultado.className = 'rounded-lg p-3 text-xs bg-red-50 border border-red-200 text-red-700';
+        resultado.innerHTML = `<i class="fa-solid fa-triangle-exclamation me-1"></i> <strong class="text-red-700">Falta dato o formato incorrecto.</strong><br><span>Revisa: ${errores.join(', ')}.</span>`;
+        resultado.classList.remove('hidden');
+        
+        // Ocultar sección de documentos si hay errores
+        $('panel-documentos-section').classList.add('hidden');
+        $('seccion-validar').classList.add('hidden');
+        return;
+      }
+
+      resultado.className = 'rounded-lg p-3 text-xs bg-green-50 border border-green-200 text-green-700';
+      resultado.innerHTML = '<i class="fa-solid fa-circle-check me-1"></i> <strong>¡Información válida!</strong> Desplegando requisitos.';
+      resultado.classList.remove('hidden');
+
+      documentosActuales = obtenerRequisitosRequeridos($('calidad').value, $('nacionalidad').value, $('tipoPersona').value);
+      renderizarPanelDocumentos();
+    });
+
+    $('btn-validar')?.addEventListener('click', () => {
+      const resultado = $('resultado-envio');
+      const errores = validarFormularioTitular();
+      if (errores.length > 0) {
+        resultado.className = 'rounded-lg p-3 text-xs bg-red-50 border border-red-200 text-red-700';
+        resultado.innerHTML = `<i class="fa-solid fa-triangle-exclamation me-1"></i> <strong class="text-red-700">Falta dato.</strong> Hay errores o campos incompletos.<br><span>Campos: ${errores.join(', ')}.</span>`;
+        resultado.classList.remove('hidden');
+        return;
+      }
+
+      const todosValidos = documentosActuales.every(d => estadoDocumentos[d] && estadoDocumentos[d].status === 'valid');
+      if (!todosValidos) {
+        resultado.className = 'rounded-lg p-3 text-xs bg-amber-50 border border-amber-200 text-amber-800';
+        resultado.innerHTML = '<i class="fa-solid fa-triangle-exclamation me-1"></i> Faltan documentos obligatorios por adjuntar o hay archivos que no están en formato PDF.';
+        resultado.classList.remove('hidden');
+        return;
+      }
+
+      const btnValidar = $('btn-validar');
+      btnValidar.disabled = true;
+      btnValidar.innerHTML = '<i class="fa-solid fa-spinner spin"></i> Validando documentos internamente...';
+
+      setTimeout(() => {
+        btnValidar.disabled = false;
+        btnValidar.innerHTML = '<i class="fa-solid fa-cloud-arrow-up"></i> Validar Documentos';
+        resultado.className = 'rounded-lg p-3 text-xs bg-green-50 border border-green-200 text-green-800';
+        resultado.innerHTML = '<i class="fa-solid fa-circle-check me-1"></i> <strong>¡Validación exitosa!</strong> Los datos y documentos han sido procesados correctamente.';
+        resultado.classList.remove('hidden');
+      }, 1500);
+    });
+  </script>
+</body>
+</html>
