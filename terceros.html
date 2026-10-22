@@ -350,7 +350,7 @@
 
       documentosActuales.forEach((docKey) => {
         const info = catalogoDocs[docKey];
-        estadoDocumentos[docKey] = { status: 'empty' };
+        estadoDocumentos[docKey] = { status: 'empty', fileUrl: null };
 
         contenedor.innerHTML += `
           <div class="bg-gray-50 border border-gray-200 rounded-xl p-4 flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-xs" id="card-${docKey}">
@@ -386,14 +386,18 @@
             return;
           }
 
-          estadoDocumentos[docKey] = { status: 'valid' };
+          const fileUrl = URL.createObjectURL(file);
+          estadoDocumentos[docKey] = { status: 'valid', fileUrl: fileUrl };
           const tamanoMB = (file.size / (1024*1024)).toFixed(1) + ' MB';
           
           area.innerHTML = `
-            <div class="flex items-center gap-3 text-xs bg-emerald-50 border border-emerald-200 text-emerald-800 px-3.5 py-2 rounded-xl">
+            <div class="flex items-center gap-2 text-xs bg-emerald-50 border border-emerald-200 text-emerald-800 px-3 py-2 rounded-xl">
               <i class="fa-solid fa-circle-check text-emerald-600"></i>
-              <div class="truncate max-w-[140px]" title="${file.name}">${file.name}</div>
+              <div class="truncate max-w-[120px]" title="${file.name}">${file.name}</div>
               <span class="text-[10px] text-gray-500">(${tamanoMB})</span>
+              <button type="button" onclick="previsualizarPDF('${docKey}')" class="bg-white border border-emerald-300 text-emerald-700 hover:bg-emerald-100 px-2.5 py-1 rounded-lg font-medium transition-colors cursor-pointer" title="Ver documento cargado">
+                <i class="fa-solid fa-eye"></i> Ver
+              </button>
               <button type="button" onclick="resetInput('${docKey}')" class="text-gray-400 hover:text-red-600 ml-1 cursor-pointer" title="Eliminar archivo">
                 <i class="fa-solid fa-xmark"></i>
               </button>
@@ -403,8 +407,18 @@
       });
     }
 
+    window.previsualizarPDF = function(docKey) {
+      const docInfo = estadoDocumentos[docKey];
+      if (docInfo && docInfo.fileUrl) {
+        window.open(docInfo.fileUrl, '_blank');
+      }
+    };
+
     window.resetInput = function(docKey) {
-      estadoDocumentos[docKey] = { status: 'empty' };
+      if (estadoDocumentos[docKey] && estadoDocumentos[docKey].fileUrl) {
+        URL.revokeObjectURL(estadoDocumentos[docKey].fileUrl);
+      }
+      estadoDocumentos[docKey] = { status: 'empty', fileUrl: null };
       const area = $('status-area-' + docKey);
       area.innerHTML = `
         <label for="file-${docKey}" class="inline-flex items-center gap-1.5 text-xs bg-white border border-gray-300 text-gray-700 px-3.5 py-2 rounded-xl font-medium hover:bg-gray-100 transition-colors cursor-pointer shadow-xs">
