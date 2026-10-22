@@ -16,7 +16,6 @@
     .bg-brand-orange { background-color: #FD7519; }
     .bg-brand-orange:hover { background-color: #e4660f; }
     .border-brand-orange { border-color: #FD7519; }
-    /* Estilo de botón verde institucional elegante inspirado en la referencia */
     .btn-green-inst { background-color: #012820; color: #ffffff; }
     .btn-green-inst:hover { background-color: #02382d; }
     .spin { animation: spin 0.8s linear infinite; }
@@ -38,7 +37,6 @@
 
   <div class="max-w-7xl mx-auto space-y-6 p-4 md:p-8">
 
-    <!-- Aviso del sistema -->
     <div class="bg-blue-50 border border-blue-200 text-blue-800 text-xs rounded-lg px-4 py-2 flex items-start gap-2">
       <i class="fa-solid fa-circle-info mt-0.5"></i>
       <span>
@@ -52,7 +50,7 @@
         <i class="fa-solid fa-list-check"></i> Paso 1: Instrucciones para el cargue de documentos
       </h2>
       <ol class="list-decimal list-inside text-xs text-gray-700 space-y-1.5 leading-relaxed">
-        <li><strong>Diligencia los datos del titular:</strong> Completa todos los campos obligatorios cumpliendo con las longitudes y formatos correctos (cédula > 5 dígitos, celular > 7 dígitos, etc.).</li>
+        <li><strong>Diligencia los datos del titular:</strong> Completa todos los campos obligatorios cumpliendo con las longitudes y formatos correctos (cédula numérica > 5 dígitos, celular numérico > 7 dígitos, lugar y país de nacimiento estrictamente en texto, etc.).</li>
         <li><strong>Ejecuta el filtro:</strong> Haz clic en el botón <strong>"Ejecutar y Mostrar Requisitos"</strong> para desplegar los documentos obligatorios requeridos según tu perfil[cite: 1].</li>
         <li><strong>Descarga y diligencia:</strong> Obtén el formato requerido, complétalo y fírmalo[cite: 2].</li>
         <li><strong>Adjunta en PDF:</strong> Sube cada soporte en formato <strong>PDF</strong>.</li>
@@ -136,11 +134,11 @@
           <div class="grid grid-cols-2 gap-3">  
             <div>
               <label class="block text-gray-700 font-medium mb-1">Lugar de Nacimiento</label>
-              <input type="text" id="lugarNacimiento" placeholder="Bogotá, D.C." class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-[#232429] focus:outline-none focus:border-[#FD7519]">
+              <input type="text" id="lugarNacimiento" placeholder="Solo texto (ej. Bogotá)" class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-[#232429] focus:outline-none focus:border-[#FD7519]">
             </div>
             <div>
               <label class="block text-gray-700 font-medium mb-1">País de Nacimiento</label>
-              <input type="text" id="paisNacimiento" placeholder="Colombia" class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-[#232429] focus:outline-none focus:border-[#FD7519]">
+              <input type="text" id="paisNacimiento" placeholder="Solo texto (ej. Colombia)" class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-[#232429] focus:outline-none focus:border-[#FD7519]">
             </div>
           </div>
 
@@ -156,7 +154,7 @@
 
           <div>
             <label class="block text-gray-700 font-medium mb-1">Dirección de Residencia</label>
-            <input type="text" id="direccion" placeholder="Calle 100 # 15 - 20, Apto 301" class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-[#232429] focus:outline-none focus:border-[#FD7519]">
+            <input type="text" id="direccion" placeholder="Calle 100 # 15 - 20" class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-[#232429] focus:outline-none focus:border-[#FD7519]">
           </div>
 
           <!-- Botón Ejecutar con estilo verde institucional -->
@@ -241,8 +239,16 @@
       }
 
       if (!fechaExp) errores.push("Expedición cédula");
-      if (!lugarNac) errores.push("Lugar de Nacimiento");
-      if (!paisNac) errores.push("País de Nacimiento");
+
+      // Lugar de Nacimiento: solo texto (letras y espacios)
+      if (!/^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/.test(lugarNac)) {
+        errores.push("Lugar de Nacimiento (debe ser texto, sin números)");
+      }
+
+      // País de Nacimiento: solo texto (letras y espacios)
+      if (!/^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/.test(paisNac)) {
+        errores.push("País de Nacimiento (debe ser texto, sin números)");
+      }
 
       // NIT: opcional, pero si se llena debe ser numérico con símbolos permitidos (ej. guiones)
       if (nit && !/^[\d\-]+$/.test(nit)) {
