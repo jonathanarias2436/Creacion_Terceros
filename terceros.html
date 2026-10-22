@@ -18,8 +18,6 @@
     .border-brand-orange { border-color: #FD7519; }
     .btn-green-inst { background-color: #012820; color: #ffffff; }
     .btn-green-inst:hover { background-color: #02382d; }
-    .spin { animation: spin 0.8s linear infinite; }
-    @keyframes spin { to { transform: rotate(360deg); } }
   </style>
 </head>
 <body class="bg-white text-[#232429] min-h-screen pb-16">
@@ -38,7 +36,7 @@
 
   <div class="max-w-4xl mx-auto px-4 md:px-6 mt-8 space-y-6">
 
-    <!-- Encabezado del Trámite -->
+    <!-- Título principal -->
     <div>
       <h1 class="text-2xl font-bold text-[#232429] flex items-center gap-2">
         <i class="fa-solid fa-shield-halved brand-orange"></i>
@@ -56,7 +54,7 @@
       </div>
     </div>
 
-    <!-- Alerta de éxito de validación -->
+    <!-- Alerta de éxito -->
     <div id="alerta-exito" class="hidden bg-emerald-50 border border-emerald-300 text-emerald-800 text-xs rounded-xl p-4 flex items-center gap-3 shadow-sm">
       <i class="fa-solid fa-circle-check text-emerald-600 text-lg"></i>
       <div>
@@ -64,9 +62,8 @@
       </div>
     </div>
 
-    <!-- ================= ETAPA 1: Información del solicitante ================= -->
+    <!-- ETAPA 1: Información del solicitante -->
     <div class="bg-white border border-gray-200 rounded-2xl p-6 md:p-8 space-y-6 shadow-sm">
-      
       <div class="flex items-center justify-between border-b border-gray-100 pb-4">
         <div class="flex items-center gap-3">
           <div id="badge-paso-1" class="w-7 h-7 rounded-full bg-[#012820] text-white flex items-center justify-center text-xs font-bold">1</div>
@@ -77,7 +74,6 @@
         </button>
       </div>
 
-      <!-- Formulario Activo -->
       <form id="form-titular" class="space-y-4 text-sm" onsubmit="return false;">
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div>
@@ -182,10 +178,9 @@
           <span id="res-correo" class="font-semibold text-gray-800">-</span>
         </div>
       </div>
-
     </div>
 
-    <!-- ================= ETAPA 2: Documentos requeridos ================= -->
+    <!-- ETAPA 2: Documentos requeridos -->
     <div id="seccion-documentos" class="bg-white border border-gray-200 rounded-2xl p-6 md:p-8 space-y-4 hidden shadow-sm">
       <div class="flex items-center justify-between border-b border-gray-100 pb-4">
         <div class="flex items-center gap-3">
@@ -195,10 +190,8 @@
         <span class="text-xs text-gray-500 hidden sm:inline">Según tu perfil, adjunta los soportes en PDF:</span>
       </div>
 
-      <!-- Contenedor dinámico de archivos -->
       <div id="contenedor-documentos" class="space-y-3"></div>
 
-      <!-- Botones de descarga de formatos institucionales reales -->
       <div class="pt-4 border-t border-gray-100 flex flex-wrap gap-3">
         <a id="btn-descargar-xlsx" href="Formato único de creación de proveedores, compras bienes y servicios V.07.xlsx" download="Formato único de creación de proveedores, compras bienes y servicios V.07.xlsx" class="inline-flex items-center gap-1.5 text-xs bg-white border border-[#FD7519] text-[#FD7519] px-3.5 py-2.5 rounded-xl font-medium hover:bg-orange-50 transition-colors shadow-xs cursor-pointer">
           <i class="fa-solid fa-file-excel"></i> Descargar Formato Proveedores (.xlsx)
@@ -391,7 +384,6 @@
           estadoDocumentos[docKey] = { status: 'valid', fileUrl: fileUrl };
           const tamanoMB = (file.size / (1024*1024)).toFixed(1) + ' MB';
           
-          // Cambiar etiqueta a Verde "Cargado"
           if (badge) {
             badge.className = "text-[10px] bg-emerald-50 text-emerald-700 border border-emerald-200 px-2 py-0.5 rounded-full font-medium";
             badge.innerText = "Cargado";
@@ -402,7 +394,7 @@
               <i class="fa-solid fa-circle-check text-emerald-600"></i>
               <div class="truncate max-w-[120px]" title="${file.name}">${file.name}</div>
               <span class="text-[10px] text-gray-500">(${tamanoMB})</span>
-              <button type="button" onclick="previsualizarPDF('${docKey}')" class="bg-white border border-emerald-300 text-emerald-700 hover:bg-emerald-100 px-2.5 py-1.5 rounded-lg font-medium transition-colors cursor-pointer" title="Ver documento cargado">
+              <button type="button" onclick="previsualizarPDF('${docKey}')" class="bg-white border border-emerald-300 text-emerald-700 hover:bg-emerald-100 p-2 rounded-lg font-medium transition-colors cursor-pointer" title="Ver documento cargado">
                 <i class="fa-solid fa-eye"></i>
               </button>
               <button type="button" onclick="resetInput('${docKey}')" class="text-gray-400 hover:text-red-600 ml-1 cursor-pointer" title="Eliminar archivo">
@@ -430,7 +422,6 @@
       const area = $('status-area-' + docKey);
       const badge = $('badge-estado-' + docKey);
 
-      // Regresar etiqueta a Rojo "Obligatorio"
       if (badge) {
         badge.className = "text-[10px] bg-red-50 text-red-600 border border-red-200 px-2 py-0.5 rounded-full font-medium";
         badge.innerText = "Obligatorio";
