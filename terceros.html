@@ -44,7 +44,7 @@
       </span>
     </div>
 
-    <!-- PASO 1: Guía de instrucciones -->
+    <!-- Guía de instrucciones -->
     <div class="bg-orange-50 border border-orange-200 rounded-xl p-5 space-y-3">
       <h2 class="text-md font-bold brand-orange flex items-center gap-2">
         <i class="fa-solid fa-list-check"></i> Paso 1: Instrucciones para el cargue de documentos
@@ -95,31 +95,31 @@
             <input type="text" id="nombre" placeholder="Ej. Ana María Gómez / Empresa SAS" class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-[#232429] focus:outline-none focus:border-[#FD7519]">
           </div>
 
-          <div class="grid grid-cols-3 gap-2">
+          <div class="grid grid-cols-3 gap-3">
             <div>
               <label class="block text-gray-700 font-medium mb-1 text-xs">Calidad</label>
-              <select id="calidad" class="w-full bg-white border border-gray-300 rounded-lg px-2 py-2 text-xs text-[#232429] focus:outline-none focus:border-[#FD7519]">
+              <select id="calidad" class="w-full bg-white border border-gray-300 rounded-lg px-2.5 py-2 text-xs text-[#232429] focus:outline-none focus:border-[#FD7519]">
                 <option value="1">Cliente</option>
                 <option value="2">Proveedores</option>
               </select>
             </div>
             <div>
               <label class="block text-gray-700 font-medium mb-1 text-xs">Nacionalidad</label>
-              <select id="nacionalidad" class="w-full bg-white border border-gray-300 rounded-lg px-2 py-2 text-xs text-[#232429] focus:outline-none focus:border-[#FD7519]">
+              <select id="nacionalidad" class="w-full bg-white border border-gray-300 rounded-lg px-2.5 py-2 text-xs text-[#232429] focus:outline-none focus:border-[#FD7519]">
                 <option value="2">Nacional</option>
                 <option value="1">Extranjero</option>
               </select>
             </div>
             <div>
               <label class="block text-gray-700 font-medium mb-1 text-xs">Persona</label>
-              <select id="tipoPersona" class="w-full bg-white border border-gray-300 rounded-lg px-2 py-2 text-xs text-[#232429] focus:outline-none focus:border-[#FD7519]">
+              <select id="tipoPersona" class="w-full bg-white border border-gray-300 rounded-lg px-2.5 py-2 text-xs text-[#232429] focus:outline-none focus:border-[#FD7519]">
                 <option value="1">Natural</option>
                 <option value="2">Jurídica</option>
               </select>
             </div>
           </div>
 
-          <div class="grid grid-cols-2 gap-3">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
               <label class="block text-gray-700 font-medium mb-1">Cédula</label>
               <input type="text" id="cedula" placeholder="Mínimo 6 dígitos" class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-[#232429] focus:outline-none focus:border-[#FD7519]">
@@ -130,7 +130,7 @@
             </div>
           </div>
 
-          <div class="grid grid-cols-2 gap-3">  
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">  
             <div>
               <label class="block text-gray-700 font-medium mb-1">Lugar de Nacimiento</label>
               <input type="text" id="lugarNacimiento" placeholder="Solo texto (ej. Bogotá)" class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-[#232429] focus:outline-none focus:border-[#FD7519]">
@@ -213,7 +213,6 @@
 
     function validarFormularioTitular() {
       const errores = [];
-
       const correo = $('correoInstitucional').value.trim();
       const nombre = $('nombre').value.trim();
       const cedula = $('cedula').value.trim();
@@ -226,30 +225,23 @@
 
       if (!correo) errores.push("Correo del solicitante");
       if (!nombre) errores.push("Nombre Completo / Razón Social");
-      if (!/^\d{6,}$/.test(cedula)) errores.push("Cédula (debe ser numérica y mayor a 5 dígitos)");
+      if (!/^\d{6,}$/.test(cedula)) errores.push("Cédula (numérica, mín. 6 dígitos)");
       if (!fechaExp) errores.push("Expedición cédula");
-      
-      // Validación estricta: solo texto, permite vocales con tildes, espacios y eñes, sin números ni símbolos
-      if (!/^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/.test(lugarNac)) {
-        errores.push("Lugar de Nacimiento (solo texto con tildes, sin números ni símbolos)");
-      }
-      if (!/^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/.test(paisNac)) {
-        errores.push("País de Nacimiento (solo texto con tildes, sin números ni símbolos)");
-      }
-
-      if (nit && !/^[\d\-]+$/.test(nit)) errores.push("NIT (formato numérico con símbolos permitido)");
-      if (!/^\d{8,}$/.test(celular)) errores.push("Celular (debe ser numérico y mayor a 7 dígitos)");
+      if (!/^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/.test(lugarNac)) errores.push("Lugar de Nacimiento (solo texto)");
+      if (!/^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/.test(paisNac)) errores.push("País de Nacimiento (solo texto)");
+      if (nit && !/^[\d\-]+$/.test(nit)) errores.push("NIT (formato numérico válido)");
+      if (!/^\d{8,}$/.test(celular)) errores.push("Celular (numérico, mín. 8 dígitos)");
       if (!direccion) errores.push("Dirección de Residencia");
 
       return errores;
     }
 
     function obtenerRequisitosRequeridos(calidad, nacionalidad, tipoPersona) {
-      if (calidad === '2') { // Proveedores
+      if (calidad === '2') {
         return nacionalidad === '2' 
           ? (tipoPersona === '1' ? ['formatoCreacion', 'rut', 'cedula', 'certBancaria', 'listasRestrictivas'] : ['formatoCreacion', 'rut', 'camaraComercio', 'repLegal', 'certBancaria', 'listasRestrictivas'])
           : ['formatoCreacion', 'registroFiscal', 'declaracionJuramentada', 'listasRestrictivas'];
-      } else { // Cliente
+      } else {
         return nacionalidad === '2' 
           ? (tipoPersona === '1' ? ['solicitudFactura', 'rut', 'cedula', 'tratamientoDatos'] : ['solicitudFactura', 'rut', 'cartaCompromiso', 'tratamientoDatos'])
           : ['solicitudFactura', 'registroFiscal'];
@@ -318,7 +310,7 @@
 
       if (errores.length > 0) {
         resultado.className = 'rounded-lg p-4 text-sm bg-red-50 border border-red-200 text-red-700';
-        resultado.innerHTML = `<i class="fa-solid fa-triangle-exclamation me-1"></i> <strong class="text-red-700">Falta dato o formato incorrecto.</strong><br><span class="text-xs">Revisa los siguientes campos: ${errores.join(', ')}.</span>`;
+        resultado.innerHTML = `<i class="fa-solid fa-triangle-exclamation me-1"></i> <strong class="text-red-700">Falta dato o formato incorrecto.</strong><br><span class="text-xs">Revisa: ${errores.join(', ')}.</span>`;
         resultado.classList.remove('hidden');
         $('contenedor-documentos').innerHTML = `
           <div class="text-center py-12 text-gray-400 text-sm">
@@ -361,7 +353,7 @@
         btnValidar.disabled = false;
         btnValidar.innerHTML = '<i class="fa-solid fa-cloud-arrow-up"></i> Validar Documentos';
         resultado.className = 'rounded-lg p-4 text-sm bg-green-50 border border-green-200 text-green-800';
-        resultado.innerHTML = '<i class="fa-solid fa-circle-check me-1"></i> <strong>¡Validación exitosa!</strong> Los datos y documentos han sido procesados correctamente para la respuesta por correo.';
+        resultado.innerHTML = '<i class="fa-solid fa-circle-check me-1"></i> <strong>¡Validación exitosa!</strong> Los datos y documentos han sido procesados correctamente.';
         resultado.classList.remove('hidden');
       }, 1500);
     });
