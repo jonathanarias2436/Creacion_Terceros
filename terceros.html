@@ -35,193 +35,186 @@
     </div>
   </header>
 
-  <div class="max-w-7xl mx-auto space-y-6 p-4 md:p-8">
+  <div class="max-w-4xl mx-auto space-y-6 p-4 md:p-8">
 
-    <div class="bg-blue-50 border border-blue-200 text-blue-800 text-xs rounded-lg px-4 py-2 flex items-start gap-2">
-      <i class="fa-solid fa-circle-info mt-0.5"></i>
-      <span>
-        <strong>Módulo de Verificación.</strong> Todos los soportes obligatorios deben cargarse estrictamente en formato <strong>PDF</strong> para su posterior validación por parte del sistema.
-      </span>
+    <!-- Encabezado del Trámite -->
+    <div class="border-b border-gray-200 pb-4">
+      <h1 class="text-2xl font-bold text-[#232429] flex items-center gap-2">
+        <i class="fa-solid fa-shield-halved brand-orange"></i>
+        Solicitud de trámite
+      </h1>
+      <p class="text-gray-500 text-sm mt-1" id="subtitulo-estado">Por favor completa la siguiente información para continuar.</p>
     </div>
 
-    <!-- Guía de instrucciones y formatos de descarga en paralelo -->
-    <div class="bg-orange-50 border border-orange-200 rounded-xl p-5">
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
-        <!-- Columna izquierda: Instrucciones -->
-        <div class="lg:col-span-8 space-y-3">
-          <h2 class="text-md font-bold brand-orange flex items-center gap-2">
-            <i class="fa-solid fa-list-check"></i> Instrucciones para el cargue de documentos
-          </h2>
-          <ol class="list-decimal list-inside text-xs text-gray-700 space-y-1.5 leading-relaxed">
-            <li><strong>Diligencia los datos del titular:</strong> Completa todos los campos obligatorios.</li>
-            <li><strong>Ejecuta la validación:</strong> Haz clic en el botón <strong>"Validar información"</strong> para verificar los datos y desplegar los requisitos.</li>
-            <li><strong>Descarga y diligencia:</strong> Obtén el formato requerido, complétalo y fírmalo.</li>
-            <li><strong>Adjunta en PDF:</strong> Sube cada soporte en formato PDF.</li>
-            <li><strong>Valida:</strong> Presiona <strong>"Validar Documentos"</strong> para procesar la información.</li>
-            <li><strong>Notificación:</strong> Por favor, revisa tu correo electrónico para confirmar.</li>
-          </ol>
-        </div>
-
-        <!-- Columna derecha: Botones de descarga restaurados -->
-        <div class="lg:col-span-4 flex flex-col gap-3 justify-center border-t lg:border-t-0 lg:border-l border-orange-200 pt-4 lg:pt-0 lg:pl-6">
-          <p class="text-xs font-semibold text-gray-700 mb-1"><i class="fa-solid fa-download brand-orange mr-1"></i> Formatos de descarga:</p>
-          <!-- Formato de Proveedores (.xlsx) -->
-          <a id="btn-descargar-xlsx" download="Formato_unico_de_creacion_de_proveedores.xlsx" class="inline-flex items-center justify-center gap-1.5 text-xs bg-white border border-brand-orange text-[#FD7519] px-3 py-2 rounded-lg font-medium hover:bg-orange-50 transition-colors cursor-pointer text-center shadow-sm">
-            <i class="fa-solid fa-file-excel"></i> Formato de Proveedores (.xlsx)
-          </a>
-          <!-- Formato de Solicitud de Factura (.docx) -->
-          <a id="btn-descargar-docx" download="Formato_solicitud_emision_factura.docx" class="inline-flex items-center justify-center gap-1.5 text-xs bg-white border border-brand-orange text-[#FD7519] px-3 py-2 rounded-lg font-medium hover:bg-orange-50 transition-colors cursor-pointer text-center shadow-sm">
-            <i class="fa-solid fa-file-word"></i> Solicitud de Factura (.docx)
-          </a>
-        </div>
+    <!-- Alerta de cambio de datos (Paso 5 del flujo de referencia) -->
+    <div id="alerta-cambio" class="hidden bg-amber-50 border border-amber-300 text-amber-800 text-xs rounded-xl p-4 flex items-start gap-3">
+      <i class="fa-solid fa-triangle-exclamation text-amber-600 mt-0.5 text-base"></i>
+      <div>
+        <strong>Al cambiar el tipo de persona o nacionalidad, se actualizarán los documentos requeridos.</strong> Revisa la nueva lista antes de continuar.
       </div>
     </div>
 
-    <div class="border-b border-gray-200 pb-4">
-      <h1 class="text-2xl font-bold text-[#232429] flex items-center gap-2">
-        <i class="fa-solid me-2 fa-shield-halved brand-orange"></i>
-        Módulo de Verificación de Documentos - Terceros
-      </h1>
-      <p class="text-gray-500 text-sm">Ingresa los datos del titular, valida la información y adjunta los requisitos en formato PDF.</p>
+    <!-- Alerta de éxito de validación -->
+    <div id="alerta-exito-validacion" class="hidden bg-emerald-50 border border-emerald-300 text-emerald-800 text-xs rounded-xl p-4 flex items-center gap-3 shadow-sm">
+      <i class="fa-solid fa-circle-check text-emerald-600 text-lg"></i>
+      <div>
+        <strong>Información validada correctamente.</strong><br><span>Ahora puedes cargar los documentos requeridos.</span>
+      </div>
     </div>
 
-    <!-- Contenedor Principal -->
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+    <!-- CONTENEDOR PRINCIPAL DEL FORMULARIO Y PASOS -->
+    <div class="bg-gray-50 border border-gray-200 rounded-2xl p-6 space-y-6 shadow-sm">
 
-      <!-- PANEL IZQUIERDO: Datos del Titular -->
-      <section class="lg:col-span-5 bg-gray-50 border border-gray-200 rounded-xl p-5 space-y-4">
-        <h2 class="text-lg font-semibold brand-orange flex items-center gap-2 border-b border-gray-200 pb-2">
-          <i class="fa-solid fa-user-pen"></i> Datos del Titular
-        </h2>
+      <!-- SECCIÓN 1: Información del solicitante -->
+      <div class="space-y-4">
+        <div class="flex items-center justify-between border-b border-gray-200 pb-3">
+          <h2 class="text-base font-bold text-[#232429] flex items-center gap-2">
+            <span class="w-6 h-6 rounded-full bg-[#012820] text-white flex items-center justify-center text-xs">1</span>
+            Información del solicitante
+          </h2>
+          <button id="btn-editar" class="hidden text-xs text-[#FD7519] font-medium hover:underline flex items-center gap-1">
+            <i class="fa-solid fa-pen-to-square"></i> Editar
+          </button>
+        </div>
 
-        <form id="form-titular" class="space-y-3 text-sm" onsubmit="return false;">
-          <div>
-            <label class="block text-gray-700 font-medium mb-1">Correo del solicitante</label>
-            <input type="email" id="correoInstitucional" placeholder="Correo"
-                   class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-[#232429] focus:outline-none focus:border-[#FD7519]">
-            <p id="err-correoInstitucional" class="text-red-500 text-xs mt-1 hidden"></p>
-          </div>
-
-          <div>
-            <label class="block text-gray-700 font-medium mb-1">Nombre Completo / Razón Social</label>
-            <input type="text" id="nombre" placeholder="Ej. Ana María Gómez / Empresa SAS" class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-[#232429] focus:outline-none focus:border-[#FD7519]">
-            <p id="err-nombre" class="text-red-500 text-xs mt-1 hidden"></p>
-          </div>
-
-          <div class="grid grid-cols-3 gap-3">
+        <!-- Vista Edición (Inputs Activos) -->
+        <form id="form-titular" class="space-y-4 text-sm" onsubmit="return false;">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div>
-              <label class="block text-gray-700 font-medium mb-1 text-xs">Calidad</label>
-              <select id="calidad" class="w-full bg-white border border-gray-300 rounded-lg px-2.5 py-2 text-xs text-[#232429] focus:outline-none focus:border-[#FD7519]">
+              <label class="block text-gray-700 font-medium mb-1 text-xs">Calidad *</label>
+              <select id="calidad" class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-xs text-[#232429] focus:outline-none focus:border-[#FD7519]">
                 <option value="1">Cliente</option>
                 <option value="2">Proveedores</option>
               </select>
             </div>
             <div>
-              <label class="block text-gray-700 font-medium mb-1 text-xs">Nacionalidad</label>
-              <select id="nacionalidad" class="w-full bg-white border border-gray-300 rounded-lg px-2.5 py-2 text-xs text-[#232429] focus:outline-none focus:border-[#FD7519]">
+              <label class="block text-gray-700 font-medium mb-1 text-xs">Nacionalidad *</label>
+              <select id="nacionalidad" class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-xs text-[#232429] focus:outline-none focus:border-[#FD7519]">
                 <option value="2">Nacional</option>
                 <option value="1">Extranjero</option>
               </select>
             </div>
             <div>
-              <label class="block text-gray-700 font-medium mb-1 text-xs">Persona</label>
-              <select id="tipoPersona" class="w-full bg-white border border-gray-300 rounded-lg px-2.5 py-2 text-xs text-[#232429] focus:outline-none focus:border-[#FD7519]">
+              <label class="block text-gray-700 font-medium mb-1 text-xs">Persona *</label>
+              <select id="tipoPersona" class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-xs text-[#232429] focus:outline-none focus:border-[#FD7519]">
                 <option value="1">Natural</option>
                 <option value="2">Jurídica</option>
               </select>
             </div>
           </div>
 
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label class="block text-gray-700 font-medium mb-1">Cédula</label>
-              <input type="text" id="cedula" placeholder="Mínimo 6 dígitos" class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-[#232429] focus:outline-none focus:border-[#FD7519]">
-              <p id="err-cedula" class="text-red-500 text-xs mt-1 hidden"></p>
+              <label class="block text-gray-700 font-medium mb-1 text-xs">Correo del solicitante *</label>
+              <input type="email" id="correoInstitucional" placeholder="correo@ejemplo.com" class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-xs text-[#232429] focus:outline-none focus:border-[#FD7519]">
+              <p id="err-correoInstitucional" class="text-red-500 text-[11px] mt-1 hidden"></p>
             </div>
             <div>
-              <label class="block text-gray-700 font-medium mb-1">Expedición cédula</label>
-              <input type="date" id="fechaExpedicionCedula" class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-[#232429] focus:outline-none focus:border-[#FD7519]">
-              <p id="err-fechaExpedicionCedula" class="text-red-500 text-xs mt-1 hidden"></p>
-            </div>
-          </div>
-
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">  
-            <div>
-              <label class="block text-gray-700 font-medium mb-1">Lugar de Nacimiento</label>
-              <input type="text" id="lugarNacimiento" placeholder="Ej. Bogotá" class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-[#232429] focus:outline-none focus:border-[#FD7519]">
-              <p id="err-lugarNacimiento" class="text-red-500 text-xs mt-1 hidden"></p>
-            </div>
-            <div>
-              <label class="block text-gray-700 font-medium mb-1">País de Nacimiento</label>
-              <input type="text" id="paisNacimiento" placeholder="Ej. Colombia" class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-[#232429] focus:outline-none focus:border-[#FD7519]">
-              <p id="err-paisNacimiento" class="text-red-500 text-xs mt-1 hidden"></p>
+              <label class="block text-gray-700 font-medium mb-1 text-xs">Nombre Completo / Razón Social *</label>
+              <input type="text" id="nombre" placeholder="Ej. Ana Gómez / Empresa SAS" class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-xs text-[#232429] focus:outline-none focus:border-[#FD7519]">
+              <p id="err-nombre" class="text-red-500 text-[11px] mt-1 hidden"></p>
             </div>
           </div>
 
-          <div>
-            <label class="block text-gray-700 font-medium mb-1">NIT</label>
-            <input type="text" id="nit" placeholder="900123456-1" class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-[#232429] focus:outline-none focus:border-[#FD7519]">
-            <p id="err-nit" class="text-red-500 text-xs mt-1 hidden"></p>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div>
+              <label class="block text-gray-700 font-medium mb-1 text-xs">Cédula / NIT *</label>
+              <input type="text" id="cedula" placeholder="Mínimo 6 dígitos" class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-xs text-[#232429] focus:outline-none focus:border-[#FD7519]">
+              <p id="err-cedula" class="text-red-500 text-[11px] mt-1 hidden"></p>
+            </div>
+            <div>
+              <label class="block text-gray-700 font-medium mb-1 text-xs">Celular *</label>
+              <input type="text" id="celular" placeholder="Mínimo 8 dígitos" class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-xs text-[#232429] focus:outline-none focus:border-[#FD7519]">
+              <p id="err-celular" class="text-red-500 text-[11px] mt-1 hidden"></p>
+            </div>
+            <div>
+              <label class="block text-gray-700 font-medium mb-1 text-xs">Dirección *</label>
+              <input type="text" id="direccion" placeholder="Calle 100 # 15" class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-xs text-[#232429] focus:outline-none focus:border-[#FD7519]">
+              <p id="err-direccion" class="text-red-500 text-[11px] mt-1 hidden"></p>
+            </div>
           </div>
 
-          <div>
-            <label class="block text-gray-700 font-medium mb-1">Celular</label>
-            <input type="text" id="celular" placeholder="Mínimo 8 dígitos" class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-[#232429] focus:outline-none focus:border-[#FD7519]">
-            <p id="err-celular" class="text-red-500 text-xs mt-1 hidden"></p>
-          </div>
-
-          <div>
-            <label class="block text-gray-700 font-medium mb-1">Dirección de Residencia</label>
-            <input type="text" id="direccion" placeholder="Calle 100 # 15 - 20" class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-[#232429] focus:outline-none focus:border-[#FD7519]">
-            <p id="err-direccion" class="text-red-500 text-xs mt-1 hidden"></p>
-          </div>
-          
-          <div class="pt-2 space-y-3">
-            <button id="btn-ejecutar" class="w-full btn-green-inst font-medium py-2.5 rounded-lg transition-colors flex items-center justify-center gap-2 shadow-sm">
-              <i class="fa-solid fa-check-circle"></i> Validar información
+          <div class="pt-2">
+            <button id="btn-ejecutar" class="w-full btn-green-inst font-medium py-2.5 rounded-xl transition-colors flex items-center justify-center gap-2 shadow-sm text-sm">
+              <i class="fa-solid fa-check"></i> Validar información
             </button>
-            <div id="resultado-general" class="hidden rounded-lg p-3 text-xs"></div>
           </div>
         </form>
-      </section>
 
-      <!-- PANEL DERECHO: Documentos y Validación (Oculto inicialmente) -->
-      <section id="panel-documentos-section" class="lg:col-span-7 bg-gray-50 border border-gray-200 rounded-xl p-5 space-y-4 hidden">
-        <h2 class="text-lg font-semibold brand-orange flex items-center justify-between border-b border-gray-200 pb-2">
-          <span><i class="fa-solid fa-file-shield me-2"></i> Documentos Solicitados</span>
-          <span class="text-xs bg-orange-50 brand-orange border border-[#FD7519]/30 px-2 py-0.5 rounded-full">Obligatorio en PDF</span>
-        </h2>
-
-        <div id="contenedor-documentos" class="space-y-4"></div>
-
-        <div id="seccion-validar" class="pt-2 hidden">
-          <button id="btn-validar" class="w-full btn-green-inst font-medium py-2.5 rounded-lg transition-colors flex items-center justify-center gap-2 shadow-sm">
-            <i class="fa-solid fa-cloud-arrow-up"></i> Validar Documentos
-          </button>
+        <!-- Vista Resumen (Cuando ya se validó con éxito) -->
+        <div id="resumen-titular" class="hidden grid grid-cols-1 md:grid-cols-3 gap-4 text-xs bg-white border border-gray-200 rounded-xl p-4">
+          <div>
+            <span class="text-gray-400 block mb-0.5">Calidad / Perfil</span>
+            <span id="res-perfil" class="font-semibold text-gray-800">Proveedor - Nacional - Persona Jurídica</span>
+          </div>
+          <div>
+            <span class="text-gray-400 block mb-0.5">Nombre / Razón Social</span>
+            <span id="res-nombre" class="font-semibold text-gray-800">-</span>
+          </div>
+          <div>
+            <span class="text-gray-400 block mb-0.5">Correo de contacto</span>
+            <span id="res-correo" class="font-semibold text-gray-800">-</span>
+          </div>
         </div>
-      </section>
+      </div>
+
+      <!-- SECCIÓN 2: Documentos requeridos (Oculta hasta validar) -->
+      <div id="seccion-documentos" class="space-y-4 hidden border-t border-gray-200 pt-6">
+        <div class="flex items-center justify-between border-b border-gray-200 pb-3">
+          <h2 class="text-base font-bold text-[#232429] flex items-center gap-2">
+            <span class="w-6 h-6 rounded-full bg-[#012820] text-white flex items-center justify-center text-xs">2</span>
+            Documentos requeridos
+          </h2>
+          <span class="text-xs text-gray-500">Según la información proporcionada, debes adjuntar los siguientes documentos:</span>
+        </div>
+
+        <!-- Contenedor dinámico de tarjetas de documentos -->
+        <div id="contenedor-documentos" class="space-y-3"></div>
+
+        <!-- Botones de descarga de formatos institucionales -->
+        <div class="pt-2 flex flex-wrap gap-3">
+          <a id="btn-descargar-xlsx" download="Formato_creacion_proveedores.xlsx" class="inline-flex items-center gap-1.5 text-xs bg-white border border-[#FD7519] text-[#FD7519] px-3 py-2 rounded-lg font-medium hover:bg-orange-50 transition-colors">
+            <i class="fa-solid fa-file-excel"></i> Descargar Formato Proveedores (.xlsx)
+          </a>
+          <a id="btn-descargar-docx" download="Formato_solicitud_factura.docx" class="inline-flex items-center gap-1.5 text-xs bg-white border border-[#FD7519] text-[#FD7519] px-3 py-2 rounded-lg font-medium hover:bg-orange-50 transition-colors">
+            <i class="fa-solid fa-file-word"></i> Descargar Solicitud de Factura (.docx)
+          </a>
+        </div>
+      </div>
 
     </div>
+
+    <!-- Botones de Navegación Final (Volver / Continuar) -->
+    <div id="seccion-navegacion" class="hidden flex items-center justify-between pt-2">
+      <button id="btn-volver" class="px-5 py-2.5 bg-white border border-gray-300 text-gray-700 text-xs font-semibold rounded-xl hover:bg-gray-100 transition-colors">
+        Volver
+      </button>
+      <button id="btn-continuar" class="px-6 py-2.5 btn-green-inst text-xs font-semibold rounded-xl transition-colors shadow-sm">
+        Continuar
+      </button>
+    </div>
+
   </div>
 
   <script>
+    // Catálogo de documentos con sus descripciones institucionales exactas
     const catalogoDocs = {
-      'prov_creacion': { titulo: 'Formato único de creación de proveedores para compras bienes y servicios', desc: 'Diligenciado y firmado en formato PDF.' },
-      'prov_rut': { titulo: 'Registro Único Tributario - RUT', desc: 'Documento oficial actualizado en formato PDF.' },
-      'prov_cedula': { titulo: 'Copia del documento de identidad', desc: 'Cédula legible por ambos lados en formato PDF.' },
-      'prov_certBancaria': { titulo: 'Certificado de cuenta bancaria expedido por la entidad bancaria, no mayor a 30 días', desc: 'Formato PDF obligatorio.' },
-      'prov_listas': { titulo: 'Soporte de consulta en listas restrictivas', desc: 'Constancia de verificación en formato PDF.' },
-      'prov_camara': { titulo: 'Certificado de Cámara de Comercio / con una vigencia no mayor a 30 días', desc: 'Formato PDF.' },
-      'prov_repLegal': { titulo: 'Fotocopia de documento de identificación de sus Representantes Legales (Principal y suplente en caso de que aplique)', desc: 'Formato PDF.' },
-      'prov_regFiscal': { titulo: 'Soporte del registro fiscal / Documento que haga sus veces en países extranjeros, con una vigencia no mayor a 30 días', desc: 'Formato PDF.' },
-      'prov_declaracion': { titulo: 'Declaración juramentada 1, debidamente diligenciada y firmada; en caso de ser afirmativa incluir declaración juramentada 2 debidamente diligenciada y firmada junto con el RUT, en la cual certifica que pertenece a la Presencia Económica Significativa (PES).', desc: 'Formato PDF.' },
+      'prov_creacion': { titulo: 'Formato único de creación de proveedores', desc: 'Diligenciado y firmado en formato PDF.', obligatorio: true },
+      'prov_rut': { titulo: 'Registro Único Tributario - RUT', desc: 'Documento oficial actualizado en formato PDF.', obligatorio: true },
+      'prov_cedula': { titulo: 'Copia del documento de identidad', desc: 'Cédula legible por ambos lados en formato PDF.', obligatorio: true },
+      'prov_certBancaria': { titulo: 'Certificado de cuenta bancaria', desc: 'Expedido por la entidad bancaria, no mayor a 30 días.', obligatorio: true },
+      'prov_listas': { titulo: 'Soporte de consulta en listas restrictivas', desc: 'Constancia de verificación en formato PDF.', obligatorio: true },
+      'prov_camara': { titulo: 'Certificado de Cámara de Comercio', desc: 'Vigencia no mayor a 30 días en formato PDF.', obligatorio: true },
+      'prov_repLegal': { titulo: 'Documento de identificación de Representantes Legales', desc: 'Principal y suplente (si aplica) en formato PDF.', obligatorio: true },
+      'prov_regFiscal': { titulo: 'Soporte del registro fiscal / Documento extranjero', desc: 'Vigencia no mayor a 30 días en formato PDF.', obligatorio: true },
+      'prov_declaracion': { titulo: 'Declaración juramentada (Presencia Económica Significativa - PES)', desc: 'Debidamente diligenciada y firmada en PDF.', obligatorio: true },
 
-      'cli_solicitud': { titulo: 'Formato solicitud de emisión de factura', desc: 'Diligenciado correctamente en formato PDF.' },
-      'cli_rut': { titulo: 'Registro Único Tributario - RUT', desc: 'Documento oficial actualizado en formato PDF.' },
-      'cli_cedula': { titulo: 'Copia del documento de identidad', desc: 'Cédula legible en formato PDF.' },
-      'cli_tratamiento': { titulo: 'Autorización de tratamiento de datos personales', desc: 'Firmada por el titular en formato PDF.' },
-      'cli_carta': { titulo: 'Carta de compromiso de la empresa', desc: 'Documento oficial en formato PDF.' },
-      'cli_regFiscal': { titulo: 'Soporte del registro fiscal / Documento que haga sus veces en países extranjeros, con una vigencia no mayor a 30 días', desc: 'Formato PDF.' }
+      'cli_solicitud': { titulo: 'Formato solicitud de emisión de factura', desc: 'Diligenciado correctamente en formato PDF.', obligatorio: true },
+      'cli_rut': { titulo: 'Registro Único Tributario - RUT', desc: 'Documento oficial actualizado en formato PDF.', obligatorio: true },
+      'cli_cedula': { titulo: 'Copia del documento de identidad', desc: 'Cédula legible en formato PDF.', obligatorio: true },
+      'cli_tratamiento': { titulo: 'Autorización de tratamiento de datos personales', desc: 'Firmada por el titular en formato PDF.', obligatorio: true },
+      'cli_carta': { titulo: 'Carta de compromiso de la empresa', desc: 'Documento oficial en formato PDF.', obligatorio: true },
+      'cli_regFiscal': { titulo: 'Soporte del registro fiscal / Documento extranjero', desc: 'Vigencia no mayor a 30 días en formato PDF.', obligatorio: true }
     };
 
     let documentosActuales = [];
@@ -230,7 +223,7 @@
     const $ = (id) => document.getElementById(id);
 
     function limpiarErroresCampos() {
-      const campos = ['correoInstitucional', 'nombre', 'cedula', 'fechaExpedicionCedula', 'lugarNacimiento', 'paisNacimiento', 'nit', 'celular', 'direccion'];
+      const campos = ['correoInstitucional', 'nombre', 'cedula', 'celular', 'direccion'];
       campos.forEach(id => {
         const input = $(id);
         const err = $('err-' + id);
@@ -240,7 +233,6 @@
           err.classList.add('hidden');
         }
       });
-      $('resultado-general').classList.add('hidden');
     }
 
     function validarFormularioTitular() {
@@ -250,15 +242,11 @@
       const correo = $('correoInstitucional').value.trim();
       const nombre = $('nombre').value.trim();
       const cedula = $('cedula').value.trim();
-      const fechaExp = $('fechaExpedicionCedula').value.trim();
-      const lugarNac = $('lugarNacimiento').value.trim();
-      const paisNac = $('paisNacimiento').value.trim();
-      const nit = $('nit').value.trim();
       const celular = $('celular').value.trim();
       const direccion = $('direccion').value.trim();
 
-      if (!correo) {
-        mostrarErrorCampo('correoInstitucional', 'Este campo es obligatorio.');
+      if (!correo || !correo.includes('@')) {
+        mostrarErrorCampo('correoInstitucional', 'Ingresa un correo electrónico válido.');
         hayErrores = true;
       }
       if (!nombre) {
@@ -267,22 +255,6 @@
       }
       if (!/^\d{6,}$/.test(cedula)) {
         mostrarErrorCampo('cedula', 'Debe ser numérica y tener mínimo 6 dígitos.');
-        hayErrores = true;
-      }
-      if (!fechaExp) {
-        mostrarErrorCampo('fechaExpedicionCedula', 'Selecciona la fecha de expedición.');
-        hayErrores = true;
-      }
-      if (!/^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/.test(lugarNac)) {
-        mostrarErrorCampo('lugarNacimiento', 'Solo se permite texto y caracteres válidos.');
-        hayErrores = true;
-      }
-      if (!/^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/.test(paisNac)) {
-        mostrarErrorCampo('paisNacimiento', 'Solo se permite texto y caracteres válidos.');
-        hayErrores = true;
-      }
-      if (nit && !/^[\d\-]+$/.test(nit)) {
-        mostrarErrorCampo('nit', 'Formato de NIT inválido.');
         hayErrores = true;
       }
       if (!/^\d{8,}$/.test(celular)) {
@@ -322,9 +294,7 @@
             ? ['cli_solicitud', 'cli_rut', 'cli_cedula', 'cli_tratamiento'] 
             : ['cli_solicitud', 'cli_rut', 'cli_carta', 'cli_tratamiento'];
         } else {
-          return tipoPersona === '1'
-            ? ['cli_solicitud', 'cli_regFiscal']
-            : ['cli_solicitud', 'cli_regFiscal'];
+          return ['cli_solicitud', 'cli_regFiscal'];
         }
       }
     }
@@ -339,20 +309,21 @@
         estadoDocumentos[docKey] = { status: 'empty' };
 
         contenedor.innerHTML += `
-          <div class="bg-white border border-gray-200 rounded-lg p-4 flex flex-col md:flex-row md:items-center justify-between gap-4" id="card-${docKey}">
-            <div class="space-y-1.5 flex-1">
+          <div class="bg-white border border-gray-200 rounded-xl p-4 flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-sm" id="card-${docKey}">
+            <div class="space-y-1 flex-1">
               <div class="flex items-center gap-2">
                 <i class="fa-solid fa-file-pdf brand-orange"></i>
-                <span class="font-medium text-[#232429]">${info.titulo}</span>
+                <span class="font-semibold text-xs text-[#232429]">${info.titulo}</span>
+                <span class="text-[10px] bg-red-50 text-red-600 border border-red-200 px-2 py-0.5 rounded-full font-medium">Obligatorio</span>
               </div>
-              <p class="text-xs text-gray-500">${info.desc}</p>
-              <div>
-                <input type="file" id="file-${docKey}" accept=".pdf" data-doc="${docKey}" class="text-xs text-gray-700 border border-gray-300 rounded-lg p-1.5 bg-white file:mr-3 file:py-1.5 file:px-3 file:rounded-md file:border file:border-gray-300 file:text-xs file:font-medium file:bg-gray-100 file:text-gray-700 hover:file:bg-gray-200 cursor-pointer w-full">
-              </div>
+              <p class="text-[11px] text-gray-500 pl-5">${info.desc}</p>
             </div>
-            <div id="status-${docKey}" class="status-box bg-red-50 border border-red-200 rounded-lg p-2.5 min-w-[200px] text-xs">
-              <div class="flex items-center gap-1.5 text-red-600 font-semibold">
-                <i class="fa-solid fa-circle-xmark"></i> Falta archivo PDF
+            <div class="flex items-center gap-3">
+              <div id="status-area-${docKey}">
+                <label for="file-${docKey}" class="inline-flex items-center gap-1.5 text-xs bg-gray-50 border border-gray-300 text-gray-700 px-3 py-1.5 rounded-lg font-medium hover:bg-gray-100 transition-colors cursor-pointer shadow-xs">
+                  <i class="fa-solid fa-cloud-arrow-up text-[#FD7519]"></i> Seleccionar archivo
+                </label>
+                <input type="file" id="file-${docKey}" accept=".pdf" data-doc="${docKey}" class="hidden">
               </div>
             </div>
           </div>
@@ -362,78 +333,94 @@
       documentosActuales.forEach(docKey => {
         $('file-' + docKey)?.addEventListener('change', (e) => {
           const file = e.target.files[0];
-          const box = $('status-' + docKey);
-          if (!file) {
-            estadoDocumentos[docKey] = { status: 'empty' };
-            box.className = 'status-box bg-red-50 border border-red-200 rounded-lg p-2.5 min-w-[200px] text-xs';
-            box.innerHTML = `<div class="flex items-center gap-1.5 text-red-600 font-semibold"><i class="fa-solid fa-circle-xmark"></i> Falta archivo PDF</div>`;
-            return;
-          }
+          const area = $('status-area-' + docKey);
+          if (!file) return;
+
           const esPdf = file.type === 'application/pdf' || file.name.toLowerCase().endsWith('.pdf');
           if (!esPdf) {
-            estadoDocumentos[docKey] = { status: 'invalid' };
-            box.className = 'status-box bg-red-50 border border-red-300 rounded-lg p-2.5 min-w-[200px] text-xs';
-            box.innerHTML = `<div class="flex items-center gap-1.5 text-red-700 font-semibold"><i class="fa-solid fa-circle-xmark"></i> Formato inválido (Solo PDF)</div>`;
-          } else {
-            estadoDocumentos[docKey] = { status: 'valid' };
-            box.className = 'status-box bg-green-50 border border-green-300 rounded-lg p-2.5 min-w-[200px] text-xs';
-            box.innerHTML = `<div class="flex items-center gap-1.5 text-green-700 font-semibold"><i class="fa-solid fa-circle-check"></i> Cargado correctamente (PDF)</div>`;
+            alert('Por favor selecciona un archivo en formato PDF válido.');
+            return;
           }
+
+          // Simulación de estado cargado con éxito (Paso 3 y 4 de la referencia)
+          estadoDocumentos[docKey] = { status: 'valid' };
+          const tamanoMB = (file.size / (1024*1024)).toFixed(1) + ' MB';
+          
+          area.innerHTML = `
+            <div class="flex items-center gap-3 text-xs bg-emerald-50 border border-emerald-200 text-emerald-800 px-3 py-1.5 rounded-lg">
+              <i class="fa-solid fa-circle-check text-emerald-600"></i>
+              <div class="truncate max-w-[150px]" title="${file.name}">${file.name}</div>
+              <span class="text-[10px] text-gray-500">(${tamanoMB})</span>
+              <button type="button" onclick="resetInput('${docKey}')" class="text-gray-400 hover:text-red-600 ml-2" title="Eliminar archivo">
+                <i class="fa-solid fa-xmark"></i>
+              </button>
+            </div>
+          `;
         });
       });
-
-      $('seccion-validar').classList.remove('hidden');
-      $('panel-documentos-section').classList.remove('hidden');
     }
 
+    window.resetInput = function(docKey) {
+      estadoDocumentos[docKey] = { status: 'empty' };
+      const area = $('status-area-' + docKey);
+      area.innerHTML = `
+        <label for="file-${docKey}" class="inline-flex items-center gap-1.5 text-xs bg-gray-50 border border-gray-300 text-gray-700 px-3 py-1.5 rounded-lg font-medium hover:bg-gray-100 transition-colors cursor-pointer shadow-xs">
+          <i class="fa-solid fa-cloud-arrow-up text-[#FD7519]"></i> Seleccionar archivo
+        </label>
+        <input type="file" id="file-${docKey}" accept=".pdf" data-doc="${docKey}" class="hidden">
+      `;
+      // Reasignar evento change
+      $('file-' + docKey)?.addEventListener('change', arguments.callee); // o recrear evento
+    };
+
+    // Evento botón Validar Información (Paso 1 a Paso 2)
     $('btn-ejecutar')?.addEventListener('click', () => {
       const hayErrores = validarFormularioTitular();
-      const resultadoGeneral = $('resultado-general');
+      if (hayErrores) return;
 
-      if (hayErrores) {
-        resultadoGeneral.className = 'rounded-lg p-3 text-xs bg-red-50 border border-red-200 text-red-700';
-        resultadoGeneral.innerHTML = '<i class="fa-solid fa-triangle-exclamation me-1"></i> Hay campos con errores. Revisa las indicaciones en rojo.';
-        resultadoGeneral.classList.remove('hidden');
-        
-        $('panel-documentos-section').classList.add('hidden');
-        $('seccion-validar').classList.add('hidden');
-        return;
-      }
+      // Ocultar formulario de edición y mostrar resumen estilo tarjeta (Paso 2)
+      $('form-titular').classList.add('hidden');
+      $('resumen-titular').classList.remove('hidden');
+      $('btn-editar').classList.remove('hidden');
+      $('alerta-exito-validacion').classList.remove('hidden');
+      $('seccion-documentos').classList.remove('hidden');
+      $('seccion-navegacion').classList.remove('hidden');
+      $('subtitulo-estado').innerText = 'Se validan los datos y, si son correctos, se muestra la carga de documentos requeridos.';
 
-      resultadoGeneral.classList.add('hidden');
+      // Poblar resumen
+      const c = $('calidad').options[$('calidad').selectedIndex].text;
+      const n = $('nacionalidad').options[$('nacionalidad').selectedIndex].text;
+      const p = $('tipoPersona').options[$('tipoPersona').selectedIndex].text;
+      $('res-perfil').innerText = `${c} - ${n} - Persona ${p}`;
+      $('res-nombre').innerText = $('nombre').value;
+      $('res-correo').innerText = $('correoInstitucional').value;
+
       documentosActuales = obtenerRequisitosRequeridos($('calidad').value, $('nacionalidad').value, $('tipoPersona').value);
       renderizarPanelDocumentos();
     });
 
-    $('btn-validar')?.addEventListener('click', () => {
-      const resultadoGeneral = $('resultado-general');
-      const hayErrores = validarFormularioTitular();
-      if (hayErrores) {
-        resultadoGeneral.className = 'rounded-lg p-3 text-xs bg-red-50 border border-red-200 text-red-700';
-        resultadoGeneral.innerHTML = '<i class="fa-solid fa-triangle-exclamation me-1"></i> Hay errores en los datos del titular.';
-        resultadoGeneral.classList.remove('hidden');
-        return;
-      }
+    // Evento Botón Editar (Paso 5: Cambio de datos)
+    $('btn-editar')?.addEventListener('click', () => {
+      $('form-titular').classList.remove('hidden');
+      $('resumen-titular').classList.add('hidden');
+      $('btn-editar').classList.add('hidden');
+      $('alerta-exito-validacion').classList.add('hidden');
+      $('alerta-cambio').classList.remove('hidden'); // Muestra la alerta amarilla del paso 5
+    });
 
+    // Botón Volver
+    $('btn-volver')?.addEventListener('click', () => {
+      location.reload();
+    });
+
+    // Botón Continuar Final
+    $('btn-continuar')?.addEventListener('click', () => {
       const todosValidos = documentosActuales.every(d => estadoDocumentos[d] && estadoDocumentos[d].status === 'valid');
       if (!todosValidos) {
-        resultadoGeneral.className = 'rounded-lg p-3 text-xs bg-amber-50 border border-amber-200 text-amber-800';
-        resultadoGeneral.innerHTML = '<i class="fa-solid fa-triangle-exclamation me-1"></i> Faltan documentos obligatorios por adjuntar o hay archivos que no están en formato PDF.';
-        resultadoGeneral.classList.remove('hidden');
+        alert('Por favor adjunta todos los documentos obligatorios en formato PDF antes de continuar.');
         return;
       }
-
-      const btnValidar = $('btn-validar');
-      btnValidar.disabled = true;
-      btnValidar.innerHTML = '<i class="fa-solid fa-spinner spin"></i> Validando documentos internamente...';
-
-      setTimeout(() => {
-        btnValidar.disabled = false;
-        btnValidar.innerHTML = '<i class="fa-solid fa-cloud-arrow-up"></i> Validar Documentos';
-        resultadoGeneral.className = 'rounded-lg p-3 text-xs bg-green-50 border border-green-200 text-green-800';
-        resultadoGeneral.innerHTML = '<i class="fa-solid fa-circle-check me-1"></i> <strong>¡Validación exitosa!</strong> Los datos y documentos han sido procesados correctamente.';
-        resultadoGeneral.classList.remove('hidden');
-      }, 1500);
+      alert('¡Trámite y documentos enviados exitosamente!');
     });
   </script>
 </body>
