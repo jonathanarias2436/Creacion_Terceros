@@ -22,7 +22,6 @@
 </head>
 <body class="bg-white text-[#232429] min-h-screen">
 
-  <!-- Encabezado con identidad del sitio -->
   <header class="border-b border-gray-200">
     <div class="max-w-7xl mx-auto px-4 md:px-8 py-4 flex items-center justify-between">
       <a href="index.html" class="flex items-center gap-3">
@@ -36,26 +35,25 @@
 
   <div class="max-w-7xl mx-auto space-y-6 p-4 md:p-8">
 
-    <!-- Aviso de alcance del prototipo -->
+    <!-- Aviso del sistema -->
     <div class="bg-blue-50 border border-blue-200 text-blue-800 text-xs rounded-lg px-4 py-2 flex items-start gap-2">
       <i class="fa-solid fa-circle-info mt-0.5"></i>
       <span>
-        <strong>Demo del flujo propuesto.</strong> Las validaciones funcionan en tiempo real sobre los datos que ingreses. 
-        Recuerda que todos los soportes obligatorios deben cargarse estrictamente en formato <strong>PDF</strong>.
+        <strong>Módulo de Verificación.</strong> Todos los soportes obligatorios deben cargarse estrictamente en formato <strong>PDF</strong> para su posterior validación por parte del sistema.
       </span>
     </div>
 
-    <!-- PASO 1: Guía de instrucciones para el usuario -->
+    <!-- PASO 1: Guía de instrucciones -->
     <div class="bg-orange-50 border border-orange-200 rounded-xl p-5 space-y-3">
       <h2 class="text-md font-bold brand-orange flex items-center gap-2">
         <i class="fa-solid fa-list-check"></i> Paso 1: Instrucciones para el cargue de documentos
       </h2>
       <ol class="list-decimal list-inside text-xs text-gray-700 space-y-1.5 leading-relaxed">
-        <li><strong>Completa tus datos iniciales:</strong> Diligencia todos los campos obligatorios del formulario de la izquierda (correo, nombres, cédula, fechas, celular, dirección, etc.)[cite: 5].</li>
-        <li><strong>Ejecuta el filtro:</strong> Haz clic en el botón <strong>"Ejecutar"</strong> para que el sistema despliegue exactamente los documentos obligatorios que debes presentar según tu selección[cite: 1].</li>
-        <li><strong>Descarga y diligencia los formatos:</strong> Descarga el formato requerido según tu perfil (creación de proveedores[cite: 2] o solicitud de factura[cite: 2]), complétalo y fírmalo.</li>
-        <li><strong>Adjunta en PDF:</strong> Sube cada uno de los soportes requeridos asegurándote de que estén en formato <strong>PDF</strong>.</li>
-        <li><strong>Valida tu información:</strong> Presiona el botón <strong>"Validar"</strong> al finalizar para procesar tus documentos internamente.</li>
+        <li><strong>Diligencia los datos del titular:</strong> Completa todos los campos obligatorios del formulario de la izquierda.</li>
+        <li><strong>Ejecuta el filtro:</strong> Haz clic en el botón <strong>"Ejecutar"</strong> para desplegar los documentos obligatorios requeridos según tu perfil[cite: 1].</li>
+        <li><strong>Descarga y diligencia:</strong> Obtén el formato requerido, complétalo y fírmalo[cite: 2].</li>
+        <li><strong>Adjunta en PDF:</strong> Sube cada soporte en formato <strong>PDF</strong>.</li>
+        <li><strong>Valida:</strong> Presiona <strong>"Validar Documentos"</strong> para procesar la información.</li>
       </ol>
       <div class="pt-2 flex flex-wrap gap-3">
         <a href="#" class="inline-flex items-center gap-1.5 text-xs bg-white border border-brand-orange text-[#FD7519] px-3 py-1.5 rounded-lg font-medium hover:bg-orange-50 transition-colors">
@@ -67,21 +65,18 @@
       </div>
     </div>
 
-    <!-- Título del módulo -->
-    <div class="border-b border-gray-200 pb-4 flex justify-between items-center">
-      <div>
-        <h1 class="text-2xl font-bold text-[#232429] flex items-center gap-2">
-          <i class="fa-solid me-2 fa-shield-halved brand-orange"></i>
-          Módulo de Verificación de Documentos - Terceros
-        </h1>
-        <p class="text-gray-500 text-sm">Ingresa tus datos, ejecuta el filtro y adjunta los requisitos solicitados en formato PDF.</p>
-      </div>
+    <div class="border-b border-gray-200 pb-4">
+      <h1 class="text-2xl font-bold text-[#232429] flex items-center gap-2">
+        <i class="fa-solid me-2 fa-shield-halved brand-orange"></i>
+        Módulo de Verificación de Documentos - Terceros
+      </h1>
+      <p class="text-gray-500 text-sm">Ingresa los datos del titular, ejecuta el filtro y adjunta los requisitos en formato PDF.</p>
     </div>
 
-    <!-- Contenedor Principal Lado a Lado -->
+    <!-- Contenedor Principal -->
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
 
-      <!-- PANEL IZQUIERDO: Datos del Usuario (5 columnas) -->
+      <!-- PANEL IZQUIERDO: Datos del Titular -->
       <section class="lg:col-span-5 bg-gray-50 border border-gray-200 rounded-xl p-5 space-y-4">
         <h2 class="text-lg font-semibold brand-orange flex items-center gap-2 border-b border-gray-200 pb-2">
           <i class="fa-solid fa-user-pen"></i> Datos del Titular
@@ -99,7 +94,6 @@
             <input type="text" id="nombre" placeholder="Ej. Ana María Gómez / Empresa SAS" class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-[#232429] focus:outline-none focus:border-[#FD7519]">
           </div>
 
-          <!-- Selectores de Calidad, Nacionalidad y Tipo de Persona -->
           <div class="grid grid-cols-3 gap-3">
             <div>
               <label class="block text-gray-700 font-medium mb-1">Calidad</label>
@@ -161,7 +155,6 @@
             <input type="text" id="direccion" placeholder="Calle 100 # 15 - 20, Apto 301" class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-[#232429] focus:outline-none focus:border-[#FD7519]">
           </div>
 
-          <!-- BOTÓN EJECUTAR -->
           <div class="pt-2">
             <button id="btn-ejecutar" class="w-full bg-gray-800 hover:bg-gray-900 text-white font-medium py-2.5 rounded-lg transition-colors flex items-center justify-center gap-2">
               <i class="fa-solid fa-filter"></i> Ejecutar y Mostrar Requisitos
@@ -170,25 +163,22 @@
         </form>
       </section>
 
-      <!-- PANEL DERECHO: Carga de Documentos Dinámicos y Validación (7 columnas) -->
+      <!-- PANEL DERECHO: Documentos y Validación -->
       <section class="lg:col-span-7 bg-gray-50 border border-gray-200 rounded-xl p-5 space-y-4">
         <h2 class="text-lg font-semibold brand-orange flex items-center justify-between border-b border-gray-200 pb-2">
-          <span><i class="fa-solid fa-file-shield me-2"></i> Documentos Solicitados y Validación</span>
+          <span><i class="fa-solid fa-file-shield me-2"></i> Documentos Solicitados</span>
           <span class="text-xs bg-orange-50 brand-orange border border-[#FD7519]/30 px-2 py-0.5 rounded-full">Obligatorio en PDF</span>
         </h2>
 
-        <!-- Contenedor dinámico donde se pintarán solo los documentos necesarios -->
         <div id="contenedor-documentos" class="space-y-4">
           <div class="text-center py-8 text-gray-400 text-sm">
             <i class="fa-solid fa-hand-pointer text-2xl mb-2"></i>
-            <p>Diligencia los datos del titular y haz clic en <strong>"Ejecutar"</strong> para desplegar los documentos requeridos.</p>
+            <p>Diligencia los datos y haz clic en <strong>"Ejecutar"</strong> para desplegar los documentos requeridos.</p>
           </div>
         </div>
 
-        <!-- Resultado del envío / validación -->
         <div id="resultado-envio" class="hidden rounded-lg p-4 text-sm"></div>
 
-        <!-- Botón de validación final (inicialmente oculto hasta ejecutar) -->
         <div id="seccion-validar" class="pt-2 hidden">
           <button id="btn-validar" class="w-full bg-brand-orange hover:bg-[#e4660f] text-white font-medium py-2.5 rounded-lg transition-colors flex items-center justify-center gap-2">
             <i class="fa-solid fa-cloud-arrow-up"></i> Validar Documentos
@@ -200,56 +190,19 @@
   </div>
 
   <script>
-    // Catálogo maestro de documentos basado en la matriz oficial del PDF
     const catalogoDocs = {
-      'formatoCreacion': {
-        titulo: '1. Formato único de creación de proveedores',
-        desc: 'Diligenciado y firmado para compras de bienes y servicios (PDF obligatorio)[cite: 1, 2].'
-      },
-      'rut': {
-        titulo: '2. Registro Único Tributario - RUT',
-        desc: 'Documento oficial del RUT actualizado en formato PDF[cite: 1, 2].'
-      },
-      'cedula': {
-        titulo: '3. Copia del Documento de Identidad',
-        desc: 'Cédula legible por ambos lados en formato PDF[cite: 1].'
-      },
-      'certBancaria': {
-        titulo: 'Certificado de cuenta bancaria',
-        desc: 'Expedido por la entidad bancaria, no mayor a 30 días en formato PDF[cite: 1].'
-      },
-      'listasRestrictivas': {
-        titulo: 'Soporte de consulta en listas restrictivas',
-        desc: 'Constancia de verificación en formato PDF[cite: 1].'
-      },
-      'camaraComercio': {
-        titulo: 'Certificado de Cámara de Comercio',
-        desc: 'Vigencia no mayor a 30 días en formato PDF[cite: 1].'
-      },
-      'repLegal': {
-        titulo: 'Fotocopia de documento de representación legal',
-        desc: 'Principal y suplente (si aplica) en formato PDF[cite: 1].'
-      },
-      'registroFiscal': {
-        titulo: 'Soporte del registro fiscal / Documento extranjero',
-        desc: 'Vigencia no mayor a 30 días en formato PDF[cite: 1].'
-      },
-      'declaracionJuramentada': {
-        titulo: 'Declaración juramentada 1 (y 2 + RUT PES si aplica)',
-        desc: 'Debidamente diligenciada y firmada en formato PDF[cite: 1].'
-      },
-      'solicitudFactura': {
-        titulo: '1. Formato solicitud de emisión de factura',
-        desc: 'Diligenciado correctamente en formato PDF[cite: 1, 2].'
-      },
-      'tratamientoDatos': {
-        titulo: 'Autorización de tratamiento de datos personales',
-        desc: 'Firmada por el titular en formato PDF[cite: 1].'
-      },
-      'cartaCompromiso': {
-        titulo: 'Carta de compromiso de la empresa',
-        desc: 'Documento oficial en formato PDF[cite: 1].'
-      }
+      'formatoCreacion': { titulo: '1. Formato único de creación de proveedores', desc: 'Diligenciado y firmado para compras de bienes y servicios (PDF obligatorio)[cite: 1, 2].' },
+      'rut': { titulo: '2. Registro Único Tributario - RUT', desc: 'Documento oficial del RUT actualizado en formato PDF[cite: 1, 2].' },
+      'cedula': { titulo: '3. Copia del Documento de Identidad', desc: 'Cédula legible por ambos lados en formato PDF[cite: 1].' },
+      'certBancaria': { titulo: 'Certificado de cuenta bancaria', desc: 'Expedido por la entidad bancaria, no mayor a 30 días en formato PDF[cite: 1].' },
+      'listasRestrictivas': { titulo: 'Soporte de consulta en listas restrictivas', desc: 'Constancia de verificación en formato PDF[cite: 1].' },
+      'camaraComercio': { titulo: 'Certificado de Cámara de Comercio', desc: 'Vigencia no mayor a 30 días en formato PDF[cite: 1].' },
+      'repLegal': { titulo: 'Fotocopia de documento de representación legal', desc: 'Principal y suplente (si aplica) en formato PDF[cite: 1].' },
+      'registroFiscal': { titulo: 'Soporte del registro fiscal / Documento extranjero', desc: 'Vigencia no mayor a 30 días en formato PDF[cite: 1].' },
+      'declaracionJuramentada': { titulo: 'Declaración juramentada (1 y/o 2 + RUT PES)', desc: 'Debidamente diligenciada y firmada en formato PDF[cite: 1].' },
+      'solicitudFactura': { titulo: '1. Formato solicitud de emisión de factura', desc: 'Diligenciado correctamente en formato PDF[cite: 1, 2].' },
+      'tratamientoDatos': { titulo: 'Autorización de tratamiento de datos personales', desc: 'Firmada por el titular en formato PDF[cite: 1].' },
+      'cartaCompromiso': { titulo: 'Carta de compromiso de la empresa', desc: 'Documento oficial en formato PDF[cite: 1].' }
     };
 
     let documentosActuales = [];
@@ -257,7 +210,6 @@
 
     const $ = (id) => document.getElementById(id);
 
-    // Lista de campos obligatorios del formulario izquierdo para validación previa
     const camposFormulario = [
       { id: 'correoInstitucional', nombre: 'Correo del solicitante' },
       { id: 'nombre', nombre: 'Nombre Completo / Razón Social' },
@@ -281,32 +233,26 @@
       return vacios;
     }
 
-    // Matriz condicional oficial para determinar los requisitos necesarios[cite: 1]
     function obtenerRequisitosRequeridos(calidad, nacionalidad, tipoPersona) {
       if (calidad === '2') { // Proveedores
         if (nacionalidad === '2') { // Nacional
-          if (tipoPersona === '1') { // Natural
-            return ['formatoCreacion', 'rut', 'cedula', 'certBancaria', 'listasRestrictivas'];
-          } else { // Jurídica
-            return ['formatoCreacion', 'rut', 'camaraComercio', 'repLegal', 'certBancaria', 'listasRestrictivas'];
-          }
+          return tipoPersona === '1' 
+            ? ['formatoCreacion', 'rut', 'cedula', 'certBancaria', 'listasRestrictivas'] 
+            : ['formatoCreacion', 'rut', 'camaraComercio', 'repLegal', 'certBancaria', 'listasRestrictivas'];
         } else { // Extranjero
           return ['formatoCreacion', 'registroFiscal', 'declaracionJuramentada', 'listasRestrictivas'];
         }
-      } else { // Cliente (1)
+      } else { // Cliente
         if (nacionalidad === '2') { // Nacional
-          if (tipoPersona === '1') { // Natural
-            return ['solicitudFactura', 'rut', 'cedula', 'tratamientoDatos'];
-          } else { // Jurídica
-            return ['solicitudFactura', 'rut', 'cartaCompromiso', 'tratamientoDatos'];
-          }
+          return tipoPersona === '1' 
+            ? ['solicitudFactura', 'rut', 'cedula', 'tratamientoDatos'] 
+            : ['solicitudFactura', 'rut', 'cartaCompromiso', 'tratamientoDatos'];
         } else { // Extranjero
           return ['solicitudFactura', 'registroFiscal'];
         }
       }
     }
 
-    // Renderizar panel de documentos dinámicamente
     function renderizarPanelDocumentos() {
       const contenedor = $('contenedor-documentos');
       contenedor.innerHTML = '';
@@ -318,13 +264,15 @@
 
         const htmlItem = `
           <div class="bg-white border border-gray-200 rounded-lg p-4 flex flex-col md:flex-row md:items-center justify-between gap-4" id="card-${docKey}">
-            <div class="space-y-1 flex-1">
+            <div class="space-y-1.5 flex-1">
               <div class="flex items-center gap-2">
                 <i class="fa-solid fa-file-pdf brand-orange"></i>
                 <span class="font-medium text-[#232429]">${info.titulo}</span>
               </div>
               <p class="text-xs text-gray-500">${info.desc}</p>
-              <input type="file" id="file-${docKey}" accept=".pdf" data-doc="${docKey}" class="doc-input text-xs text-gray-500 file:mr-2 file:py-1 file:px-3 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-brand-orange file:text-white hover:file:bg-[#e4660f] cursor-pointer">
+              <div>
+                <input type="file" id="file-${docKey}" accept=".pdf" data-doc="${docKey}" class="text-xs text-gray-700 border border-gray-300 rounded-lg p-1.5 bg-white file:mr-3 file:py-1.5 file:px-3 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-brand-orange file:text-white hover:file:bg-[#e4660f] cursor-pointer w-full">
+              </div>
             </div>
             <div id="status-${docKey}" class="status-box bg-red-50 border border-red-200 rounded-lg p-2.5 min-w-[200px] text-xs">
               <div class="flex items-center gap-1.5 text-red-600 font-semibold">
@@ -346,7 +294,6 @@
       $('seccion-validar').classList.remove('hidden');
     }
 
-    // Validación estricta de archivo PDF
     function validarArchivoPDF(docKey, file) {
       const box = $('status-' + docKey);
       if (!file) {
@@ -369,7 +316,6 @@
       }
     }
 
-    // Evento del botón Ejecutar
     $('btn-ejecutar')?.addEventListener('click', () => {
       const calidad = $('caldiad').value;
       const nacionalidad = $('nacionalidad').value;
@@ -382,11 +328,9 @@
       resultado.classList.add('hidden');
     });
 
-    // Evento del botón Validar con conexión para validación interna
     $('btn-validar')?.addEventListener('click', () => {
       const resultado = $('resultado-envio');
 
-      // 1. Control estricto: Verificar campos del formulario vacíos[cite: 5]
       const camposVacios = obtenerCamposVacios();
       if (camposVacios.length > 0) {
         resultado.className = 'rounded-lg p-4 text-sm bg-red-50 border border-red-200 text-red-700';
@@ -395,7 +339,6 @@
         return;
       }
 
-      // 2. Control estricto: Verificar documentos PDF obligatorios
       const todosValidos = documentosActuales.every(d => estadoDocumentos[d] && estadoDocumentos[d].status === 'valid');
       if (!todosValidos) {
         resultado.className = 'rounded-lg p-4 text-sm bg-amber-50 border border-amber-200 text-amber-800';
@@ -404,7 +347,6 @@
         return;
       }
 
-      // 3. Simulación de procesamiento de validación interna con animación de carga
       const btnValidar = $('btn-validar');
       btnValidar.disabled = true;
       btnValidar.innerHTML = '<i class="fa-solid fa-spinner spin"></i> Validando documentos internamente...';
@@ -414,7 +356,7 @@
         btnValidar.innerHTML = '<i class="fa-solid fa-cloud-arrow-up"></i> Validar Documentos';
 
         resultado.className = 'rounded-lg p-4 text-sm bg-green-50 border border-green-200 text-green-800';
-        resultado.innerHTML = '<i class="fa-solid fa-circle-check me-1"></i> <strong>¡Validación exitosa!</strong> Todos los campos del titular están completos y los documentos PDF han sido verificados y procesados correctamente.';
+        resultado.innerHTML = '<i class="fa-solid fa-circle-check me-1"></i> <strong>¡Validación exitosa!</strong> Los datos y documentos han sido procesados correctamente para la respuesta por correo.';
         resultado.classList.remove('hidden');
       }, 1500);
     });
