@@ -51,10 +51,10 @@
         <i class="fa-solid fa-list-check"></i> Paso 1: Instrucciones para el cargue de documentos
       </h2>
       <ol class="list-decimal list-inside text-xs text-gray-700 space-y-1.5 leading-relaxed">
-        <li><strong>Completa tus datos iniciales:</strong> Ingresa tu correo de contacto, nombres, datos de identificación y selecciona tu calidad (Cliente/Proveedor), nacionalidad y tipo de persona.</li>
-        <li><strong>Ejecuta el filtro:</strong> Haz clic en el botón <strong>"Ejecutar"</strong> para que el sistema despliegue exactamente los documentos obligatorios que debes presentar.</li>
-        <li><strong>Descarga y diligencia los formatos:</strong> Descarga el formato requerido según tu perfil (creación de proveedores[cite: 2] o solicitud de factura[cite: 2]), complétalo y fírmalo.</li>
-        <li><strong>Adjunta en PDF:</strong> Sube cada uno de los soportes requeridos asegurándote de que estén en formato <strong>PDF</strong>. Los iconos cambiarán a verde cuando cumplan el requisito.</li>
+        <li><strong>Completa tus datos iniciales:</strong> Ingresa tus datos completos en el panel de datos del titular (correo, documento, fechas, dirección, etc.)[cite: 4].</li>
+        <li><strong>Ejecuta el filtro:</strong> Haz clic en el botón <strong>"Ejecutar"</strong> para que el sistema despliegue exactamente los documentos obligatorios que debes presentar según tu perfil.</li>
+        <li><strong>Descarga y diligencia los formatos:</strong> Descarga el formato requerido (creación de proveedores[cite: 2] o solicitud de factura[cite: 2]), complétalo y fírmalo.</li>
+        <li><strong>Adjunta en PDF:</strong> Sube cada uno de los soportes requeridos asegurándote de que estén en formato <strong>PDF</strong>. El estado cambiará a verde cuando cumpla el requisito.</li>
         <li><strong>Valida tu información:</strong> Presiona el botón <strong>"Validar"</strong> al finalizar para procesar tus documentos internamente.</li>
       </ol>
       <div class="pt-2 flex flex-wrap gap-3">
@@ -81,31 +81,34 @@
     <!-- Contenedor Principal Lado a Lado -->
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
 
-      <!-- PANEL IZQUIERDO: Datos del Usuario y Botón Ejecutar (5 columnas) -->
+      <!-- PANEL IZQUIERDO: Datos Completos del Titular (5 columnas) -->
       <section class="lg:col-span-5 bg-gray-50 border border-gray-200 rounded-xl p-5 space-y-4">
         <h2 class="text-lg font-semibold brand-orange flex items-center gap-2 border-b border-gray-200 pb-2">
           <i class="fa-solid fa-user-pen"></i> Datos del Titular
         </h2>
 
         <form id="form-titular" class="space-y-3 text-sm" onsubmit="return false;">
+          
+          <!-- Correo del solicitante -->
           <div>
-            <label class="block text-gray-700 font-medium mb-1">Correo de contacto</label>
-            <input type="email" id="correoInstitucional" placeholder="correo@ejemplo.com"
+            <label class="block text-gray-700 font-medium mb-1">Correo del solicitante</label>
+            <input type="email" id="correoInstitucional" placeholder="Correo"
                    class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-[#232429] focus:outline-none focus:border-[#FD7519]">
           </div>
 
+          <!-- Nombre Completo / Razón Social -->
           <div>
             <label class="block text-gray-700 font-medium mb-1">Nombre Completo / Razón Social</label>
             <input type="text" id="nombre" placeholder="Ej. Ana María Gómez / Empresa SAS" class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-[#232429] focus:outline-none focus:border-[#FD7519]">
           </div>
 
-          <!-- Selectores de Calidad, Nacionalidad y Tipo de Persona -->
+          <!-- Calidad, Nacionalidad y Persona -->
           <div class="grid grid-cols-3 gap-3">
             <div>
               <label class="block text-gray-700 font-medium mb-1">Calidad</label>
               <select id="calidad" class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-[#232429] focus:outline-none focus:border-[#FD7519]">
-                <option value="proveedor">Proveedores</option>
                 <option value="cliente">Cliente</option>
+                <option value="proveedor">Proveedores</option>
               </select>
             </div>
             <div>
@@ -124,20 +127,46 @@
             </div>
           </div>
 
+          <!-- Cédula y Fecha Expedición Cédula -->
           <div class="grid grid-cols-2 gap-3">
             <div>
-              <label class="block text-gray-700 font-medium mb-1">Cédula / NIT</label>
+              <label class="block text-gray-700 font-medium mb-1">Cédula</label>
               <input type="text" id="cedula" placeholder="1.032.456.789" class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-[#232429] focus:outline-none focus:border-[#FD7519]">
             </div>
             <div>
-              <label class="block text-gray-700 font-medium mb-1">Teléfono / Celular</label>
-              <input type="text" id="celular" placeholder="300 123 4567" class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-[#232429] focus:outline-none focus:border-[#FD7519]">
+              <label class="block text-gray-700 font-medium mb-1">Fecha Expedición Cédula</label>
+              <input type="date" id="fechaExpedicionCedula" class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-[#232429] focus:outline-none focus:border-[#FD7519]">
             </div>
           </div>
 
+          <!-- Lugar de Nacimiento y País de Nacimiento -->
+          <div class="grid grid-cols-2 gap-3"> 
+            <div>
+              <label class="block text-gray-700 font-medium mb-1">Lugar de Nacimiento</label>
+              <input type="text" id="lugarNacimiento" placeholder="Bogotá, D.C." class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-[#232429] focus:outline-none focus:border-[#FD7519]">
+            </div>
+            <div>
+              <label class="block text-gray-700 font-medium mb-1">País de Nacimiento</label>
+              <input type="text" id="paisNacimiento" placeholder="Colombia / Otro" class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-[#232429] focus:outline-none focus:border-[#FD7519]">
+            </div>
+          </div>
+
+          <!-- NIT -->
+          <div>
+            <label class="block text-gray-700 font-medium mb-1">NIT</label>
+            <input type="text" id="nit" placeholder="900123456-1" class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-[#232429] focus:outline-none focus:border-[#FD7519]">
+          </div>
+
+          <!-- Celular -->
+          <div>
+            <label class="block text-gray-700 font-medium mb-1">Celular</label>
+            <input type="text" id="celular" placeholder="300 123 4567" class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-[#232429] focus:outline-none focus:border-[#FD7519]">
+          </div>
+
+          <!-- Dirección de Residencia -->
           <div>
             <label class="block text-gray-700 font-medium mb-1">Dirección de Residencia</label>
-            <input type="text" id="direccion" placeholder="Calle 100 # 15 - 20" class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-[#232429] focus:outline-none focus:border-[#FD7519]">
+            <input type="text" id="direccion" placeholder="Calle 100 # 15 - 20, Apto 301" class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-[#232429] focus:outline-none focus:border-[#FD7519]">
           </div>
 
           <!-- BOTÓN EJECUTAR -->
@@ -146,6 +175,7 @@
               <i class="fa-solid fa-filter"></i> Ejecutar y Mostrar Requisitos
             </button>
           </div>
+
         </form>
       </section>
 
