@@ -196,9 +196,7 @@
   </div>
 
   <script>
-    // Catálogo exacto basado en el diagrama de flujos proporcionado
     const catalogoDocs = {
-      // Proveedores
       'prov_creacion': { titulo: 'Formato único de creación de proveedores para compras bienes y servicios', desc: 'Diligenciado y firmado en formato PDF.' },
       'prov_rut': { titulo: 'Registro Único Tributario - RUT', desc: 'Documento oficial actualizado en formato PDF.' },
       'prov_cedula': { titulo: 'Copia del documento de identidad', desc: 'Cédula legible por ambos lados en formato PDF.' },
@@ -209,7 +207,6 @@
       'prov_regFiscal': { titulo: 'Soporte del registro fiscal / Documento que haga sus veces en países extranjeros, con una vigencia no mayor a 30 días', desc: 'Formato PDF.' },
       'prov_declaracion': { titulo: 'Declaración juramentada 1, debidamente diligenciada y firmada; en caso de ser afirmativa incluir declaración juramentada 2 debidamente diligenciada y firmada junto con el RUT, en la cual certifica que pertenece a la Presencia Económica Significativa (PES).', desc: 'Formato PDF.' },
 
-      // Clientes
       'cli_solicitud': { titulo: 'Formato solicitud de emisión de factura', desc: 'Diligenciado correctamente en formato PDF.' },
       'cli_rut': { titulo: 'Registro Único Tributario - RUT', desc: 'Documento oficial actualizado en formato PDF.' },
       'cli_cedula': { titulo: 'Copia del documento de identidad', desc: 'Cédula legible en formato PDF.' },
@@ -248,28 +245,21 @@
       return errores;
     }
 
-    // Sincronización exacta con el diagrama proporcionado (Calidad: 2=Proveedores, 1=Cliente | Nacionalidad: 2=Nacional, 1=Extranjero | TipoPersona: 1=Natural, 2=Jurídico)
     function obtenerRequisitosRequeridos(calidad, nacionalidad, tipoPersona) {
       if (calidad === '2') {
-        // PROVEEDORES
         if (nacionalidad === '2') {
-          // Nacional
           return tipoPersona === '1' 
             ? ['prov_creacion', 'prov_rut', 'prov_cedula', 'prov_certBancaria', 'prov_listas'] 
             : ['prov_creacion', 'prov_rut', 'prov_camara', 'prov_repLegal', 'prov_certBancaria', 'prov_listas'];
         } else {
-          // Extranjero (Natural o Jurídico comparten los mismos 4 puntos en el diagrama)
           return ['prov_creacion', 'prov_regFiscal', 'prov_declaracion', 'prov_listas'];
         }
       } else {
-        // CLIENTE
         if (nacionalidad === '2') {
-          // Nacional
           return tipoPersona === '1' 
             ? ['cli_solicitud', 'cli_rut', 'cli_cedula', 'cli_tratamiento'] 
             : ['cli_solicitud', 'cli_rut', 'cli_carta', 'cli_tratamiento'];
         } else {
-          // Extranjero
           return tipoPersona === '1'
             ? ['cli_solicitud', 'cli_regFiscal']
             : ['cli_solicitud', 'cli_regFiscal'];
@@ -295,7 +285,8 @@
               </div>
               <p class="text-xs text-gray-500">${info.desc}</p>
               <div>
-                <input type="file" id="file-${docKey}" accept=".pdf" data-doc="${docKey}" class="text-xs text-gray-700 border border-gray-300 rounded-lg p-1.5 bg-white file:mr-3 file:py-1.5 file:px-3 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-brand-orange file:text-white hover:file:bg-[#e4660f] cursor-pointer w-full">
+                <!-- Estilos aplicados al input file: texto en gris oscuro y fondo claro sobre panel blanco -->
+                <input type="file" id="file-${docKey}" accept=".pdf" data-doc="${docKey}" class="text-xs text-gray-700 border border-gray-300 rounded-lg p-1.5 bg-white file:mr-3 file:py-1.5 file:px-3 file:rounded-md file:border file:border-gray-300 file:text-xs file:font-medium file:bg-gray-100 file:text-gray-700 hover:file:bg-gray-200 cursor-pointer w-full">
               </div>
             </div>
             <div id="status-${docKey}" class="status-box bg-red-50 border border-red-200 rounded-lg p-2.5 min-w-[200px] text-xs">
