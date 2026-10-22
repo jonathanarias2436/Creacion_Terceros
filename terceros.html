@@ -16,6 +16,9 @@
     .bg-brand-orange { background-color: #FD7519; }
     .bg-brand-orange:hover { background-color: #e4660f; }
     .border-brand-orange { border-color: #FD7519; }
+    /* Estilo de botón verde institucional elegante inspirado en la referencia */
+    .btn-green-inst { background-color: #012820; color: #ffffff; }
+    .btn-green-inst:hover { background-color: #02382d; }
     .spin { animation: spin 0.8s linear infinite; }
     @keyframes spin { to { transform: rotate(360deg); } }
   </style>
@@ -49,7 +52,7 @@
         <i class="fa-solid fa-list-check"></i> Paso 1: Instrucciones para el cargue de documentos
       </h2>
       <ol class="list-decimal list-inside text-xs text-gray-700 space-y-1.5 leading-relaxed">
-        <li><strong>Diligencia los datos del titular:</strong> Completa obligatoriamente todos los campos del formulario de la izquierda. Si dejas alguno vacío, el sistema te indicará que falta información.</li>
+        <li><strong>Diligencia los datos del titular:</strong> Completa todos los campos obligatorios cumpliendo con las longitudes y formatos correctos (cédula > 5 dígitos, celular > 7 dígitos, etc.).</li>
         <li><strong>Ejecuta el filtro:</strong> Haz clic en el botón <strong>"Ejecutar y Mostrar Requisitos"</strong> para desplegar los documentos obligatorios requeridos según tu perfil[cite: 1].</li>
         <li><strong>Descarga y diligencia:</strong> Obtén el formato requerido, complétalo y fírmalo[cite: 2].</li>
         <li><strong>Adjunta en PDF:</strong> Sube cada soporte en formato <strong>PDF</strong>.</li>
@@ -94,24 +97,25 @@
             <input type="text" id="nombre" placeholder="Ej. Ana María Gómez / Empresa SAS" class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-[#232429] focus:outline-none focus:border-[#FD7519]">
           </div>
 
-          <div class="grid grid-cols-3 gap-3">
+          <!-- Selectores equilibrados -->
+          <div class="grid grid-cols-3 gap-2">
             <div>
-              <label class="block text-gray-700 font-medium mb-1">Calidad</label>
-              <select id="caldiad" class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-[#232429] focus:outline-none focus:border-[#FD7519]">
+              <label class="block text-gray-700 font-medium mb-1 text-xs">Calidad</label>
+              <select id="caldiad" class="w-full bg-white border border-gray-300 rounded-lg px-2 py-2 text-xs text-[#232429] focus:outline-none focus:border-[#FD7519]">
                 <option value="1">Cliente</option>
                 <option value="2">Proveedores</option>
               </select>
             </div>
             <div>
-              <label class="block text-gray-700 font-medium mb-1">Nacionalidad</label>
-              <select id="nacionalidad" class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-[#232429] focus:outline-none focus:border-[#FD7519]">
+              <label class="block text-gray-700 font-medium mb-1 text-xs">Nacionalidad</label>
+              <select id="nacionalidad" class="w-full bg-white border border-gray-300 rounded-lg px-2 py-2 text-xs text-[#232429] focus:outline-none focus:border-[#FD7519]">
                 <option value="2">Nacional</option>
                 <option value="1">Extranjero</option>
               </select>
             </div>
             <div>
-              <label class="block text-gray-700 font-medium mb-1">Persona</label>
-              <select id="tipoPersona" class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-[#232429] focus:outline-none focus:border-[#FD7519]">
+              <label class="block text-gray-700 font-medium mb-1 text-xs">Persona</label>
+              <select id="tipoPersona" class="w-full bg-white border border-gray-300 rounded-lg px-2 py-2 text-xs text-[#232429] focus:outline-none focus:border-[#FD7519]">
                 <option value="1">Natural</option>
                 <option value="2">Jurídica</option>
               </select>
@@ -121,10 +125,10 @@
           <div class="grid grid-cols-2 gap-3">
             <div>
               <label class="block text-gray-700 font-medium mb-1">Cédula</label>
-              <input type="text" id="cedula" placeholder="1.032.456.789" class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-[#232429] focus:outline-none focus:border-[#FD7519]">
+              <input type="text" id="cedula" placeholder="Mínimo 6 dígitos" class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-[#232429] focus:outline-none focus:border-[#FD7519]">
             </div>
             <div>
-              <label class="block text-gray-700 font-medium mb-1">Fecha Expedición Cédula</label>
+              <label class="block text-gray-700 font-medium mb-1">Expedición cédula</label>
               <input type="date" id="fechaExpedicionCedula" class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-[#232429] focus:outline-none focus:border-[#FD7519]">
             </div>
           </div>
@@ -136,18 +140,18 @@
             </div>
             <div>
               <label class="block text-gray-700 font-medium mb-1">País de Nacimiento</label>
-              <input type="text" id="paisNacimiento" placeholder="Colombia / Otro" class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-[#232429] focus:outline-none focus:border-[#FD7519]">
+              <input type="text" id="paisNacimiento" placeholder="Colombia" class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-[#232429] focus:outline-none focus:border-[#FD7519]">
             </div>
           </div>
 
           <div>
-            <label class="block text-gray-700 font-medium mb-1">NIT</label>
+            <label class="block text-gray-700 font-medium mb-1">NIT <span class="text-gray-400 font-normal">(Opcional)</span></label>
             <input type="text" id="nit" placeholder="900123456-1" class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-[#232429] focus:outline-none focus:border-[#FD7519]">
           </div>
 
           <div>
             <label class="block text-gray-700 font-medium mb-1">Celular</label>
-            <input type="text" id="celular" placeholder="300 123 4567" class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-[#232429] focus:outline-none focus:border-[#FD7519]">
+            <input type="text" id="celular" placeholder="Mínimo 8 dígitos" class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-[#232429] focus:outline-none focus:border-[#FD7519]">
           </div>
 
           <div>
@@ -155,8 +159,9 @@
             <input type="text" id="direccion" placeholder="Calle 100 # 15 - 20, Apto 301" class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-[#232429] focus:outline-none focus:border-[#FD7519]">
           </div>
 
+          <!-- Botón Ejecutar con estilo verde institucional -->
           <div class="pt-2">
-            <button id="btn-ejecutar" class="w-full bg-gray-800 hover:bg-gray-900 text-white font-medium py-2.5 rounded-lg transition-colors flex items-center justify-center gap-2">
+            <button id="btn-ejecutar" class="w-full btn-green-inst font-medium py-2.5 rounded-lg transition-colors flex items-center justify-center gap-2 shadow-sm">
               <i class="fa-solid fa-filter"></i> Ejecutar y Mostrar Requisitos
             </button>
           </div>
@@ -174,7 +179,7 @@
         <div id="contenedor-documentos" class="space-y-4">
           <div class="text-center py-12 text-gray-400 text-sm">
             <i class="fa-solid fa-hand-pointer text-3xl mb-3 text-gray-300"></i>
-            <p>Diligencia todos los campos del formulario izquierdo y haz clic en <strong>"Ejecutar y Mostrar Requisitos"</strong> para desplegar los documentos requeridos.</p>
+            <p>Diligencia todos los campos correctamente y haz clic en <strong>"Ejecutar y Mostrar Requisitos"</strong> para desplegar los documentos requeridos.</p>
           </div>
         </div>
 
@@ -183,7 +188,7 @@
 
         <!-- Botón de validación final (inicialmente oculto) -->
         <div id="seccion-validar" class="pt-2 hidden">
-          <button id="btn-validar" class="w-full bg-brand-orange hover:bg-[#e4660f] text-white font-medium py-2.5 rounded-lg transition-colors flex items-center justify-center gap-2">
+          <button id="btn-validar" class="w-full btn-green-inst font-medium py-2.5 rounded-lg transition-colors flex items-center justify-center gap-2 shadow-sm">
             <i class="fa-solid fa-cloud-arrow-up"></i> Validar Documentos
           </button>
         </div>
@@ -213,27 +218,45 @@
 
     const $ = (id) => document.getElementById(id);
 
-    const camposFormulario = [
-      { id: 'correoInstitucional', nombre: 'Correo del solicitante' },
-      { id: 'nombre', nombre: 'Nombre Completo / Razón Social' },
-      { id: 'cedula', nombre: 'Cédula' },
-      { id: 'fechaExpedicionCedula', nombre: 'Fecha Expedición Cédula' },
-      { id: 'lugarNacimiento', nombre: 'Lugar de Nacimiento' },
-      { id: 'paisNacimiento', nombre: 'País de Nacimiento' },
-      { id: 'nit', nombre: 'NIT' },
-      { id: 'celular', nombre: 'Celular' },
-      { id: 'direccion', nombre: 'Dirección de Residencia' }
-    ];
+    // Función estricta para validar restricciones específicas de cada campo
+    function validarFormularioTitular() {
+      const errores = [];
 
-    function obtenerCamposVacios() {
-      const vacios = [];
-      camposFormulario.forEach(campo => {
-        const input = $(campo.id);
-        if (!input || !input.value.trim()) {
-          vacios.push(campo.nombre);
-        }
-      });
-      return vacios;
+      const correo = $('correoInstitucional').value.trim();
+      const nombre = $('nombre').value.trim();
+      const cedula = $('cedula').value.trim();
+      const fechaExp = $('fechaExpedicionCedula').value.trim();
+      const lugarNac = $('lugarNacimiento').value.trim();
+      const paisNac = $('paisNacimiento').value.trim();
+      const nit = $('nit').value.trim();
+      const celular = $('celular').value.trim();
+      const direccion = $('direccion').value.trim();
+
+      if (!correo) errores.push("Correo del solicitante");
+      if (!nombre) errores.push("Nombre Completo / Razón Social");
+      
+      // Cédula: solo números y longitud mayor a 5 (mínimo 6)
+      if (!/^\d{6,}$/.test(cedula)) {
+        errores.push("Cédula (debe ser numérica y mayor a 5 dígitos)");
+      }
+
+      if (!fechaExp) errores.push("Expedición cédula");
+      if (!lugarNac) errores.push("Lugar de Nacimiento");
+      if (!paisNac) errores.push("País de Nacimiento");
+
+      // NIT: opcional, pero si se llena debe ser numérico con símbolos permitidos (ej. guiones)
+      if (nit && !/^[\d\-]+$/.test(nit)) {
+        errores.push("NIT (formato numérico con símbolos permitido)");
+      }
+
+      // Celular: solo números y longitud mayor a 7 (mínimo 8)
+      if (!/^\d{8,}$/.test(celular)) {
+        errores.push("Celular (debe ser numérico y mayor a 7 dígitos)");
+      }
+
+      if (!direccion) errores.push("Dirección de Residencia");
+
+      return errores;
     }
 
     function obtenerRequisitosRequeridos(calidad, nacionalidad, tipoPersona) {
@@ -319,21 +342,21 @@
       }
     }
 
-    // Botón Ejecutar con validación estricta en color rojo si hay campos vacíos
+    // Botón Ejecutar con validación estricta y mensajes en color rojo si hay errores
     $('btn-ejecutar')?.addEventListener('click', () => {
       const resultado = $('resultado-envio');
+      const errores = validarFormularioTitular();
 
-      const camposVacios = obtenerCamposVacios();
-      if (camposVacios.length > 0) {
+      if (errores.length > 0) {
         resultado.className = 'rounded-lg p-4 text-sm bg-red-50 border border-red-200 text-red-700';
-        resultado.innerHTML = `<i class="fa-solid fa-triangle-exclamation me-1"></i> <strong>Falta dato.</strong> Debes completar todos los campos obligatorios del titular antes de ejecutar.<br><span class="text-xs">Campos pendientes: ${camposVacios.join(', ')}.</span>`;
+        resultado.innerHTML = `<i class="fa-solid fa-triangle-exclamation me-1"></i> <strong class="text-red-700">Falta dato o formato incorrecto.</strong><br><span class="text-xs">Revisa los siguientes campos: ${errores.join(', ')}.</span>`;
         resultado.classList.remove('hidden');
         
-        // Ocultar documentos y botón validar si intenta ejecutar vacío
+        // Mantener oculto el panel de documentos si hay errores
         $('contenedor-documentos').innerHTML = `
           <div class="text-center py-12 text-gray-400 text-sm">
             <i class="fa-solid fa-hand-pointer text-3xl mb-3 text-gray-300"></i>
-            <p>Diligencia todos los campos del formulario izquierdo y haz clic en <strong>"Ejecutar y Mostrar Requisitos"</strong> para desplegar los documentos requeridos.</p>
+            <p>Diligencia todos los campos correctamente y haz clic en <strong>"Ejecutar y Mostrar Requisitos"</strong> para desplegar los documentos requeridos.</p>
           </div>
         `;
         $('seccion-validar').classList.add('hidden');
@@ -353,10 +376,10 @@
     $('btn-validar')?.addEventListener('click', () => {
       const resultado = $('resultado-envio');
 
-      const camposVacios = obtenerCamposVacios();
-      if (camposVacios.length > 0) {
+      const errores = validarFormularioTitular();
+      if (errores.length > 0) {
         resultado.className = 'rounded-lg p-4 text-sm bg-red-50 border border-red-200 text-red-700';
-        resultado.innerHTML = `<i class="fa-solid fa-triangle-exclamation me-1"></i> <strong>Falta dato.</strong> Debes completar todos los datos del titular antes de validar.<br><span class="text-xs">Campos pendientes: ${camposVacios.join(', ')}.</span>`;
+        resultado.innerHTML = `<i class="fa-solid fa-triangle-exclamation me-1"></i> <strong class="text-red-700">Falta dato.</strong> Hay errores o campos incompletos en el formulario.<br><span class="text-xs">Campos: ${errores.join(', ')}.</span>`;
         resultado.classList.remove('hidden');
         return;
       }
