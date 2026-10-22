@@ -53,16 +53,12 @@
         <li><strong>Diligencia los datos del titular:</strong> Completa todos los campos obligatorios.</li>
         <li><strong>Ejecuta el filtro:</strong> Haz clic en el botón <strong>"Mostrar Requisitos"</strong> para desplegar los documentos obligatorios requeridos según tu perfil.</li>
         <li><strong>Descarga y diligencia:</strong> Obtén el formato requerido, complétalo y fírmalo.</li>
-        <li><strong>Adjunta en PDF:</strong> Sube cada soporte en formato <strong>PDF/A</strong>.</li>
+        <li><strong>Adjunta en PDF:</strong> Sube cada soporte en formato PDF.</li>
         <li><strong>Valida:</strong> Presiona <strong>"Validar Documentos"</strong> para procesar la información.</li>
         <li><strong>Notificación:</strong> Por favor, revisa tu correo electrónico para confirmar.</li>
       </ol>
       
-      <!-- Carga directa de documentos incrustados por Base64 -->
       <div class="pt-2 flex flex-wrap gap-3">
-        <script>
-          // Script auxiliar para cargar dinámicamente los binarios de los documentos sin almacenar archivos externos
-        </script>
         <!-- Formato de Proveedores (.xlsx) -->
         <a id="btn-descargar-xlsx" download="Formato_unico_de_creacion_de_proveedores.xlsx" class="inline-flex items-center gap-1.5 text-xs bg-white border border-brand-orange text-[#FD7519] px-3 py-1.5 rounded-lg font-medium hover:bg-orange-50 transition-colors cursor-pointer">
           <i class="fa-solid fa-download"></i> Descargar Formato de Proveedores (.xlsx)
@@ -200,30 +196,26 @@
   </div>
 
   <script>
-    // Asignación automática de los documentos incrustados en Base64 para descarga directa
-    document.addEventListener("DOMContentLoaded", () => {
-      const b64Xlsx = "{{B64_XLSX}}"; // Incrustado de forma segura vía script
-      const b64Docx = "{{B64_DOCX}}";
-      
-      // Vinculación de los datos base64 reales extraídos de tus archivos
-      $('btn-descargar-xlsx').href = "data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64," + 
-        "UEsDBBQABgAIAAAAIQDGNU40zwEAAHMJAAATAAgCW0NvbnRlbnRfVHlwZXMuhtb/XwUe" +
-        "..." /* (Datos binarios optimizados integrados) */;
-    });
-
+    // Catálogo exacto basado en el diagrama de flujos proporcionado
     const catalogoDocs = {
-      'formatoCreacion': { titulo: '1. Formato único de creación de proveedores', desc: 'Diligenciado y firmado para compras de bienes y servicios (PDF obligatorio).' },
-      'rut': { titulo: '2. Registro Único Tributario - RUT', desc: 'Documento oficial del RUT actualizado en formato PDF.' },
-      'cedula': { titulo: '3. Copia del Documento de Identidad', desc: 'Cédula legible por ambos lados en formato PDF.' },
-      'certBancaria': { titulo: 'Certificado de cuenta bancaria', desc: 'Expedido por la entidad bancaria, no mayor a 30 días en formato PDF.' },
-      'listasRestrictivas': { titulo: 'Soporte de consulta en listas restrictivas', desc: 'Constancia de verificación en formato PDF.' },
-      'camaraComercio': { titulo: 'Certificado de Cámara de Comercio', desc: 'Vigencia no mayor a 30 días en formato PDF.' },
-      'repLegal': { titulo: 'Fotocopia de documento de representación legal', desc: 'Principal y suplente (si aplica) en formato PDF.' },
-      'registroFiscal': { titulo: 'Soporte del registro fiscal / Documento extranjero', desc: 'Vigencia no mayor a 30 días en formato PDF.' },
-      'declaracionJuramentada': { titulo: 'Declaración juramentada (1 y/o 2 + RUT PES)', desc: 'Debidamente diligenciada y firmada en formato PDF.' },
-      'solicitudFactura': { titulo: '1. Formato solicitud de emisión de factura', desc: 'Diligenciado correctamente en formato PDF.' },
-      'tratamientoDatos': { titulo: 'Autorización de tratamiento de datos personales', desc: 'Firmada por el titular en formato PDF.' },
-      'cartaCompromiso': { titulo: 'Carta de compromiso de la empresa', desc: 'Documento oficial en formato PDF.' }
+      // Proveedores
+      'prov_creacion': { titulo: 'Formato único de creación de proveedores para compras bienes y servicios', desc: 'Diligenciado y firmado en formato PDF.' },
+      'prov_rut': { titulo: 'Registro Único Tributario - RUT', desc: 'Documento oficial actualizado en formato PDF.' },
+      'prov_cedula': { titulo: 'Copia del documento de identidad', desc: 'Cédula legible por ambos lados en formato PDF.' },
+      'prov_certBancaria': { titulo: 'Certificado de cuenta bancaria expedido por la entidad bancaria, no mayor a 30 días', desc: 'Formato PDF obligatorio.' },
+      'prov_listas': { titulo: 'Soporte de consulta en listas restrictivas', desc: 'Constancia de verificación en formato PDF.' },
+      'prov_camara': { titulo: 'Certificado de Cámara de Comercio / con una vigencia no mayor a 30 días', desc: 'Formato PDF.' },
+      'prov_repLegal': { titulo: 'Fotocopia de documento de identificación de sus Representantes Legales (Principal y suplente en caso de que aplique)', desc: 'Formato PDF.' },
+      'prov_regFiscal': { titulo: 'Soporte del registro fiscal / Documento que haga sus veces en países extranjeros, con una vigencia no mayor a 30 días', desc: 'Formato PDF.' },
+      'prov_declaracion': { titulo: 'Declaración juramentada 1, debidamente diligenciada y firmada; en caso de ser afirmativa incluir declaración juramentada 2 debidamente diligenciada y firmada junto con el RUT, en la cual certifica que pertenece a la Presencia Económica Significativa (PES).', desc: 'Formato PDF.' },
+
+      // Clientes
+      'cli_solicitud': { titulo: 'Formato solicitud de emisión de factura', desc: 'Diligenciado correctamente en formato PDF.' },
+      'cli_rut': { titulo: 'Registro Único Tributario - RUT', desc: 'Documento oficial actualizado en formato PDF.' },
+      'cli_cedula': { titulo: 'Copia del documento de identidad', desc: 'Cédula legible en formato PDF.' },
+      'cli_tratamiento': { titulo: 'Autorización de tratamiento de datos personales', desc: 'Firmada por el titular en formato PDF.' },
+      'cli_carta': { titulo: 'Carta de compromiso de la empresa', desc: 'Documento oficial en formato PDF.' },
+      'cli_regFiscal': { titulo: 'Soporte del registro fiscal / Documento que haga sus veces en países extranjeros, con una vigencia no mayor a 30 días', desc: 'Formato PDF.' }
     };
 
     let documentosActuales = [];
@@ -256,15 +248,32 @@
       return errores;
     }
 
+    // Sincronización exacta con el diagrama proporcionado (Calidad: 2=Proveedores, 1=Cliente | Nacionalidad: 2=Nacional, 1=Extranjero | TipoPersona: 1=Natural, 2=Jurídico)
     function obtenerRequisitosRequeridos(calidad, nacionalidad, tipoPersona) {
       if (calidad === '2') {
-        return nacionalidad === '2' 
-          ? (tipoPersona === '1' ? ['formatoCreacion', 'rut', 'cedula', 'certBancaria', 'listasRestrictivas'] : ['formatoCreacion', 'rut', 'camaraComercio', 'repLegal', 'certBancaria', 'listasRestrictivas'])
-          : ['formatoCreacion', 'registroFiscal', 'declaracionJuramentada', 'listasRestrictivas'];
+        // PROVEEDORES
+        if (nacionalidad === '2') {
+          // Nacional
+          return tipoPersona === '1' 
+            ? ['prov_creacion', 'prov_rut', 'prov_cedula', 'prov_certBancaria', 'prov_listas'] 
+            : ['prov_creacion', 'prov_rut', 'prov_camara', 'prov_repLegal', 'prov_certBancaria', 'prov_listas'];
+        } else {
+          // Extranjero (Natural o Jurídico comparten los mismos 4 puntos en el diagrama)
+          return ['prov_creacion', 'prov_regFiscal', 'prov_declaracion', 'prov_listas'];
+        }
       } else {
-        return nacionalidad === '2' 
-          ? (tipoPersona === '1' ? ['solicitudFactura', 'rut', 'cedula', 'tratamientoDatos'] : ['solicitudFactura', 'rut', 'cartaCompromiso', 'tratamientoDatos'])
-          : ['solicitudFactura', 'registroFiscal'];
+        // CLIENTE
+        if (nacionalidad === '2') {
+          // Nacional
+          return tipoPersona === '1' 
+            ? ['cli_solicitud', 'cli_rut', 'cli_cedula', 'cli_tratamiento'] 
+            : ['cli_solicitud', 'cli_rut', 'cli_carta', 'cli_tratamiento'];
+        } else {
+          // Extranjero
+          return tipoPersona === '1'
+            ? ['cli_solicitud', 'cli_regFiscal']
+            : ['cli_solicitud', 'cli_regFiscal'];
+        }
       }
     }
 
@@ -378,13 +387,6 @@
         resultado.classList.remove('hidden');
       }, 1500);
     });
-
-    // Asignación de Data URIs con base64 para los documentos subidos
-    document.getElementById('btn-descargar-xlsx').href = "data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64," + 
-      `$b64_xlsx_string$`; // Contiene los datos binarios completos del archivo Excel proporcionado
-
-    document.getElementById('btn-descargar-docx').href = "data:application/vnd.openxmlformats-officedocument.wordprocessingml.document;base64," + 
-      `$b64_docx_string$`; // Contiene los datos binarios completos del archivo Word proporcionado
   </script>
 </body>
 </html>
