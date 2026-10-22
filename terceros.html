@@ -51,7 +51,7 @@
         <i class="fa-solid fa-list-check"></i> Paso 1: Instrucciones para el cargue de documentos
       </h2>
       <ol class="list-decimal list-inside text-xs text-gray-700 space-y-1.5 leading-relaxed">
-        <li><strong>Completa tus datos iniciales:</strong> Ingresa tu correo institucional o personal, nombres, datos de identificación y selecciona tu calidad (Cliente/Proveedor), nacionalidad y tipo de persona.</li>
+        <li><strong>Completa tus datos iniciales:</strong> Ingresa tu correo de contacto, nombres, datos de identificación y selecciona tu calidad (Cliente/Proveedor), nacionalidad y tipo de persona.</li>
         <li><strong>Ejecuta el filtro:</strong> Haz clic en el botón <strong>"Ejecutar"</strong> para que el sistema despliegue exactamente los documentos obligatorios que debes presentar.</li>
         <li><strong>Descarga y diligencia los formatos:</strong> Descarga el formato requerido según tu perfil (creación de proveedores[cite: 2] o solicitud de factura[cite: 2]), complétalo y fírmalo.</li>
         <li><strong>Adjunta en PDF:</strong> Sube cada uno de los soportes requeridos asegurándote de que estén en formato <strong>PDF</strong>. Los iconos cambiarán a verde cuando cumplan el requisito.</li>
@@ -234,6 +234,8 @@
     let documentosActuales = [];
     let estadoDocumentos = {};
 
+    const $ = (id) => document.getElementById(id);
+
     // Función para determinar qué documentos mostrar según la combinación del diagrama PDF
     function obtenerRequisitosRequeridos(calidad, nacionalidad, tipoPersona) {
       if (calidad === 'proveedor') {
@@ -279,7 +281,7 @@
               <p class="text-xs text-gray-500">${info.desc}</p>
               <input type="file" id="file-${docKey}" accept=".pdf" data-doc="${docKey}" class="doc-input text-xs text-gray-500 file:mr-2 file:py-1 file:px-3 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-brand-orange file:text-white hover:file:bg-[#e4660f] cursor-pointer">
             </div>
-            <div id="status-${docKey}" class="status-box bg-gray-100 border border-gray-300 rounded-lg p-2.5 min-w-[200px] text-xs">
+            <div id="status-${docKey}" class="status-box bg-red-50 border border-red-200 rounded-lg p-2.5 min-w-[200px] text-xs">
               <div class="flex items-center gap-1.5 text-red-600 font-semibold">
                 <i class="fa-solid fa-circle-xmark"></i> Falta archivo PDF
               </div>
@@ -305,12 +307,12 @@
       const box = $('status-' + docKey);
       if (!file) {
         estadoDocumentos[docKey] = { status: 'empty' };
-        box.className = 'status-box bg-gray-100 border border-gray-300 rounded-lg p-2.5 min-w-[200px] text-xs';
+        box.className = 'status-box bg-red-50 border border-red-200 rounded-lg p-2.5 min-w-[200px] text-xs';
         box.innerHTML = `<div class="flex items-center gap-1.5 text-red-600 font-semibold"><i class="fa-solid fa-circle-xmark"></i> Falta archivo PDF</div>`;
         return;
       }
 
-      // Validación estricta de extensión / tipo PDF
+      // Validación de extensión y tipo MIME
       const esPdf = file.type === 'application/pdf' || file.name.toLowerCase().endsWith('.pdf');
 
       if (!esPdf) {
@@ -323,8 +325,6 @@
         box.innerHTML = `<div class="flex items-center gap-1.5 text-green-700 font-semibold"><i class="fa-solid fa-circle-check"></i> Cargado correctamente (PDF)</div>`;
       }
     }
-
-    const $ = (id) => document.getElementById(id);
 
     // Evento del botón Ejecutar
     $('btn-ejecutar')?.addEventListener('click', () => {
