@@ -50,18 +50,18 @@
         <i class="fa-solid fa-list-check"></i> Paso 1: Instrucciones para el cargue de documentos
       </h2>
       <ol class="list-decimal list-inside text-xs text-gray-700 space-y-1.5 leading-relaxed">
-        <li><strong>Diligencia los datos del titular:</strong> Completa todos los campos obligatorios cumpliendo con las longitudes y formatos correctos (cédula numérica > 5 dígitos, celular numérico > 7 dígitos, lugar y país de nacimiento estrictamente en texto, etc.).</li>
-        <li><strong>Ejecuta el filtro:</strong> Haz clic en el botón <strong>"Ejecutar y Mostrar Requisitos"</strong> para desplegar los documentos obligatorios requeridos según tu perfil[cite: 1].</li>
-        <li><strong>Descarga y diligencia:</strong> Obtén el formato requerido, complétalo y fírmalo[cite: 2].</li>
+        <li><strong>Diligencia los datos del titular:</strong> Completa todos los campos obligatorios cumpliendo con las longitudes y formatos correctos.</li>
+        <li><strong>Ejecuta el filtro:</strong> Haz clic en el botón <strong>"Ejecutar y Mostrar Requisitos"</strong> para desplegar los documentos obligatorios requeridos según tu perfil.</li>
+        <li><strong>Descarga y diligencia:</strong> Obtén el formato requerido, complétalo y fírmalo.</li>
         <li><strong>Adjunta en PDF:</strong> Sube cada soporte en formato <strong>PDF</strong>.</li>
         <li><strong>Valida:</strong> Presiona <strong>"Validar Documentos"</strong> para procesar la información.</li>
       </ol>
       <div class="pt-2 flex flex-wrap gap-3">
         <a href="#" class="inline-flex items-center gap-1.5 text-xs bg-white border border-brand-orange text-[#FD7519] px-3 py-1.5 rounded-lg font-medium hover:bg-orange-50 transition-colors">
-          <i class="fa-solid fa-download"></i> Descargar Formato de Proveedores (.xlsx)[cite: 2]
+          <i class="fa-solid fa-download"></i> Descargar Formato de Proveedores (.xlsx)
         </a>
         <a href="#" class="inline-flex items-center gap-1.5 text-xs bg-white border border-brand-orange text-[#FD7519] px-3 py-1.5 rounded-lg font-medium hover:bg-orange-50 transition-colors">
-          <i class="fa-solid fa-download"></i> Descargar Formato de Solicitud de Factura (.docx)[cite: 2]
+          <i class="fa-solid fa-download"></i> Descargar Formato de Solicitud de Factura (.docx)
         </a>
       </div>
     </div>
@@ -95,11 +95,10 @@
             <input type="text" id="nombre" placeholder="Ej. Ana María Gómez / Empresa SAS" class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-[#232429] focus:outline-none focus:border-[#FD7519]">
           </div>
 
-          <!-- Selectores equilibrados -->
           <div class="grid grid-cols-3 gap-2">
             <div>
               <label class="block text-gray-700 font-medium mb-1 text-xs">Calidad</label>
-              <select id="caldiad" class="w-full bg-white border border-gray-300 rounded-lg px-2 py-2 text-xs text-[#232429] focus:outline-none focus:border-[#FD7519]">
+              <select id="calidad" class="w-full bg-white border border-gray-300 rounded-lg px-2 py-2 text-xs text-[#232429] focus:outline-none focus:border-[#FD7519]">
                 <option value="1">Cliente</option>
                 <option value="2">Proveedores</option>
               </select>
@@ -157,7 +156,6 @@
             <input type="text" id="direccion" placeholder="Calle 100 # 15 - 20" class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-[#232429] focus:outline-none focus:border-[#FD7519]">
           </div>
 
-          <!-- Botón Ejecutar con estilo verde institucional -->
           <div class="pt-2">
             <button id="btn-ejecutar" class="w-full btn-green-inst font-medium py-2.5 rounded-lg transition-colors flex items-center justify-center gap-2 shadow-sm">
               <i class="fa-solid fa-filter"></i> Ejecutar y Mostrar Requisitos
@@ -166,14 +164,13 @@
         </form>
       </section>
 
-      <!-- PANEL DERECHO: Documentos y Validación (Inicialmente oculto) -->
+      <!-- PANEL DERECHO: Documentos y Validación -->
       <section class="lg:col-span-7 bg-gray-50 border border-gray-200 rounded-xl p-5 space-y-4">
         <h2 class="text-lg font-semibold brand-orange flex items-center justify-between border-b border-gray-200 pb-2">
           <span><i class="fa-solid fa-file-shield me-2"></i> Documentos Solicitados</span>
           <span class="text-xs bg-orange-50 brand-orange border border-[#FD7519]/30 px-2 py-0.5 rounded-full">Obligatorio en PDF</span>
         </h2>
 
-        <!-- Contenedor dinámico (estado inicial vacío/oculto) -->
         <div id="contenedor-documentos" class="space-y-4">
           <div class="text-center py-12 text-gray-400 text-sm">
             <i class="fa-solid fa-hand-pointer text-3xl mb-3 text-gray-300"></i>
@@ -181,10 +178,8 @@
           </div>
         </div>
 
-        <!-- Resultado de validación / error -->
         <div id="resultado-envio" class="hidden rounded-lg p-4 text-sm"></div>
 
-        <!-- Botón de validación final (inicialmente oculto) -->
         <div id="seccion-validar" class="pt-2 hidden">
           <button id="btn-validar" class="w-full btn-green-inst font-medium py-2.5 rounded-lg transition-colors flex items-center justify-center gap-2 shadow-sm">
             <i class="fa-solid fa-cloud-arrow-up"></i> Validar Documentos
@@ -197,18 +192,18 @@
 
   <script>
     const catalogoDocs = {
-      'formatoCreacion': { titulo: '1. Formato único de creación de proveedores', desc: 'Diligenciado y firmado para compras de bienes y servicios (PDF obligatorio)[cite: 1, 2].' },
-      'rut': { titulo: '2. Registro Único Tributario - RUT', desc: 'Documento oficial del RUT actualizado en formato PDF[cite: 1, 2].' },
-      'cedula': { titulo: '3. Copia del Documento de Identidad', desc: 'Cédula legible por ambos lados en formato PDF[cite: 1].' },
-      'certBancaria': { titulo: 'Certificado de cuenta bancaria', desc: 'Expedido por la entidad bancaria, no mayor a 30 días en formato PDF[cite: 1].' },
-      'listasRestrictivas': { titulo: 'Soporte de consulta en listas restrictivas', desc: 'Constancia de verificación en formato PDF[cite: 1].' },
-      'camaraComercio': { titulo: 'Certificado de Cámara de Comercio', desc: 'Vigencia no mayor a 30 días en formato PDF[cite: 1].' },
-      'repLegal': { titulo: 'Fotocopia de documento de representación legal', desc: 'Principal y suplente (si aplica) en formato PDF[cite: 1].' },
-      'registroFiscal': { titulo: 'Soporte del registro fiscal / Documento extranjero', desc: 'Vigencia no mayor a 30 días en formato PDF[cite: 1].' },
-      'declaracionJuramentada': { titulo: 'Declaración juramentada (1 y/o 2 + RUT PES)', desc: 'Debidamente diligenciada y firmada en formato PDF[cite: 1].' },
-      'solicitudFactura': { titulo: '1. Formato solicitud de emisión de factura', desc: 'Diligenciado correctamente en formato PDF[cite: 1, 2].' },
-      'tratamientoDatos': { titulo: 'Autorización de tratamiento de datos personales', desc: 'Firmada por el titular en formato PDF[cite: 1].' },
-      'cartaCompromiso': { titulo: 'Carta de compromiso de la empresa', desc: 'Documento oficial en formato PDF[cite: 1].' }
+      'formatoCreacion': { titulo: '1. Formato único de creación de proveedores', desc: 'Diligenciado y firmado para compras de bienes y servicios (PDF obligatorio).' },
+      'rut': { titulo: '2. Registro Único Tributario - RUT', desc: 'Documento oficial del RUT actualizado en formato PDF.' },
+      'cedula': { titulo: '3. Copia del Documento de Identidad', desc: 'Cédula legible por ambos lados en formato PDF.' },
+      'certBancaria': { titulo: 'Certificado de cuenta bancaria', desc: 'Expedido por la entidad bancaria, no mayor a 30 días en formato PDF.' },
+      'listasRestrictivas': { titulo: 'Soporte de consulta en listas restrictivas', desc: 'Constancia de verificación en formato PDF.' },
+      'camaraComercio': { titulo: 'Certificado de Cámara de Comercio', desc: 'Vigencia no mayor a 30 días en formato PDF.' },
+      'repLegal': { titulo: 'Fotocopia de documento de representación legal', desc: 'Principal y suplente (si aplica) en formato PDF.' },
+      'registroFiscal': { titulo: 'Soporte del registro fiscal / Documento extranjero', desc: 'Vigencia no mayor a 30 días en formato PDF.' },
+      'declaracionJuramentada': { titulo: 'Declaración juramentada (1 y/o 2 + RUT PES)', desc: 'Debidamente diligenciada y firmada en formato PDF.' },
+      'solicitudFactura': { titulo: '1. Formato solicitud de emisión de factura', desc: 'Diligenciado correctamente en formato PDF.' },
+      'tratamientoDatos': { titulo: 'Autorización de tratamiento de datos personales', desc: 'Firmada por el titular en formato PDF.' },
+      'cartaCompromiso': { titulo: 'Carta de compromiso de la empresa', desc: 'Documento oficial en formato PDF.' }
     };
 
     let documentosActuales = [];
@@ -216,7 +211,7 @@
 
     const $ = (id) => document.getElementById(id);
 
-    // Función estricta para validar restricciones específicas de cada campo
+    // Función unificada para validar el formulario (evita duplicar la lógica entre los botones)
     function validarFormularioTitular() {
       const errores = [];
 
@@ -232,34 +227,12 @@
 
       if (!correo) errores.push("Correo del solicitante");
       if (!nombre) errores.push("Nombre Completo / Razón Social");
-      
-      // Cédula: solo números y longitud mayor a 5 (mínimo 6)
-      if (!/^\d{6,}$/.test(cedula)) {
-        errores.push("Cédula (debe ser numérica y mayor a 5 dígitos)");
-      }
-
+      if (!/^\d{6,}$/.test(cedula)) errores.push("Cédula (debe ser numérica y mayor a 5 dígitos)");
       if (!fechaExp) errores.push("Expedición cédula");
-
-      // Lugar de Nacimiento: solo texto (letras y espacios)
-      if (!/^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/.test(lugarNac)) {
-        errores.push("Lugar de Nacimiento (debe ser texto, sin números)");
-      }
-
-      // País de Nacimiento: solo texto (letras y espacios)
-      if (!/^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/.test(paisNac)) {
-        errores.push("País de Nacimiento (debe ser texto, sin números)");
-      }
-
-      // NIT: opcional, pero si se llena debe ser numérico con símbolos permitidos (ej. guiones)
-      if (nit && !/^[\d\-]+$/.test(nit)) {
-        errores.push("NIT (formato numérico con símbolos permitido)");
-      }
-
-      // Celular: solo números y longitud mayor a 7 (mínimo 8)
-      if (!/^\d{8,}$/.test(celular)) {
-        errores.push("Celular (debe ser numérico y mayor a 7 dígitos)");
-      }
-
+      if (!/^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/.test(lugarNac)) errores.push("Lugar de Nacimiento (debe ser texto, sin números)");
+      if (!/^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/.test(paisNac)) errores.push("País de Nacimiento (debe ser texto, sin números)");
+      if (nit && !/^[\d\-]+$/.test(nit)) errores.push("NIT (formato numérico con símbolos permitido)");
+      if (!/^\d{8,}$/.test(celular)) errores.push("Celular (debe ser numérico y mayor a 7 dígitos)");
       if (!direccion) errores.push("Dirección de Residencia");
 
       return errores;
@@ -267,21 +240,13 @@
 
     function obtenerRequisitosRequeridos(calidad, nacionalidad, tipoPersona) {
       if (calidad === '2') { // Proveedores
-        if (nacionalidad === '2') { // Nacional
-          return tipoPersona === '1' 
-            ? ['formatoCreacion', 'rut', 'cedula', 'certBancaria', 'listasRestrictivas'] 
-            : ['formatoCreacion', 'rut', 'camaraComercio', 'repLegal', 'certBancaria', 'listasRestrictivas'];
-        } else { // Extranjero
-          return ['formatoCreacion', 'registroFiscal', 'declaracionJuramentada', 'listasRestrictivas'];
-        }
+        return nacionalidad === '2' 
+          ? (tipoPersona === '1' ? ['formatoCreacion', 'rut', 'cedula', 'certBancaria', 'listasRestrictivas'] : ['formatoCreacion', 'rut', 'camaraComercio', 'repLegal', 'certBancaria', 'listasRestrictivas'])
+          : ['formatoCreacion', 'registroFiscal', 'declaracionJuramentada', 'listasRestrictivas'];
       } else { // Cliente
-        if (nacionalidad === '2') { // Nacional
-          return tipoPersona === '1' 
-            ? ['solicitudFactura', 'rut', 'cedula', 'tratamientoDatos'] 
-            : ['solicitudFactura', 'rut', 'cartaCompromiso', 'tratamientoDatos'];
-        } else { // Extranjero
-          return ['solicitudFactura', 'registroFiscal'];
-        }
+        return nacionalidad === '2' 
+          ? (tipoPersona === '1' ? ['solicitudFactura', 'rut', 'cedula', 'tratamientoDatos'] : ['solicitudFactura', 'rut', 'cartaCompromiso', 'tratamientoDatos'])
+          : ['solicitudFactura', 'registroFiscal'];
       }
     }
 
@@ -294,7 +259,7 @@
         const info = catalogoDocs[docKey];
         estadoDocumentos[docKey] = { status: 'empty' };
 
-        const htmlItem = `
+        contenedor.innerHTML += `
           <div class="bg-white border border-gray-200 rounded-lg p-4 flex flex-col md:flex-row md:items-center justify-between gap-4" id="card-${docKey}">
             <div class="space-y-1.5 flex-1">
               <div class="flex items-center gap-2">
@@ -313,42 +278,34 @@
             </div>
           </div>
         `;
-        contenedor.innerHTML += htmlItem;
       });
 
       documentosActuales.forEach(docKey => {
-        const input = $('file-' + docKey);
-        if (input) {
-          input.addEventListener('change', (e) => validarArchivoPDF(docKey, e.target.files[0]));
-        }
+        $('file-' + docKey)?.addEventListener('change', (e) => {
+          const file = e.target.files[0];
+          const box = $('status-' + docKey);
+          if (!file) {
+            estadoDocumentos[docKey] = { status: 'empty' };
+            box.className = 'status-box bg-red-50 border border-red-200 rounded-lg p-2.5 min-w-[200px] text-xs';
+            box.innerHTML = `<div class="flex items-center gap-1.5 text-red-600 font-semibold"><i class="fa-solid fa-circle-xmark"></i> Falta archivo PDF</div>`;
+            return;
+          }
+          const esPdf = file.type === 'application/pdf' || file.name.toLowerCase().endsWith('.pdf');
+          if (!esPdf) {
+            estadoDocumentos[docKey] = { status: 'invalid' };
+            box.className = 'status-box bg-red-50 border border-red-300 rounded-lg p-2.5 min-w-[200px] text-xs';
+            box.innerHTML = `<div class="flex items-center gap-1.5 text-red-700 font-semibold"><i class="fa-solid fa-circle-xmark"></i> Formato inválido (Solo PDF)</div>`;
+          } else {
+            estadoDocumentos[docKey] = { status: 'valid' };
+            box.className = 'status-box bg-green-50 border border-green-300 rounded-lg p-2.5 min-w-[200px] text-xs';
+            box.innerHTML = `<div class="flex items-center gap-1.5 text-green-700 font-semibold"><i class="fa-solid fa-circle-check"></i> Cargado correctamente (PDF)</div>`;
+          }
+        });
       });
 
       $('seccion-validar').classList.remove('hidden');
     }
 
-    function validarArchivoPDF(docKey, file) {
-      const box = $('status-' + docKey);
-      if (!file) {
-        estadoDocumentos[docKey] = { status: 'empty' };
-        box.className = 'status-box bg-red-50 border border-red-200 rounded-lg p-2.5 min-w-[200px] text-xs';
-        box.innerHTML = `<div class="flex items-center gap-1.5 text-red-600 font-semibold"><i class="fa-solid fa-circle-xmark"></i> Falta archivo PDF</div>`;
-        return;
-      }
-
-      const esPdf = file.type === 'application/pdf' || file.name.toLowerCase().endsWith('.pdf');
-
-      if (!esPdf) {
-        estadoDocumentos[docKey] = { status: 'invalid' };
-        box.className = 'status-box bg-red-50 border border-red-300 rounded-lg p-2.5 min-w-[200px] text-xs';
-        box.innerHTML = `<div class="flex items-center gap-1.5 text-red-700 font-semibold"><i class="fa-solid fa-circle-xmark"></i> Formato inválido (Solo PDF)</div>`;
-      } else {
-        estadoDocumentos[docKey] = { status: 'valid' };
-        box.className = 'status-box bg-green-50 border border-green-300 rounded-lg p-2.5 min-w-[200px] text-xs';
-        box.innerHTML = `<div class="flex items-center gap-1.5 text-green-700 font-semibold"><i class="fa-solid fa-circle-check"></i> Cargado correctamente (PDF)</div>`;
-      }
-    }
-
-    // Botón Ejecutar con validación estricta y mensajes en color rojo si hay errores
     $('btn-ejecutar')?.addEventListener('click', () => {
       const resultado = $('resultado-envio');
       const errores = validarFormularioTitular();
@@ -357,8 +314,6 @@
         resultado.className = 'rounded-lg p-4 text-sm bg-red-50 border border-red-200 text-red-700';
         resultado.innerHTML = `<i class="fa-solid fa-triangle-exclamation me-1"></i> <strong class="text-red-700">Falta dato o formato incorrecto.</strong><br><span class="text-xs">Revisa los siguientes campos: ${errores.join(', ')}.</span>`;
         resultado.classList.remove('hidden');
-        
-        // Mantener oculto el panel de documentos si hay errores
         $('contenedor-documentos').innerHTML = `
           <div class="text-center py-12 text-gray-400 text-sm">
             <i class="fa-solid fa-hand-pointer text-3xl mb-3 text-gray-300"></i>
@@ -370,22 +325,16 @@
       }
 
       resultado.classList.add('hidden');
-
-      const calidad = $('caldiad').value;
-      const nacionalidad = $('nacionalidad').value;
-      const tipoPersona = $('tipoPersona').value;
-
-      documentosActuales = obtenerRequisitosRequeridos(calidad, nacionalidad, tipoPersona);
+      documentosActuales = obtenerRequisitosRequeridos($('calidad').value, $('nacionalidad').value, $('tipoPersona').value);
       renderizarPanelDocumentos();
     });
 
     $('btn-validar')?.addEventListener('click', () => {
       const resultado = $('resultado-envio');
-
       const errores = validarFormularioTitular();
       if (errores.length > 0) {
         resultado.className = 'rounded-lg p-4 text-sm bg-red-50 border border-red-200 text-red-700';
-        resultado.innerHTML = `<i class="fa-solid fa-triangle-exclamation me-1"></i> <strong class="text-red-700">Falta dato.</strong> Hay errores o campos incompletos en el formulario.<br><span class="text-xs">Campos: ${errores.join(', ')}.</span>`;
+        resultado.innerHTML = `<i class="fa-solid fa-triangle-exclamation me-1"></i> <strong class="text-red-700">Falta dato.</strong> Hay errores o campos incompletos.<br><span class="text-xs">Campos: ${errores.join(', ')}.</span>`;
         resultado.classList.remove('hidden');
         return;
       }
@@ -405,7 +354,6 @@
       setTimeout(() => {
         btnValidar.disabled = false;
         btnValidar.innerHTML = '<i class="fa-solid fa-cloud-arrow-up"></i> Validar Documentos';
-
         resultado.className = 'rounded-lg p-4 text-sm bg-green-50 border border-green-200 text-green-800';
         resultado.innerHTML = '<i class="fa-solid fa-circle-check me-1"></i> <strong>¡Validación exitosa!</strong> Los datos y documentos han sido procesados correctamente para la respuesta por correo.';
         resultado.classList.remove('hidden');
