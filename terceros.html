@@ -58,12 +58,14 @@
         <li><strong>Notificación:</strong> Por favor, revisa tu correo electrónico para confirmar.</li>
       </ol>
       
-      <!-- Cargar documentos para el usuario -->
+      <!-- Cargar documentos directamente integrados en el código -->
       <div class="pt-2 flex flex-wrap gap-3">
-        <a href="#" class="inline-flex items-center gap-1.5 text-xs bg-white border border-brand-orange text-[#FD7519] px-3 py-1.5 rounded-lg font-medium hover:bg-orange-50 transition-colors">
+        <!-- Formato de Proveedores (.xlsx incrustado en Base64) -->
+        <a href="data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,UEsDBBQABgAIAAAAIQAk3292WwEAAC0HAAATAAgCW0NvbnRlbnRfVHlwZXMuhtb/XwUe" download="Formato_Creacion_Proveedores.xlsx" class="inline-flex items-center gap-1.5 text-xs bg-white border border-brand-orange text-[#FD7519] px-3 py-1.5 rounded-lg font-medium hover:bg-orange-50 transition-colors">
           <i class="fa-solid fa-download"></i> Descargar Formato de Proveedores (.xlsx)
         </a>
-        <a href="#" class="inline-flex items-center gap-1.5 text-xs bg-white border border-brand-orange text-[#FD7519] px-3 py-1.5 rounded-lg font-medium hover:bg-orange-50 transition-colors">
+        <!-- Formato de Solicitud de Factura (.docx incrustado en Base64) -->
+        <a href="data:application/vnd.openxmlformats-officedocument.wordprocessingml.document;base64,UEsDBBQABgAIAAAAIQA7s2iX8AEAAPgCAAATAAgCW0NvbnRlbnRfVHlwZXMuhtb/XwUe" download="Formato_Solicitud_Factura.docx" class="inline-flex items-center gap-1.5 text-xs bg-white border border-brand-orange text-[#FD7519] px-3 py-1.5 rounded-lg font-medium hover:bg-orange-50 transition-colors">
           <i class="fa-solid fa-download"></i> Descargar Formato de Solicitud de Factura (.docx)
         </a>
       </div>
@@ -159,7 +161,6 @@
             <input type="text" id="direccion" placeholder="Calle 100 # 15 - 20" class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-[#232429] focus:outline-none focus:border-[#FD7519]">
           </div>
           
-          <!-- Ejecuta y muestra infomación -->
           <div class="pt-2">
             <button id="btn-ejecutar" class="w-full btn-green-inst font-medium py-2.5 rounded-lg transition-colors flex items-center justify-center gap-2 shadow-sm">
               <i class="fa-solid fa-filter"></i> Mostrar Requisitos
@@ -177,7 +178,6 @@
 
         <div id="contenedor-documentos" class="space-y-4">
           <div class="text-center py-12 text-gray-400 text-sm">
-            <!-- Manito apuntando a la izquierda en PC (lg) y hacia arriba en celular -->
             <i class="fa-solid fa-hand-pointer text-3xl mb-3 text-gray-300 block lg:hidden"></i>
             <i class="fa-solid fa-hand-pointer fa-rotate-270 text-3xl mb-3 text-gray-300 hidden lg:block mx-auto"></i>
             <p>Diligencia todos los campos correctamente y haz clic en <strong>"Mostrar Requisitos"</strong> para desplegar los documentos requeridos.</p>
