@@ -211,7 +211,6 @@
 
     const $ = (id) => document.getElementById(id);
 
-    // Función unificada para validar el formulario (evita duplicar la lógica entre los botones)
     function validarFormularioTitular() {
       const errores = [];
 
@@ -229,8 +228,15 @@
       if (!nombre) errores.push("Nombre Completo / Razón Social");
       if (!/^\d{6,}$/.test(cedula)) errores.push("Cédula (debe ser numérica y mayor a 5 dígitos)");
       if (!fechaExp) errores.push("Expedición cédula");
-      if (!/^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/.test(lugarNac)) errores.push("Lugar de Nacimiento (debe ser texto, sin números)");
-      if (!/^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/.test(paisNac)) errores.push("País de Nacimiento (debe ser texto, sin números)");
+      
+      // Validación estricta: solo texto, permite vocales con tildes, espacios y eñes, sin números ni símbolos
+      if (!/^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/.test(lugarNac)) {
+        errores.push("Lugar de Nacimiento (solo texto con tildes, sin números ni símbolos)");
+      }
+      if (!/^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/.test(paisNac)) {
+        errores.push("País de Nacimiento (solo texto con tildes, sin números ni símbolos)");
+      }
+
       if (nit && !/^[\d\-]+$/.test(nit)) errores.push("NIT (formato numérico con símbolos permitido)");
       if (!/^\d{8,}$/.test(celular)) errores.push("Celular (debe ser numérico y mayor a 7 dígitos)");
       if (!direccion) errores.push("Dirección de Residencia");
