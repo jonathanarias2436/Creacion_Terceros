@@ -46,11 +46,11 @@
       <p class="text-gray-500 text-sm mt-1" id="subtitulo-estado">Por favor completa la siguiente información para continuar.</p>
     </div>
 
-    <!-- Alerta de cambio de datos (Paso 5 del flujo de referencia) -->
+    <!-- Alerta de cambio de datos (Paso 5) -->
     <div id="alerta-cambio" class="hidden bg-amber-50 border border-amber-300 text-amber-800 text-xs rounded-xl p-4 flex items-start gap-3">
       <i class="fa-solid fa-triangle-exclamation text-amber-600 mt-0.5 text-base"></i>
       <div>
-        <strong>Al cambiar el tipo de persona o nacionalidad, se actualizarán los documentos requeridos.</strong> Revisa la nueva lista antes de continuar.
+        <strong>Al cambiar el tipo de persona o nacionalidad, se actualizarán los documentos requeridos[cite: 5].</strong> Revisa la nueva lista antes de continuar[cite: 5].
       </div>
     </div>
 
@@ -58,7 +58,7 @@
     <div id="alerta-exito-validacion" class="hidden bg-emerald-50 border border-emerald-300 text-emerald-800 text-xs rounded-xl p-4 flex items-center gap-3 shadow-sm">
       <i class="fa-solid fa-circle-check text-emerald-600 text-lg"></i>
       <div>
-        <strong>Información validada correctamente.</strong><br><span>Ahora puedes cargar los documentos requeridos.</span>
+        <strong>Información validada correctamente[cite: 5].</strong><br><span>Ahora puedes cargar los documentos requeridos[cite: 5].</span>
       </div>
     </div>
 
@@ -77,7 +77,7 @@
           </button>
         </div>
 
-        <!-- Vista Edición (Inputs Activos) -->
+        <!-- Vista Edición (Inputs Activos con todos los campos recuperados) -->
         <form id="form-titular" class="space-y-4 text-sm" onsubmit="return false;">
           <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div>
@@ -116,11 +116,37 @@
             </div>
           </div>
 
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label class="block text-gray-700 font-medium mb-1 text-xs">Cédula / NIT *</label>
+              <label class="block text-gray-700 font-medium mb-1 text-xs">Cédula *</label>
               <input type="text" id="cedula" placeholder="Mínimo 6 dígitos" class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-xs text-[#232429] focus:outline-none focus:border-[#FD7519]">
               <p id="err-cedula" class="text-red-500 text-[11px] mt-1 hidden"></p>
+            </div>
+            <div>
+              <label class="block text-gray-700 font-medium mb-1 text-xs">Expedición cédula *</label>
+              <input type="date" id="fechaExpedicionCedula" class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-xs text-[#232429] focus:outline-none focus:border-[#FD7519]">
+              <p id="err-fechaExpedicionCedula" class="text-red-500 text-[11px] mt-1 hidden"></p>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-gray-700 font-medium mb-1 text-xs">Lugar de Nacimiento *</label>
+              <input type="text" id="lugarNacimiento" placeholder="Ej. Bogotá" class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-xs text-[#232429] focus:outline-none focus:border-[#FD7519]">
+              <p id="err-lugarNacimiento" class="text-red-500 text-[11px] mt-1 hidden"></p>
+            </div>
+            <div>
+              <label class="block text-gray-700 font-medium mb-1 text-xs">País de Nacimiento *</label>
+              <input type="text" id="paisNacimiento" placeholder="Ej. Colombia" class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-xs text-[#232429] focus:outline-none focus:border-[#FD7519]">
+              <p id="err-paisNacimiento" class="text-red-500 text-[11px] mt-1 hidden"></p>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div>
+              <label class="block text-gray-700 font-medium mb-1 text-xs">NIT</label>
+              <input type="text" id="nit" placeholder="900123456-1" class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-xs text-[#232429] focus:outline-none focus:border-[#FD7519]">
+              <p id="err-nit" class="text-red-500 text-[11px] mt-1 hidden"></p>
             </div>
             <div>
               <label class="block text-gray-700 font-medium mb-1 text-xs">Celular *</label>
@@ -128,7 +154,7 @@
               <p id="err-celular" class="text-red-500 text-[11px] mt-1 hidden"></p>
             </div>
             <div>
-              <label class="block text-gray-700 font-medium mb-1 text-xs">Dirección *</label>
+              <label class="block text-gray-700 font-medium mb-1 text-xs">Dirección de Residencia *</label>
               <input type="text" id="direccion" placeholder="Calle 100 # 15" class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-xs text-[#232429] focus:outline-none focus:border-[#FD7519]">
               <p id="err-direccion" class="text-red-500 text-[11px] mt-1 hidden"></p>
             </div>
@@ -144,8 +170,8 @@
         <!-- Vista Resumen (Cuando ya se validó con éxito) -->
         <div id="resumen-titular" class="hidden grid grid-cols-1 md:grid-cols-3 gap-4 text-xs bg-white border border-gray-200 rounded-xl p-4">
           <div>
-            <span class="text-gray-400 block mb-0.5">Calidad / Perfil</span>
-            <span id="res-perfil" class="font-semibold text-gray-800">Proveedor - Nacional - Persona Jurídica</span>
+            <span class="text-gray-400 block mb-0.5">Perfil / Calidad</span>
+            <span id="res-perfil" class="font-semibold text-gray-800">-</span>
           </div>
           <div>
             <span class="text-gray-400 block mb-0.5">Nombre / Razón Social</span>
@@ -165,7 +191,7 @@
             <span class="w-6 h-6 rounded-full bg-[#012820] text-white flex items-center justify-center text-xs">2</span>
             Documentos requeridos
           </h2>
-          <span class="text-xs text-gray-500">Según la información proporcionada, debes adjuntar los siguientes documentos:</span>
+          <span class="text-xs text-gray-500">Según la información proporcionada, debes adjuntar los siguientes documentos[cite: 5]:</span>
         </div>
 
         <!-- Contenedor dinámico de tarjetas de documentos -->
@@ -197,7 +223,6 @@
   </div>
 
   <script>
-    // Catálogo de documentos con sus descripciones institucionales exactas
     const catalogoDocs = {
       'prov_creacion': { titulo: 'Formato único de creación de proveedores', desc: 'Diligenciado y firmado en formato PDF.', obligatorio: true },
       'prov_rut': { titulo: 'Registro Único Tributario - RUT', desc: 'Documento oficial actualizado en formato PDF.', obligatorio: true },
@@ -223,7 +248,7 @@
     const $ = (id) => document.getElementById(id);
 
     function limpiarErroresCampos() {
-      const campos = ['correoInstitucional', 'nombre', 'cedula', 'celular', 'direccion'];
+      const campos = ['correoInstitucional', 'nombre', 'cedula', 'fechaExpedicionCedula', 'lugarNacimiento', 'paisNacimiento', 'nit', 'celular', 'direccion'];
       campos.forEach(id => {
         const input = $(id);
         const err = $('err-' + id);
@@ -242,6 +267,10 @@
       const correo = $('correoInstitucional').value.trim();
       const nombre = $('nombre').value.trim();
       const cedula = $('cedula').value.trim();
+      const fechaExp = $('fechaExpedicionCedula').value.trim();
+      const lugarNac = $('lugarNacimiento').value.trim();
+      const paisNac = $('paisNacimiento').value.trim();
+      const nit = $('nit').value.trim();
       const celular = $('celular').value.trim();
       const direccion = $('direccion').value.trim();
 
@@ -255,6 +284,22 @@
       }
       if (!/^\d{6,}$/.test(cedula)) {
         mostrarErrorCampo('cedula', 'Debe ser numérica y tener mínimo 6 dígitos.');
+        hayErrores = true;
+      }
+      if (!fechaExp) {
+        mostrarErrorCampo('fechaExpedicionCedula', 'Selecciona la fecha de expedición.');
+        hayErrores = true;
+      }
+      if (!lugarNac) {
+        mostrarErrorCampo('lugarNacimiento', 'Este campo es obligatorio.');
+        hayErrores = true;
+      }
+      if (!paisNac) {
+        mostrarErrorCampo('paisNacimiento', 'Este campo es obligatorio.');
+        hayErrores = true;
+      }
+      if (nit && !/^[\d\-]+$/.test(nit)) {
+        mostrarErrorCampo('nit', 'Formato de NIT inválido.');
         hayErrores = true;
       }
       if (!/^\d{8,}$/.test(celular)) {
@@ -342,7 +387,6 @@
             return;
           }
 
-          // Simulación de estado cargado con éxito (Paso 3 y 4 de la referencia)
           estadoDocumentos[docKey] = { status: 'valid' };
           const tamanoMB = (file.size / (1024*1024)).toFixed(1) + ' MB';
           
@@ -369,25 +413,21 @@
         </label>
         <input type="file" id="file-${docKey}" accept=".pdf" data-doc="${docKey}" class="hidden">
       `;
-      // Reasignar evento change
-      $('file-' + docKey)?.addEventListener('change', arguments.callee); // o recrear evento
+      $('file-' + docKey)?.addEventListener('change', arguments.callee);
     };
 
-    // Evento botón Validar Información (Paso 1 a Paso 2)
     $('btn-ejecutar')?.addEventListener('click', () => {
       const hayErrores = validarFormularioTitular();
       if (hayErrores) return;
 
-      // Ocultar formulario de edición y mostrar resumen estilo tarjeta (Paso 2)
       $('form-titular').classList.add('hidden');
       $('resumen-titular').classList.remove('hidden');
       $('btn-editar').classList.remove('hidden');
       $('alerta-exito-validacion').classList.remove('hidden');
       $('seccion-documentos').classList.remove('hidden');
       $('seccion-navegacion').classList.remove('hidden');
-      $('subtitulo-estado').innerText = 'Se validan los datos y, si son correctos, se muestra la carga de documentos requeridos.';
+      $('subtitulo-estado').innerText = 'Se validan los datos y, si son correctos, se muestra la carga de documentos requeridos[cite: 5].';
 
-      // Poblar resumen
       const c = $('calidad').options[$('calidad').selectedIndex].text;
       const n = $('nacionalidad').options[$('nacionalidad').selectedIndex].text;
       const p = $('tipoPersona').options[$('tipoPersona').selectedIndex].text;
@@ -399,21 +439,18 @@
       renderizarPanelDocumentos();
     });
 
-    // Evento Botón Editar (Paso 5: Cambio de datos)
     $('btn-editar')?.addEventListener('click', () => {
       $('form-titular').classList.remove('hidden');
       $('resumen-titular').classList.add('hidden');
       $('btn-editar').classList.add('hidden');
       $('alerta-exito-validacion').classList.add('hidden');
-      $('alerta-cambio').classList.remove('hidden'); // Muestra la alerta amarilla del paso 5
+      $('alerta-cambio').classList.remove('hidden');
     });
 
-    // Botón Volver
     $('btn-volver')?.addEventListener('click', () => {
       location.reload();
     });
 
-    // Botón Continuar Final
     $('btn-continuar')?.addEventListener('click', () => {
       const todosValidos = documentosActuales.every(d => estadoDocumentos[d] && estadoDocumentos[d].status === 'valid');
       if (!todosValidos) {
