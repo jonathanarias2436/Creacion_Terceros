@@ -49,8 +49,8 @@
         <i class="fa-solid fa-list-check"></i> Paso 1: Instrucciones para el cargue de documentos
       </h2>
       <ol class="list-decimal list-inside text-xs text-gray-700 space-y-1.5 leading-relaxed">
-        <li><strong>Diligencia los datos del titular:</strong> Completa todos los campos obligatorios del formulario de la izquierda.</li>
-        <li><strong>Ejecuta el filtro:</strong> Haz clic en el botón <strong>"Ejecutar"</strong> para desplegar los documentos obligatorios requeridos según tu perfil[cite: 1].</li>
+        <li><strong>Diligencia los datos del titular:</strong> Completa obligatoriamente todos los campos del formulario de la izquierda. Si dejas alguno vacío, el sistema te indicará que falta información.</li>
+        <li><strong>Ejecuta el filtro:</strong> Haz clic en el botón <strong>"Ejecutar y Mostrar Requisitos"</strong> para desplegar los documentos obligatorios requeridos según tu perfil[cite: 1].</li>
         <li><strong>Descarga y diligencia:</strong> Obtén el formato requerido, complétalo y fírmalo[cite: 2].</li>
         <li><strong>Adjunta en PDF:</strong> Sube cada soporte en formato <strong>PDF</strong>.</li>
         <li><strong>Valida:</strong> Presiona <strong>"Validar Documentos"</strong> para procesar la información.</li>
@@ -163,22 +163,25 @@
         </form>
       </section>
 
-      <!-- PANEL DERECHO: Documentos y Validación -->
+      <!-- PANEL DERECHO: Documentos y Validación (Inicialmente oculto) -->
       <section class="lg:col-span-7 bg-gray-50 border border-gray-200 rounded-xl p-5 space-y-4">
         <h2 class="text-lg font-semibold brand-orange flex items-center justify-between border-b border-gray-200 pb-2">
           <span><i class="fa-solid fa-file-shield me-2"></i> Documentos Solicitados</span>
           <span class="text-xs bg-orange-50 brand-orange border border-[#FD7519]/30 px-2 py-0.5 rounded-full">Obligatorio en PDF</span>
         </h2>
 
+        <!-- Contenedor dinámico (estado inicial vacío/oculto) -->
         <div id="contenedor-documentos" class="space-y-4">
-          <div class="text-center py-8 text-gray-400 text-sm">
-            <i class="fa-solid fa-hand-pointer text-2xl mb-2"></i>
-            <p>Diligencia los datos y haz clic en <strong>"Ejecutar"</strong> para desplegar los documentos requeridos.</p>
+          <div class="text-center py-12 text-gray-400 text-sm">
+            <i class="fa-solid fa-hand-pointer text-3xl mb-3 text-gray-300"></i>
+            <p>Diligencia todos los campos del formulario izquierdo y haz clic en <strong>"Ejecutar y Mostrar Requisitos"</strong> para desplegar los documentos requeridos.</p>
           </div>
         </div>
 
+        <!-- Resultado de validación / error -->
         <div id="resultado-envio" class="hidden rounded-lg p-4 text-sm"></div>
 
+        <!-- Botón de validación final (inicialmente oculto) -->
         <div id="seccion-validar" class="pt-2 hidden">
           <button id="btn-validar" class="w-full bg-brand-orange hover:bg-[#e4660f] text-white font-medium py-2.5 rounded-lg transition-colors flex items-center justify-center gap-2">
             <i class="fa-solid fa-cloud-arrow-up"></i> Validar Documentos
@@ -316,16 +319,35 @@
       }
     }
 
+    // Botón Ejecutar con validación estricta en color rojo si hay campos vacíos
     $('btn-ejecutar')?.addEventListener('click', () => {
+      const resultado = $('resultado-envio');
+
+      const camposVacios = obtenerCamposVacios();
+      if (camposVacios.length > 0) {
+        resultado.className = 'rounded-lg p-4 text-sm bg-red-50 border border-red-200 text-red-700';
+        resultado.innerHTML = `<i class="fa-solid fa-triangle-exclamation me-1"></i> <strong>Falta dato.</strong> Debes completar todos los campos obligatorios del titular antes de ejecutar.<br><span class="text-xs">Campos pendientes: ${camposVacios.join(', ')}.</span>`;
+        resultado.classList.remove('hidden');
+        
+        // Ocultar documentos y botón validar si intenta ejecutar vacío
+        $('contenedor-documentos').innerHTML = `
+          <div class="text-center py-12 text-gray-400 text-sm">
+            <i class="fa-solid fa-hand-pointer text-3xl mb-3 text-gray-300"></i>
+            <p>Diligencia todos los campos del formulario izquierdo y haz clic en <strong>"Ejecutar y Mostrar Requisitos"</strong> para desplegar los documentos requeridos.</p>
+          </div>
+        `;
+        $('seccion-validar').classList.add('hidden');
+        return;
+      }
+
+      resultado.classList.add('hidden');
+
       const calidad = $('caldiad').value;
       const nacionalidad = $('nacionalidad').value;
       const tipoPersona = $('tipoPersona').value;
 
       documentosActuales = obtenerRequisitosRequeridos(calidad, nacionalidad, tipoPersona);
       renderizarPanelDocumentos();
-
-      const resultado = $('resultado-envio');
-      resultado.classList.add('hidden');
     });
 
     $('btn-validar')?.addEventListener('click', () => {
@@ -334,7 +356,7 @@
       const camposVacios = obtenerCamposVacios();
       if (camposVacios.length > 0) {
         resultado.className = 'rounded-lg p-4 text-sm bg-red-50 border border-red-200 text-red-700';
-        resultado.innerHTML = `<i class="fa-solid fa-triangle-exclamation me-1"></i> <strong>Debes completar todos los datos del titular antes de validar.</strong><br><span class="text-xs">Faltan los siguientes campos: ${camposVacios.join(', ')}.</span>`;
+        resultado.innerHTML = `<i class="fa-solid fa-triangle-exclamation me-1"></i> <strong>Falta dato.</strong> Debes completar todos los datos del titular antes de validar.<br><span class="text-xs">Campos pendientes: ${camposVacios.join(', ')}.</span>`;
         resultado.classList.remove('hidden');
         return;
       }
