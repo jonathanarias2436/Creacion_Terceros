@@ -36,7 +36,7 @@
 
   <div class="max-w-4xl mx-auto px-4 md:px-6 mt-8 space-y-6">
 
-    <!-- Título principal -->
+    <!-- TÍTULO PRINCIPAL -->
     <div>
       <h1 class="text-2xl font-bold text-[#232429] flex items-center gap-2">
         <i class="fa-solid fa-shield-halved brand-orange"></i>
@@ -46,15 +46,20 @@
       <hr class="border-gray-200 mt-4">
     </div>
 
-    <!-- Alerta de cambio de datos -->
+    
+    
+    <!-- ALERTA DE CAMBIO DE DATOS -->
+    
+    <!-- 
     <div id="alerta-cambio" class="hidden bg-amber-50 border border-amber-300 text-amber-800 text-xs rounded-xl p-4 flex items-start gap-3">
       <i class="fa-solid fa-triangle-exclamation text-amber-600 mt-0.5 text-base"></i>
       <div>
         <strong>Al cambiar el tipo de persona o nacionalidad, se actualizarán los documentos requeridos.</strong> Revisa la nueva lista antes de continuar.
       </div>
-    </div>
+    </div> 
+    -->
 
-    <!-- Alerta de éxito -->
+    <!-- ALERTA DE ÉXITO -->
     <div id="alerta-exito" class="hidden bg-emerald-50 border border-emerald-300 text-emerald-800 text-xs rounded-xl p-4 flex items-center gap-3 shadow-sm">
       <i class="fa-solid fa-circle-check text-emerald-600 text-lg"></i>
       <div>
@@ -62,7 +67,7 @@
       </div>
     </div>
 
-    <!-- ETAPA 1: Información del solicitante -->
+    <!-- ETAPA 1: INFORMACIÓN DEL SOLICITANTE -->
     <div class="bg-white border border-gray-200 rounded-2xl p-6 md:p-8 space-y-6 shadow-sm">
       <div class="flex items-center justify-between border-b border-gray-100 pb-4">
         <div class="flex items-center gap-3">
@@ -77,21 +82,21 @@
       <form id="form-titular" class="space-y-4 text-sm" onsubmit="return false;">
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div>
-            <label class="block text-gray-700 font-medium mb-1.5 text-xs">Calidad *</label>
+            <label class="block text-gray-700 font-medium mb-1.5 text-xs">Calidad </label>
             <select id="calidad" class="w-full bg-white border border-gray-300 rounded-xl px-3 py-2.5 text-xs text-[#232429] focus:outline-none focus:border-[#FD7519]">
               <option value="1">Cliente</option>
               <option value="2">Proveedores</option>
             </select>
           </div>
           <div>
-            <label class="block text-gray-700 font-medium mb-1.5 text-xs">Nacionalidad *</label>
+            <label class="block text-gray-700 font-medium mb-1.5 text-xs">Nacionalidad </label>
             <select id="nacionalidad" class="w-full bg-white border border-gray-300 rounded-xl px-3 py-2.5 text-xs text-[#232429] focus:outline-none focus:border-[#FD7519]">
-              <option value="2">Nacional</option>
-              <option value="1">Extranjero</option>
+              <option value="1">Nacional</option>
+              <option value="2">Extranjero</option>
             </select>
           </div>
           <div>
-            <label class="block text-gray-700 font-medium mb-1.5 text-xs">Persona *</label>
+            <label class="block text-gray-700 font-medium mb-1.5 text-xs">Persona </label>
             <select id="tipoPersona" class="w-full bg-white border border-gray-300 rounded-xl px-3 py-2.5 text-xs text-[#232429] focus:outline-none focus:border-[#FD7519]">
               <option value="1">Natural</option>
               <option value="2">Jurídica</option>
@@ -101,12 +106,12 @@
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
-            <label class="block text-gray-700 font-medium mb-1.5 text-xs">Correo del solicitante *</label>
+            <label class="block text-gray-700 font-medium mb-1.5 text-xs">Correo del solicitante </label>
             <input type="email" id="correoInstitucional" placeholder="correo@ejemplo.com" class="w-full bg-white border border-gray-300 rounded-xl px-3 py-2.5 text-xs text-[#232429] focus:outline-none focus:border-[#FD7519]">
             <p id="err-correoInstitucional" class="text-red-500 text-[11px] mt-1 hidden"></p>
           </div>
           <div>
-            <label class="block text-gray-700 font-medium mb-1.5 text-xs">Nombre Completo / Razón Social *</label>
+            <label class="block text-gray-700 font-medium mb-1.5 text-xs">Nombre Completo / Razón Social </label>
             <input type="text" id="nombre" placeholder="Ej. Ana Gómez / Empresa SAS" class="w-full bg-white border border-gray-300 rounded-xl px-3 py-2.5 text-xs text-[#232429] focus:outline-none focus:border-[#FD7519]">
             <p id="err-nombre" class="text-red-500 text-[11px] mt-1 hidden"></p>
           </div>
@@ -114,12 +119,12 @@
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
-            <label class="block text-gray-700 font-medium mb-1.5 text-xs">Cédula *</label>
+            <label class="block text-gray-700 font-medium mb-1.5 text-xs">Cédula </label>
             <input type="text" id="cedula" placeholder="Mínimo 6 dígitos" class="w-full bg-white border border-gray-300 rounded-xl px-3 py-2.5 text-xs text-[#232429] focus:outline-none focus:border-[#FD7519]">
             <p id="err-cedula" class="text-red-500 text-[11px] mt-1 hidden"></p>
           </div>
           <div>
-            <label class="block text-gray-700 font-medium mb-1.5 text-xs">Expedición cédula *</label>
+            <label class="block text-gray-700 font-medium mb-1.5 text-xs">Expedición cédula </label>
             <input type="date" id="fechaExpedicionCedula" class="w-full bg-white border border-gray-300 rounded-xl px-3 py-2.5 text-xs text-[#232429] focus:outline-none focus:border-[#FD7519]">
             <p id="err-fechaExpedicionCedula" class="text-red-500 text-[11px] mt-1 hidden"></p>
           </div>
@@ -127,12 +132,12 @@
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
-            <label class="block text-gray-700 font-medium mb-1.5 text-xs">Lugar de Nacimiento *</label>
+            <label class="block text-gray-700 font-medium mb-1.5 text-xs">Lugar de Nacimiento </label>
             <input type="text" id="lugarNacimiento" placeholder="Ej. Bogotá" class="w-full bg-white border border-gray-300 rounded-xl px-3 py-2.5 text-xs text-[#232429] focus:outline-none focus:border-[#FD7519]">
             <p id="err-lugarNacimiento" class="text-red-500 text-[11px] mt-1 hidden"></p>
           </div>
           <div>
-            <label class="block text-gray-700 font-medium mb-1.5 text-xs">País de Nacimiento *</label>
+            <label class="block text-gray-700 font-medium mb-1.5 text-xs">País de Nacimiento </label>
             <input type="text" id="paisNacimiento" placeholder="Ej. Colombia" class="w-full bg-white border border-gray-300 rounded-xl px-3 py-2.5 text-xs text-[#232429] focus:outline-none focus:border-[#FD7519]">
             <p id="err-paisNacimiento" class="text-red-500 text-[11px] mt-1 hidden"></p>
           </div>
@@ -145,12 +150,12 @@
             <p id="err-nit" class="text-red-500 text-[11px] mt-1 hidden"></p>
           </div>
           <div>
-            <label class="block text-gray-700 font-medium mb-1.5 text-xs">Celular *</label>
+            <label class="block text-gray-700 font-medium mb-1.5 text-xs">Celular </label>
             <input type="text" id="celular" placeholder="Mínimo 8 dígitos" class="w-full bg-white border border-gray-300 rounded-xl px-3 py-2.5 text-xs text-[#232429] focus:outline-none focus:border-[#FD7519]">
             <p id="err-celular" class="text-red-500 text-[11px] mt-1 hidden"></p>
           </div>
           <div>
-            <label class="block text-gray-700 font-medium mb-1.5 text-xs">Dirección de Residencia *</label>
+            <label class="block text-gray-700 font-medium mb-1.5 text-xs">Dirección de Residencia </label>
             <input type="text" id="direccion" placeholder="Calle 100 # 15" class="w-full bg-white border border-gray-300 rounded-xl px-3 py-2.5 text-xs text-[#232429] focus:outline-none focus:border-[#FD7519]">
             <p id="err-direccion" class="text-red-500 text-[11px] mt-1 hidden"></p>
           </div>
@@ -163,7 +168,7 @@
         </div>
       </form>
 
-      <!-- Vista Resumen -->
+      <!-- VISTA DE RESUMEN -->
       <div id="resumen-titular" class="hidden grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs bg-gray-50 border border-gray-200 rounded-xl p-4">
         <div>
           <span class="text-gray-400 block mb-0.5">Perfil</span>
@@ -180,29 +185,29 @@
       </div>
     </div>
 
-    <!-- ETAPA 2: Documentos requeridos -->
+    <!-- ETAPA 2: DOCUMENTO REQUERIDOS -->
     <div id="seccion-documentos" class="bg-white border border-gray-200 rounded-2xl p-6 md:p-8 space-y-4 hidden shadow-sm">
       <div class="flex items-center justify-between border-b border-gray-100 pb-4">
         <div class="flex items-center gap-3">
           <div class="w-7 h-7 rounded-full bg-[#012820] text-white flex items-center justify-center text-xs font-bold">2</div>
           <h2 class="text-base font-bold text-[#232429]">Documentos requeridos</h2>
         </div>
-        <span class="text-xs text-gray-500 hidden sm:inline">Según tu perfil, adjunta los soportes en PDF:</span>
+        <span class="text-xs text-gray-500 hidden sm:inline">Según tu perfil, adjunta los soportes en PDF/A:</span>
       </div>
 
       <div id="contenedor-documentos" class="space-y-3"></div>
 
       <div class="pt-4 border-t border-gray-100 flex flex-wrap gap-3">
         <a id="btn-descargar-xlsx" href="Formato único de creación de proveedores, compras bienes y servicios V.07.xlsx" download="Formato único de creación de proveedores, compras bienes y servicios V.07.xlsx" class="inline-flex items-center gap-1.5 text-xs bg-white border border-[#FD7519] text-[#FD7519] px-3.5 py-2.5 rounded-xl font-medium hover:bg-orange-50 transition-colors shadow-xs cursor-pointer">
-          <i class="fa-solid fa-file-excel"></i> Descargar Formato Proveedores (.xlsx)
+          <i class="fa-solid fa-file-excel"></i> Descargar Formato Proveedores.xlsx
         </a>
         <a id="btn-descargar-docx" href="Formato solicitud emisión factura creación  cliente.docx" download="Formato solicitud emisión factura creación  cliente.docx" class="inline-flex items-center gap-1.5 text-xs bg-white border border-[#FD7519] text-[#FD7519] px-3.5 py-2.5 rounded-xl font-medium hover:bg-orange-50 transition-colors shadow-xs cursor-pointer">
-          <i class="fa-solid fa-file-word"></i> Descargar Solicitud de Factura (.docx)
+          <i class="fa-solid fa-file-word"></i> Descargar Solicitud de Factura.docx
         </a>
       </div>
     </div>
 
-    <!-- Navegación final -->
+    <!-- NAVEGACIÓN FINAL -->
     <div id="seccion-navegacion" class="hidden flex items-center justify-between pt-2">
       <button id="btn-volver" class="px-5 py-2.5 bg-white border border-gray-300 text-gray-700 text-xs font-semibold rounded-xl hover:bg-gray-100 transition-colors shadow-xs cursor-pointer">
         Volver
