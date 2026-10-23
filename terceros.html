@@ -18,6 +18,8 @@
     .border-brand-orange { border-color: #FD7519; }
     .btn-green-inst { background-color: #012820; color: #ffffff; }
     .btn-green-inst:hover { background-color: #02382d; }
+    /* Color verde institucional para efectos de interacción con el cursor */
+    .nav-link-hover:hover { color: #012820; }
   </style>
 </head>
 <body class="bg-white text-[#232429] min-h-screen pb-16">
@@ -26,10 +28,10 @@
   <header class="border-b border-gray-200 bg-white sticky top-0 z-50">
     <div class="max-w-4xl mx-auto px-4 md:px-6 py-3 flex items-center justify-between">
       <div class="flex items-center gap-3">
-        <!-- Imagen ajustada con las clases y dimensiones analizadas -->
         <img src="./assets/logo.svg" alt="Universidad El Bosque" class="coh-image coh-ce-cpt_unbo_site_header-ab4d05f5.coh-image-responsive-xl w-[179.97px] h-[62.52px] object-contain" style="width: 179.97px; height: 62.52px;" onerror="this.src='https://www.unbosque.edu.co/sites/default/files/logo-universidad-el-bosque.png'">
       </div>
-      <a href="index.html" class="text-xs text-gray-600 hover:text-[#FD7519] flex items-center gap-1.5 font-medium transition-colors">
+      <!-- Enlace con efecto hover al color verde institucional -->
+      <a href="index.html" class="text-xs text-gray-600 nav-link-hover flex items-center gap-1.5 font-medium transition-colors">
         <i class="fa-solid fa-arrow-left"></i> Volver al inicio
       </a>
     </div>
