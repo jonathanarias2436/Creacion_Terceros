@@ -234,7 +234,7 @@
         </a>
       </div>
 
-      <!-- Botón Validar documentos reubicado dentro de la tarjeta de la Etapa 2 -->
+      <!-- Botón Validar documentos dentro de la tarjeta de la Etapa 2 -->
       <div id="seccion-navegacion" class="hidden pt-4 border-t border-gray-100 flex items-center justify-between">
         <button id="btn-volver" class="px-5 py-2.5 bg-white border border-gray-300 text-gray-700 text-xs font-semibold rounded-xl hover:bg-gray-100 transition-colors shadow-xs cursor-pointer">
           Volver
@@ -479,16 +479,19 @@
               <div class="flex items-center gap-2 flex-wrap">
                 <i class="fa-solid fa-file-pdf brand-orange"></i>
                 <span class="font-semibold text-xs text-[#232429]">${info.titulo}</span>
+                <span class="text-[10px] bg-red-50 text-red-600 border border-red-200 px-2 py-0.5 rounded-full font-medium" id="badge-req-${docKey}">Obligatorio</span>
                 <span id="badge-estado-${docKey}" class="text-[10px] bg-red-50 text-red-600 border border-red-200 px-2 py-0.5 rounded-full font-medium">Pendiente</span>
               </div>
               <p class="text-[11px] text-gray-500">${info.desc}</p>
             </div>
-            <div class="flex items-center gap-2">
-              <label class="cursor-pointer bg-white border border-gray-300 hover:bg-gray-100 text-gray-700 text-xs font-semibold px-3 py-2 rounded-xl transition-colors shadow-xs flex items-center gap-1.5">
-                <i class="fa-solid fa-upload text-gray-500"></i> Adjuntar PDF
-                <input type="file" accept=".pdf" class="hidden" onchange="cargarDocumento('${docKey}', this)">
-              </label>
-              <span id="nombre-archivo-${docKey}" class="text-[11px] text-gray-500 max-w-[150px] truncate"></span>
+            <div class="flex items-center gap-2 flex-wrap">
+              <div id="contenedor-acciones-${docKey}" class="flex items-center gap-2">
+                <label id="label-adjuntar-${docKey}" class="cursor-pointer bg-white border border-gray-300 hover:bg-gray-100 text-gray-700 text-xs font-semibold px-3.5 py-2 rounded-xl transition-colors shadow-xs flex items-center gap-1.5">
+                  <i class="fa-solid fa-cloud-arrow-up text-[#FD7519]"></i> Seleccionar archivo
+                  <input type="file" accept=".pdf" class="hidden" onchange="cargarDocumento('${docKey}', this)">
+                </label>
+              </div>
+              <span id="nombre-archivo-${docKey}" class="text-[11px] text-gray-500 max-w-[150px] truncate hidden"></span>
             </div>
           </div>
         `;
@@ -498,15 +501,35 @@
     function cargarDocumento(docKey, input) {
       if (input.files && input.files[0]) {
         const file = input.files[0];
+        const fileURL = URL.createObjectURL(file);
+        
         estadoDocumentos[docKey] = {
           status: 'loaded',
-          fileUrl: URL.createObjectURL(file),
+          fileUrl: fileURL,
           fileName: file.name
         };
-        $('nombre-archivo-' + docKey).innerText = file.name;
-        const badge = $('badge-estado-' + docKey);
-        badge.className = 'text-[10px] bg-emerald-50 text-emerald-700 border border-emerald-200 px-2 py-0.5 rounded-full font-medium';
-        badge.innerText = 'Cargado';
+
+        // Cambiar diseño de la tarjeta a verde institucional
+        const tarjeta = $(`card-${docKey}`);
+        tarjeta.className = "bg-emerald-50/50 border border-emerald-300 rounded-xl p-4 flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-xs";
+
+        // Actualizar etiqueta de estado
+        const badge = $(`badge-estado-${docKey}`);
+        badge.className = 'text-[10px] bg-emerald-100 text-emerald-800 border border-emerald-300 px-2 py-0.5 rounded-full font-medium';
+        badge.innerHTML = '<i class="fa-solid fa-circle-check mr-1"></i> Cargado';
+
+        // Actualizar contenedor de acciones con el botón del OJO y el nombre del archivo
+        const contenedorAcciones = $(`contenedor-acciones-${docKey}`);
+        contenedorAcciones.innerHTML = `
+          <span class="text-[11px] text-emerald-800 font-medium max-w-[130px] truncate" title="${file.name}">${file.name}</span>
+          <a href="${fileURL}" target="_blank" class="w-8 h-8 bg-white border border-emerald-400 text-emerald-700 rounded-lg flex items-center justify-center hover:bg-emerald-100 transition-colors shadow-xs cursor-pointer" title="Visualizar documento">
+            <i class="fa-solid fa-eye text-xs"></i>
+          </a>
+          <label class="cursor-pointer w-8 h-8 bg-white border border-gray-300 hover:bg-gray-100 text-gray-700 rounded-lg flex items-center justify-center transition-colors shadow-xs" title="Cambiar archivo">
+            <i class="fa-solid fa-rotate text-xs"></i>
+            <input type="file" accept=".pdf" class="hidden" onchange="cargarDocumento('${docKey}', this)">
+          </label>
+        `;
       }
     }
 
