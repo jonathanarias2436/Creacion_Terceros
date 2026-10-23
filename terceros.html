@@ -81,21 +81,21 @@
       <form id="form-titular" class="space-y-4 text-sm" onsubmit="return false;">
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div>
-            <label class="block text-gray-700 font-medium mb-1.5 text-xs">Calidad *</label>
+            <label class="block text-gray-700 font-medium mb-1.5 text-xs">Calidad <span class="text-red-500">*</span></label>
             <select id="calidad" class="w-full bg-white border border-gray-300 rounded-xl px-3 py-2.5 text-xs text-[#232429] focus:outline-none focus:border-[#FD7519]">
               <option value="1">Cliente</option>
               <option value="2">Proveedores</option>
             </select>
           </div>
           <div>
-            <label class="block text-gray-700 font-medium mb-1.5 text-xs">Nacionalidad *</label>
+            <label class="block text-gray-700 font-medium mb-1.5 text-xs">Nacionalidad <span class="text-red-500">*</span></label>
             <select id="nacionalidad" class="w-full bg-white border border-gray-300 rounded-xl px-3 py-2.5 text-xs text-[#232429] focus:outline-none focus:border-[#FD7519]">
               <option value="2">Nacional</option>
               <option value="1">Extranjero</option>
             </select>
           </div>
           <div>
-            <label class="block text-gray-700 font-medium mb-1.5 text-xs">Persona *</label>
+            <label class="block text-gray-700 font-medium mb-1.5 text-xs">Persona <span class="text-red-500">*</span></label>
             <select id="tipoPersona" class="w-full bg-white border border-gray-300 rounded-xl px-3 py-2.5 text-xs text-[#232429] focus:outline-none focus:border-[#FD7519]">
               <option value="1">Natural</option>
               <option value="2">Jurídica</option>
@@ -105,12 +105,12 @@
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
-            <label class="block text-gray-700 font-medium mb-1.5 text-xs">Correo del solicitante *</label>
+            <label class="block text-gray-700 font-medium mb-1.5 text-xs">Correo del solicitante <span class="text-red-500">*</span></label>
             <input type="email" id="correoInstitucional" placeholder="correo@ejemplo.com" class="w-full bg-white border border-gray-300 rounded-xl px-3 py-2.5 text-xs text-[#232429] focus:outline-none focus:border-[#FD7519]">
             <p id="err-correoInstitucional" class="text-red-500 text-[11px] mt-1 hidden"></p>
           </div>
           <div>
-            <label class="block text-gray-700 font-medium mb-1.5 text-xs">Nombre Completo / Razón Social *</label>
+            <label class="block text-gray-700 font-medium mb-1.5 text-xs">Nombre Completo / Razón Social <span class="text-red-500">*</span></label>
             <input type="text" id="nombre" placeholder="Ej. Ana Gómez / Empresa SAS" class="w-full bg-white border border-gray-300 rounded-xl px-3 py-2.5 text-xs text-[#232429] focus:outline-none focus:border-[#FD7519]">
             <p id="err-nombre" class="text-red-500 text-[11px] mt-1 hidden"></p>
           </div>
@@ -118,12 +118,12 @@
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
-            <label class="block text-gray-700 font-medium mb-1.5 text-xs">Cédula *</label>
+            <label class="block text-gray-700 font-medium mb-1.5 text-xs">Cédula <span class="text-red-500">*</span></label>
             <input type="text" id="cedula" placeholder="Mínimo 6 dígitos" class="w-full bg-white border border-gray-300 rounded-xl px-3 py-2.5 text-xs text-[#232429] focus:outline-none focus:border-[#FD7519]">
             <p id="err-cedula" class="text-red-500 text-[11px] mt-1 hidden"></p>
           </div>
           <div>
-            <label class="block text-gray-700 font-medium mb-1.5 text-xs">Expedición cédula *</label>
+            <label class="block text-gray-700 font-medium mb-1.5 text-xs">Expedición cédula <span class="text-red-500">*</span></label>
             <input type="date" id="fechaExpedicionCedula" class="w-full bg-white border border-gray-300 rounded-xl px-3 py-2.5 text-xs text-[#232429] focus:outline-none focus:border-[#FD7519]">
             <p id="err-fechaExpedicionCedula" class="text-red-500 text-[11px] mt-1 hidden"></p>
           </div>
@@ -131,12 +131,12 @@
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
-            <label class="block text-gray-700 font-medium mb-1.5 text-xs">Lugar de Nacimiento *</label>
+            <label class="block text-gray-700 font-medium mb-1.5 text-xs">Lugar de Nacimiento <span class="text-red-500">*</span></label>
             <input type="text" id="lugarNacimiento" placeholder="Ej. Bogotá" class="w-full bg-white border border-gray-300 rounded-xl px-3 py-2.5 text-xs text-[#232429] focus:outline-none focus:border-[#FD7519]">
             <p id="err-lugarNacimiento" class="text-red-500 text-[11px] mt-1 hidden"></p>
           </div>
           <div>
-            <label class="block text-gray-700 font-medium mb-1.5 text-xs">País de Nacimiento *</label>
+            <label class="block text-gray-700 font-medium mb-1.5 text-xs">País de Nacimiento <span class="text-red-500">*</span></label>
             <input type="text" id="paisNacimiento" placeholder="Ej. Colombia" class="w-full bg-white border border-gray-300 rounded-xl px-3 py-2.5 text-xs text-[#232429] focus:outline-none focus:border-[#FD7519]">
             <p id="err-paisNacimiento" class="text-red-500 text-[11px] mt-1 hidden"></p>
           </div>
@@ -149,12 +149,12 @@
             <p id="err-nit" class="text-red-500 text-[11px] mt-1 hidden"></p>
           </div>
           <div>
-            <label class="block text-gray-700 font-medium mb-1.5 text-xs">Celular *</label>
+            <label class="block text-gray-700 font-medium mb-1.5 text-xs">Celular <span class="text-red-500">*</span></label>
             <input type="text" id="celular" placeholder="Mínimo 8 dígitos" class="w-full bg-white border border-gray-300 rounded-xl px-3 py-2.5 text-xs text-[#232429] focus:outline-none focus:border-[#FD7519]">
             <p id="err-celular" class="text-red-500 text-[11px] mt-1 hidden"></p>
           </div>
           <div>
-            <label class="block text-gray-700 font-medium mb-1.5 text-xs">Dirección de Residencia *</label>
+            <label class="block text-gray-700 font-medium mb-1.5 text-xs">Dirección de Residencia <span class="text-red-500">*</span></label>
             <input type="text" id="direccion" placeholder="Calle 100 # 15" class="w-full bg-white border border-gray-300 rounded-xl px-3 py-2.5 text-xs text-[#232429] focus:outline-none focus:border-[#FD7519]">
             <p id="err-direccion" class="text-red-500 text-[11px] mt-1 hidden"></p>
           </div>
@@ -168,7 +168,7 @@
           <div class="flex items-center gap-2">
             <input type="checkbox" id="check-autorizacion" class="w-4 h-4 text-[#1EC038] rounded border-gray-300 focus:ring-[#1EC038] cursor-pointer">
             <label for="check-autorizacion" class="text-xs text-gray-700 cursor-pointer">
-              Autorizo a Universidad El Bosque para el envío de información *
+              Autorizo a Universidad El Bosque para el envío de información <span class="text-red-500">*</span>
             </label>
           </div>
           <p id="err-autorizacion" class="text-red-500 text-[11px] hidden"></p>
