@@ -4,33 +4,34 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Verificación de Documentos para Terceros - Universidad El Bosque</title>
+  <!-- Tailwind CSS & Font Awesome -->
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <!-- Tipografía estándar Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
   <style>
-    @font-face{font-family:"Neue Montreal";src:url("./assets/PPNeueMontreal-Regular.woff2") format("woff2"),url("./assets/PPNeueMontreal-Regular.woff") format("woff");font-weight:400;font-style:normal;font-display:swap;}
-    @font-face{font-family:"Neue Montreal";src:url("./assets/PPNeueMontreal-Medium.woff2") format("woff2"),url("./assets/PPNeueMontreal-Medium.woff") format("woff");font-weight:500;font-style:normal;font-display:swap;}
-    @font-face{font-family:"Neue Montreal";src:url("./assets/PPNeueMontreal-SemiBold.woff2") format("woff2"),url("./assets/PPNeueMontreal-SemiBold.woff") format("woff");font-weight:600;font-style:normal;font-display:swap;}
-    @font-face{font-family:"Neue Montreal";src:url("./assets/PPNeueMontreal-Bold.woff2") format("woff2"),url("./assets/PPNeueMontreal-Bold.woff") format("woff");font-weight:700;font-style:normal;font-display:swap;}
-    body { font-family: "Neue Montreal", Arial, sans-serif; }
+    body { font-family: 'Inter', system-ui, -apple-system, sans-serif; }
     .brand-orange { color: #FD7519; }
     .bg-brand-orange { background-color: #FD7519; }
     .bg-brand-orange:hover { background-color: #e4660f; }
-    .border-brand-orange { border-color: #FD7519; }
     
-    /* Botones ajustados con el verde brillante de la imagen */
+    /* Botones principales con verde brillante institucional */
     .btn-green-inst { background-color: #1EC038; color: #ffffff; }
     .btn-green-inst:hover { background-color: #19a22f; }
     
     .nav-link-hover:hover { color: #012820; }
   </style>
 </head>
-<body class="bg-white text-[#232429] min-h-screen pb-16">
+<body class="bg-white text-[#232429] min-h-screen pb-16 relative">
 
-  <!-- ENCABEZADO INSTITUCIONAL Y RETORNO -->
-  <header class="border-b border-gray-200 bg-white sticky top-0 z-50">
+  <!-- ENCABEZADO INSTITUCIONAL -->
+  <header class="border-b border-gray-200 bg-white sticky top-0 z-40">
     <div class="max-w-4xl mx-auto px-4 md:px-6 py-3 flex items-center justify-between">
       <div class="flex items-center gap-3">
-        <img src="./assets/logo.svg" alt="Universidad El Bosque" class="coh-image coh-ce-cpt_unbo_site_header-ab4d05f5.coh-image-responsive-xl w-[179.97px] h-[62.52px] object-contain" style="width: 179.97px; height: 62.52px;" onerror="this.src='https://www.unbosque.edu.co/sites/default/files/logo-universidad-el-bosque.png'">
+        <img src="./assets/logo.svg" alt="Universidad El Bosque" class="coh-image coh-ce-cpt_unbo_site_header-ab4d05f5 coh-image-responsive-xl w-[179.97px] h-[62.52px] object-contain" style="width: 179.97px; height: 62.52px;" onerror="this.src='https://www.unbosque.edu.co/sites/default/files/logo-universidad-el-bosque.png'">
       </div>
       <a href="index.html" class="text-xs text-gray-600 nav-link-hover flex items-center gap-1.5 font-medium transition-colors">
         <i class="fa-solid fa-arrow-left"></i> Volver al inicio
@@ -50,7 +51,7 @@
       <hr class="border-gray-200 mt-4">
     </div>
 
-    <!-- Alerta de cambio de datos -->
+    <!-- Alertas -->
     <div id="alerta-cambio" class="hidden bg-amber-50 border border-amber-300 text-amber-800 text-xs rounded-xl p-4 flex items-start gap-3">
       <i class="fa-solid fa-triangle-exclamation text-amber-600 mt-0.5 text-base"></i>
       <div>
@@ -58,7 +59,6 @@
       </div>
     </div>
 
-    <!-- Alerta de éxito -->
     <div id="alerta-exito" class="hidden bg-emerald-50 border border-emerald-300 text-emerald-800 text-xs rounded-xl p-4 flex items-center gap-3 shadow-sm">
       <i class="fa-solid fa-circle-check text-emerald-600 text-lg"></i>
       <div>
@@ -160,15 +160,28 @@
           </div>
         </div>
 
+        <!-- Términos y Condiciones -->
+        <div class="pt-4 border-t border-gray-100 space-y-2">
+          <button type="button" id="btn-abrir-tc" class="text-[#1EC038] hover:underline text-sm font-medium cursor-pointer block">
+            Leer términos y condiciones
+          </button>
+          <div class="flex items-center gap-2">
+            <input type="checkbox" id="check-autorizacion" class="w-4 h-4 text-[#1EC038] rounded border-gray-300 focus:ring-[#1EC038] cursor-pointer">
+            <label for="check-autorizacion" class="text-xs text-gray-700 cursor-pointer">
+              Autorizo a Universidad El Bosque para el envío de información *
+            </label>
+          </div>
+          <p id="err-autorizacion" class="text-red-500 text-[11px] hidden"></p>
+        </div>
+
         <div class="pt-3">
-          <!-- Botón con el nuevo color verde -->
           <button id="btn-ejecutar" class="w-full btn-green-inst font-semibold py-3.5 rounded-xl transition-colors flex items-center justify-center gap-2 shadow-sm text-sm cursor-pointer">
             <i class="fa-solid fa-check"></i> Validar información
           </button>
         </div>
       </form>
 
-      <!-- Vista Resumen -->
+      <!-- Resumen -->
       <div id="resumen-titular" class="hidden grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs bg-gray-50 border border-gray-200 rounded-xl p-4">
         <div>
           <span class="text-gray-400 block mb-0.5">Perfil</span>
@@ -212,12 +225,67 @@
       <button id="btn-volver" class="px-5 py-2.5 bg-white border border-gray-300 text-gray-700 text-xs font-semibold rounded-xl hover:bg-gray-100 transition-colors shadow-xs cursor-pointer">
         Volver
       </button>
-      <!-- Botón con el nuevo color verde -->
       <button id="btn-continuar" class="px-6 py-2.5 btn-green-inst text-xs font-semibold rounded-xl transition-colors shadow-sm cursor-pointer">
         Continuar
       </button>
     </div>
 
+  </div>
+
+  <!-- MODAL / DASHBOARD DE TÉRMINOS Y CONDICIONES -->
+  <div id="modal-tc" class="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4 hidden backdrop-blur-xs">
+    <div class="bg-white rounded-2xl max-w-3xl w-full max-h-[90vh] flex flex-col shadow-2xl overflow-hidden border border-gray-200">
+      
+      <div class="p-6 border-b border-gray-200 flex flex-col sm:flex-row items-start sm:items-center gap-4 bg-gray-50">
+        <img src="./assets/logo.svg" alt="Universidad El Bosque" class="h-12 w-auto object-contain" onerror="this.src='https://www.unbosque.edu.co/sites/default/files/logo-universidad-el-bosque.png'">
+        <div class="border-l-0 sm:border-l-2 border-gray-300 sm:pl-4">
+          <h2 class="text-base font-bold text-[#232429] leading-snug">
+            Política de tratamiento y privacidad de información de la Universidad El Bosque
+          </h2>
+        </div>
+      </div>
+
+      <div class="p-6 overflow-y-auto space-y-4 text-xs text-gray-700 leading-relaxed max-h-[60vh] bg-white">
+        <p>Bienvenido al documento de política de privacidad de la Universidad El Bosque (en adelante LA UNIVERSIDAD). LA UNIVERSIDAD es una institución de educación superior constituida bajo la figura de Fundación. Los diferentes medios digitales y físicos que la UNIVERSIDAD pone a su disposición, tienen como objetivo brindar a la comunidad académica y al público en general la información institucional y académica en relación con los servicios y actividades que desarrolla. La Universidad no tiene interés comercial o de lucro respecto de los enlaces y contenidos que se publican. Salvo que expresamente se indique lo contrario, el acceso a los sitios y portales web de la UNIVERSIDAD es gratuito y libre.</p>
+
+        <h3 class="font-bold text-gray-900 text-sm">1. Aceptación y actualización de la política de privacidad</h3>
+        <p>Al aceptar los términos de esta POLÍTICA DE PRIVACIDAD, Usted expresamente autoriza la recolección, almacenamiento, utilización, divulgación, transferencia, procesamiento y supresión de datos o información personal tal como se estipula en esta política de privacidad.</p>
+
+        <h3 class="font-bold text-gray-900 text-sm">2. Recolección, uso y acceso a la información</h3>
+        <p><strong>2.1.</strong> La UNIVERSIDAD de conformidad con lo dispuesto en la ley 1581 de 2012 sobre la Protección de Datos Personales, le informamos que sus datos personales serán incluidos en una base de datos responsabilidad de UNIVERSIDAD EL BOSQUE.</p>
+        <ul class="list-disc pl-5 space-y-1">
+          <li>a. Cumplir con la normatividad vigente en Colombia para las Instituciones de educación superior.</li>
+          <li>b. Mantener una comunicación eficaz relacionada con nuestros servicios.</li>
+          <li>c. Realizar el envío de información relacionada con programas, actividades, eventos, noticias y servicios.</li>
+          <li>d. Informar sobre nuevos productos o servicios y/o sobre cambios en los mismos.</li>
+          <li>e. Dar cumplimiento a obligaciones contraídas con la comunidad universitaria y terceros.</li>
+          <li>f. Desarrollar procesos de selección y vinculación laboral.</li>
+          <li>g. Llevar un registro de seguridad de las personas que ingresan a las instalaciones.</li>
+          <li>h. Aplicar encuestas e investigaciones estadísticas o de evaluación.</li>
+        </ul>
+
+        <h3 class="font-bold text-gray-900 text-sm">3. Derechos del Titular de la información</h3>
+        <p>Conocer, actualizar, rectificar y solicitar la supresión de sus datos personales conforme a la ley vigente enviando su solicitud formal.</p>
+
+        <h3 class="font-bold text-gray-900 text-sm">4. Deberes y facultades de LA UNIVERSIDAD</h3>
+        <p>Conservar la información bajo medidas de seguridad oportunas y tramitar solicitudes conforme a la normativa.</p>
+
+        <div class="bg-gray-100 p-3 rounded-xl border border-gray-200 mt-4 space-y-1 text-[11px]">
+          <p><strong>Fecha de actualización:</strong> Octubre de 2017.</p>
+          <p><strong>Contacto:</strong> atencionalusuario@unbosque.edu.co | habeasdata@unbosque.edu.co</p>
+        </div>
+      </div>
+
+      <div class="p-4 border-t border-gray-200 bg-gray-50 flex items-center justify-end gap-3">
+        <button type="button" id="btn-rechazar-tc" class="px-5 py-2.5 bg-white border border-gray-300 text-gray-700 text-xs font-semibold rounded-xl hover:bg-gray-100 transition-colors shadow-xs cursor-pointer">
+          Rechazar
+        </button>
+        <button type="button" id="btn-aceptar-tc" class="px-6 py-2.5 btn-green-inst text-xs font-semibold rounded-xl transition-colors shadow-sm cursor-pointer">
+          Aceptar Términos y Condiciones
+        </button>
+      </div>
+
+    </div>
   </div>
 
   <script>
@@ -245,17 +313,27 @@
 
     const $ = (id) => document.getElementById(id);
 
+    // Eventos Términos y Condiciones
+    $('btn-abrir-tc')?.addEventListener('click', () => $('modal-tc').classList.remove('hidden'));
+    $('btn-aceptar-tc')?.addEventListener('click', () => {
+      $('check-autorizacion').checked = true;
+      $('err-autorizacion').classList.add('hidden');
+      $('modal-tc').classList.add('hidden');
+    });
+    $('btn-rechazar-tc')?.addEventListener('click', () => {
+      $('check-autorizacion').checked = false;
+      $('modal-tc').classList.add('hidden');
+    });
+
     function limpiarErroresCampos() {
       const campos = ['correoInstitucional', 'nombre', 'cedula', 'fechaExpedicionCedula', 'lugarNacimiento', 'paisNacimiento', 'nit', 'celular', 'direccion'];
       campos.forEach(id => {
         const input = $(id);
         const err = $('err-' + id);
         if (input) input.classList.remove('border-red-500');
-        if (err) {
-          err.innerText = '';
-          err.classList.add('hidden');
-        }
+        if (err) { err.innerText = ''; err.classList.add('hidden'); }
       });
+      $('err-autorizacion').classList.add('hidden');
     }
 
     function validarFormularioTitular() {
@@ -271,41 +349,22 @@
       const nit = $('nit').value.trim();
       const celular = $('celular').value.trim();
       const direccion = $('direccion').value.trim();
+      const autorizacion = $('check-autorizacion').checked;
 
-      if (!correo || !correo.includes('@')) {
-        mostrarErrorCampo('correoInstitucional', 'Ingresa un correo electrónico válido.');
-        hayErrores = true;
-      }
-      if (!nombre) {
-        mostrarErrorCampo('nombre', 'Este campo es obligatorio.');
-        hayErrores = true;
-      }
-      if (!/^\d{6,}$/.test(cedula)) {
-        mostrarErrorCampo('cedula', 'Debe ser numérica y tener mínimo 6 dígitos.');
-        hayErrores = true;
-      }
-      if (!fechaExp) {
-        mostrarErrorCampo('fechaExpedicionCedula', 'Selecciona la fecha de expedición.');
-        hayErrores = true;
-      }
-      if (!lugarNac || !/^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/.test(lugarNac)) {
-        mostrarErrorCampo('lugarNacimiento', 'Solo se permite texto y caracteres válidos.');
-        hayErrores = true;
-      }
-      if (!paisNac || !/^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/.test(paisNac)) {
-        mostrarErrorCampo('paisNacimiento', 'Solo se permite texto y caracteres válidos.');
-        hayErrores = true;
-      }
-      if (nit && !/^[\d\-]+$/.test(nit)) {
-        mostrarErrorCampo('nit', 'Formato de NIT inválido.');
-        hayErrores = true;
-      }
-      if (!/^\d{8,}$/.test(celular)) {
-        mostrarErrorCampo('celular', 'Debe ser numérico y tener mínimo 8 dígitos.');
-        hayErrores = true;
-      }
-      if (!direccion) {
-        mostrarErrorCampo('direccion', 'Este campo es obligatorio.');
+      if (!correo || !correo.includes('@')) { mostrarErrorCampo('correoInstitucional', 'Ingresa un correo electrónico válido.'); hayErrores = true; }
+      if (!nombre) { mostrarErrorCampo('nombre', 'Este campo es obligatorio.'); hayErrores = true; }
+      if (!/^\d{6,}$/.test(cedula)) { mostrarErrorCampo('cedula', 'Debe ser numérica y tener mínimo 6 dígitos.'); hayErrores = true; }
+      if (!fechaExp) { mostrarErrorCampo('fechaExpedicionCedula', 'Selecciona la fecha de expedición.'); hayErrores = true; }
+      if (!lugarNac || !/^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/.test(lugarNac)) { mostrarErrorCampo('lugarNacimiento', 'Solo se permite texto y caracteres válidos.'); hayErrores = true; }
+      if (!paisNac || !/^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/.test(paisNac)) { mostrarErrorCampo('paisNacimiento', 'Solo se permite texto y caracteres válidos.'); hayErrores = true; }
+      if (nit && !/^[\d\-]+$/.test(nit)) { mostrarErrorCampo('nit', 'Formato de NIT inválido.'); hayErrores = true; }
+      if (!/^\d{8,}$/.test(celular)) { mostrarErrorCampo('celular', 'Debe ser numérico y tener mínimo 8 dígitos.'); hayErrores = true; }
+      if (!direccion) { mostrarErrorCampo('direccion', 'Este campo es obligatorio.'); hayErrores = true; }
+
+      if (!autorizacion) {
+        const errAuth = $('err-autorizacion');
+        errAuth.innerText = 'Debes aceptar los términos y condiciones para continuar.';
+        errAuth.classList.remove('hidden');
         hayErrores = true;
       }
 
@@ -316,29 +375,18 @@
       const input = $(idCampo);
       const err = $('err-' + idCampo);
       if (input) input.classList.add('border-red-500');
-      if (err) {
-        err.innerText = mensaje;
-        err.classList.remove('hidden');
-      }
+      if (err) { err.innerText = mensaje; err.classList.remove('hidden'); }
     }
 
     function obtenerRequisitosRequeridos(calidad, nacionalidad, tipoPersona) {
       if (calidad === '2') {
-        if (nacionalidad === '2') {
-          return tipoPersona === '1' 
-            ? ['prov_creacion', 'prov_rut', 'prov_cedula', 'prov_certBancaria', 'prov_listas'] 
-            : ['prov_creacion', 'prov_rut', 'prov_camara', 'prov_repLegal', 'prov_certBancaria', 'prov_listas'];
-        } else {
-          return ['prov_creacion', 'prov_regFiscal', 'prov_declaracion', 'prov_listas'];
-        }
+        return nacionalidad === '2'
+          ? (tipoPersona === '1' ? ['prov_creacion', 'prov_rut', 'prov_cedula', 'prov_certBancaria', 'prov_listas'] : ['prov_creacion', 'prov_rut', 'prov_camara', 'prov_repLegal', 'prov_certBancaria', 'prov_listas'])
+          : ['prov_creacion', 'prov_regFiscal', 'prov_declaracion', 'prov_listas'];
       } else {
-        if (nacionalidad === '2') {
-          return tipoPersona === '1' 
-            ? ['cli_solicitud', 'cli_rut', 'cli_cedula', 'cli_tratamiento'] 
-            : ['cli_solicitud', 'cli_rut', 'cli_carta', 'cli_tratamiento'];
-        } else {
-          return ['cli_solicitud', 'cli_regFiscal'];
-        }
+        return nacionalidad === '2'
+          ? (tipoPersona === '1' ? ['cli_solicitud', 'cli_rut', 'cli_cedula', 'cli_tratamiento'] : ['cli_solicitud', 'cli_rut', 'cli_carta', 'cli_tratamiento'])
+          : ['cli_solicitud', 'cli_regFiscal'];
       }
     }
 
@@ -380,14 +428,13 @@
           const badge = $('badge-estado-' + docKey);
           if (!file) return;
 
-          const esPdf = file.type === 'application/pdf' || file.name.toLowerCase().endsWith('.pdf');
-          if (!esPdf) {
+          if (!(file.type === 'application/pdf' || file.name.toLowerCase().endsWith('.pdf'))) {
             alert('Por favor selecciona un archivo en formato PDF válido.');
             return;
           }
 
           const fileUrl = URL.createObjectURL(file);
-          estadoDocumentos[docKey] = { status: 'valid', fileUrl: fileUrl };
+          estadoDocumentos[docKey] = { status: 'valid', fileUrl };
           const tamanoMB = (file.size / (1024*1024)).toFixed(1) + ' MB';
           
           if (badge) {
@@ -400,7 +447,7 @@
               <i class="fa-solid fa-circle-check text-emerald-600"></i>
               <div class="truncate max-w-[120px]" title="${file.name}">${file.name}</div>
               <span class="text-[10px] text-gray-500">(${tamanoMB})</span>
-              <button type="button" onclick="previsualizarPDF('${docKey}')" class="bg-white border border-emerald-300 text-emerald-700 hover:bg-emerald-100 p-2 rounded-lg font-medium transition-colors cursor-pointer" title="Ver documento cargado">
+              <button type="button" onclick="previsualizarPDF('${docKey}')" class="bg-white border border-emerald-300 text-emerald-700 hover:bg-emerald-100 p-2 rounded-lg font-medium transition-colors cursor-pointer" title="Ver documento">
                 <i class="fa-solid fa-eye"></i>
               </button>
               <button type="button" onclick="resetInput('${docKey}')" class="text-gray-400 hover:text-red-600 ml-1 cursor-pointer" title="Eliminar archivo">
@@ -413,14 +460,13 @@
     }
 
     window.previsualizarPDF = function(docKey) {
-      const docInfo = estadoDocumentos[docKey];
-      if (docInfo && docInfo.fileUrl) {
-        window.open(docInfo.fileUrl, '_blank');
+      if (estadoDocumentos[docKey]?.fileUrl) {
+        window.open(estadoDocumentos[docKey].fileUrl, '_blank');
       }
     };
 
     window.resetInput = function(docKey) {
-      if (estadoDocumentos[docKey] && estadoDocumentos[docKey].fileUrl) {
+      if (estadoDocumentos[docKey]?.fileUrl) {
         URL.revokeObjectURL(estadoDocumentos[docKey].fileUrl);
       }
       estadoDocumentos[docKey] = { status: 'empty', fileUrl: null };
@@ -443,8 +489,7 @@
     };
 
     $('btn-ejecutar')?.addEventListener('click', () => {
-      const hayErrores = validarFormularioTitular();
-      if (hayErrores) return;
+      if (validarFormularioTitular()) return;
 
       $('form-titular').classList.add('hidden');
       $('resumen-titular').classList.remove('hidden');
@@ -482,12 +527,10 @@
       $('subtitulo-etapa').innerText = 'Por favor actualiza tu información para continuar.';
     });
 
-    $('btn-volver')?.addEventListener('click', () => {
-      location.reload();
-    });
+    $('btn-volver')?.addEventListener('click', () => location.reload());
 
     $('btn-continuar')?.addEventListener('click', () => {
-      const todosValidos = documentosActuales.every(d => estadoDocumentos[d] && estadoDocumentos[d].status === 'valid');
+      const todosValidos = documentosActuales.every(d => estadoDocumentos[d]?.status === 'valid');
       if (!todosValidos) {
         alert('Por favor adjunta todos los documentos obligatorios en formato PDF antes de continuar.');
         return;
