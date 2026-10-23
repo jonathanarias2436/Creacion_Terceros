@@ -39,9 +39,14 @@
       <div class="flex items-center gap-3">
         <img src="./assets/logo.svg" alt="Universidad El Bosque" class="coh-image coh-ce-cpt_unbo_site_header-ab4d05f5 coh-image-responsive-xl w-[179.97px] h-[62.52px] object-contain" style="width: 179.97px; height: 62.52px;" onerror="this.src='https://www.unbosque.edu.co/sites/default/files/logo-universidad-el-bosque.png'">
       </div>
-      <a href="index.html" class="text-xs text-gray-600 nav-link-hover flex items-center gap-1.5 font-medium transition-colors">
-        <i class="fa-solid fa-arrow-left"></i> Volver al inicio
-      </a>
+      <div class="flex items-center gap-4">
+        <span class="text-[11px] bg-blue-50 text-blue-700 border border-blue-200 px-2.5 py-1 rounded-lg font-medium hidden sm:inline-block">
+          <i class="fa-brands fa-microsoft mr-1"></i> Azure & OneDrive Institucional
+        </span>
+        <a href="index.html" class="text-xs text-gray-600 nav-link-hover flex items-center gap-1.5 font-medium transition-colors">
+          <i class="fa-solid fa-arrow-left"></i> Volver al inicio
+        </a>
+      </div>
     </div>
   </header>
 
@@ -227,12 +232,12 @@
       </div>
     </div>
 
-    <!-- ETAPA 3: Procesando, Analizando y Validación del Sistema -->
+    <!-- ETAPA 3: Procesando, Analizando (Azure) y Validación -->
     <div id="seccion-etapa3" class="bg-white border border-gray-200 rounded-2xl p-6 md:p-8 space-y-6 hidden shadow-sm">
       <div class="flex items-center justify-between border-b border-gray-100 pb-4">
         <div class="flex items-center gap-3">
           <div class="w-7 h-7 rounded-full bg-[#012820] text-white flex items-center justify-center text-xs font-bold">3</div>
-          <h2 class="text-base font-bold text-[#232429]">Validación y Procesamiento del Sistema</h2>
+          <h2 class="text-base font-bold text-[#232429]">Validación Interna (Azure & OneDrive)</h2>
         </div>
         <span id="etiqueta-estado-global" class="text-xs bg-amber-50 text-amber-800 border border-amber-200 px-3 py-1 rounded-full font-medium flex items-center gap-1.5">
           <i class="fa-solid fa-spinner fa-spin text-amber-600"></i> Procesando y analizando información...
@@ -245,21 +250,30 @@
           <span>Resumen de entrega:</span>
           <span id="resumen-total-docs" class="text-[#FD7519]">0 documentos cargados</span>
         </div>
-        <p class="text-gray-500 text-[11px]">El sistema está analizando la integridad, legibilidad y correspondencia de los archivos adjuntos con los parámetros institucionales.</p>
+        <p class="text-gray-500 text-[11px]">Azure Cognitive Services está analizando la integridad de los documentos y el almacenamiento seguro en OneDrive institucional.</p>
       </div>
 
       <!-- Contenedor dinámico de validación por documento -->
       <div id="contenedor-validacion-docs" class="space-y-3">
         <!-- Se llena por JavaScript -->
       </div>
+    </div>
 
-      <!-- Bloque final de éxito (aparece al validar) -->
-      <div id="bloque-exito-final" class="hidden bg-emerald-50 border border-emerald-300 rounded-xl p-5 text-center space-y-3 shadow-sm">
-        <div class="w-12 h-12 bg-emerald-600 text-white rounded-full flex items-center justify-center mx-auto text-xl shadow-md">
-          <i class="fa-solid fa-check"></i>
-        </div>
-        <h3 class="font-bold text-emerald-900 text-sm">¡Registro validado y archivado exitosamente!</h3>
-        <p class="text-emerald-700 text-xs max-w-md mx-auto">El sistema ha otorgado el visto bueno institucional. Tus documentos han sido procesados y almacenados de manera segura en el sistema de gestión.</p>
+    <!-- ETAPA 4: Finalizado y Confirmación -->
+    <div id="seccion-etapa4" class="bg-white border border-gray-200 rounded-2xl p-6 md:p-8 space-y-6 hidden shadow-sm text-center">
+      <div class="w-16 h-16 bg-emerald-600 text-white rounded-full flex items-center justify-center mx-auto text-2xl shadow-md">
+        <i class="fa-solid fa-circle-check"></i>
+      </div>
+      <div class="space-y-2 max-w-lg mx-auto">
+        <h2 class="text-xl font-bold text-[#232429]">¡Trámite finalizado con éxito!</h2>
+        <p class="text-sm text-gray-600 leading-relaxed">
+          Tus documentos han sido validados con Azure y archivados correctamente en OneDrive institucional. <strong>Mira tu confirmación en tu correo electrónico.</strong>
+        </p>
+      </div>
+      <div class="pt-4 flex justify-center">
+        <button id="btn-finalizar-reiniciar" class="px-8 py-3 btn-green-inst text-xs font-semibold rounded-xl transition-colors shadow-sm cursor-pointer flex items-center gap-2">
+          <i class="fa-solid fa-rotate-right"></i> Finalizar y nuevo formulario
+        </button>
       </div>
     </div>
 
@@ -573,6 +587,7 @@
       $('alerta-cambio').classList.remove('hidden');
       $('seccion-documentos').classList.add('hidden');
       $('seccion-etapa3').classList.add('hidden');
+      $('seccion-etapa4').classList.add('hidden');
       $('seccion-navegacion').classList.add('hidden');
       $('badge-paso-1').innerText = '1';
       $('badge-paso-1').className = 'w-7 h-7 rounded-full bg-[#012820] text-white flex items-center justify-center text-xs font-bold';
@@ -581,7 +596,7 @@
 
     $('btn-volver')?.addEventListener('click', () => location.reload());
 
-    // TRANSICIÓN A LA ETAPA 3 (Validación y Procesamiento)
+    // TRANSICIÓN A LA ETAPA 3 Y LUEGO A LA ETAPA 4
     $('btn-continuar')?.addEventListener('click', () => {
       const todosValidos = documentosActuales.every(d => estadoDocumentos[d]?.status === 'valid');
       if (!todosValidos) {
@@ -592,7 +607,7 @@
       // Ocultar sección de documentos y navegación provisional
       $('seccion-documentos').classList.add('hidden');
       $('seccion-navegacion').classList.add('hidden');
-      $('subtitulo-etapa').innerText = 'Validando y procesando la documentación en el sistema institucional.';
+      $('subtitulo-etapa').innerText = 'Procesando validación interna mediante Azure y almacenamiento en OneDrive institucional.';
 
       // Mostrar Etapa 3
       $('seccion-etapa3').classList.remove('hidden');
@@ -602,7 +617,7 @@
       contenedorVal.innerHTML = '';
       
       let totalCargados = documentosActuales.length;
-      $('resumen-total-docs').innerText = `${totalCargados} documentos cargados para validación`;
+      $('resumen-total-docs').innerText = `${totalCargados} documentos cargados para validación con Azure`;
 
       documentosActuales.forEach(docKey => {
         const info = catalogoDocs[docKey];
@@ -618,33 +633,36 @@
               </div>
             </div>
             <div id="status-val-${docKey}" class="flex items-center gap-1.5 text-xs font-medium text-amber-700 bg-amber-50 border border-amber-200 px-3 py-1.5 rounded-full">
-              <i class="fa-solid fa-spinner fa-spin text-amber-600"></i> Validando...
+              <i class="fa-solid fa-spinner fa-spin text-amber-600"></i> Analizando (Azure)...
             </div>
           </div>
         `;
       });
 
-      // SIMULACIÓN DE RESPUESTA DEL BACKEND (Visto bueno y aprobación tras 3.5 segundos)
+      // SIMULACIÓN DE RESPUESTA DE AZURE Y ONEDRIVE (Visto bueno tras 3.5 segundos)
       setTimeout(() => {
-        // Cambiar estado global de la etapa 3
-        $('etiqueta-estado-global.').className = ""; // reset
-        const badgeGlobal = $('etiqueta-estado-global');
-        badgeGlobal.className = "text-xs bg-emerald-50 text-emerald-800 border border-emerald-200 px-3 py-1 rounded-full font-medium flex items-center gap-1.5";
-        badgeGlobal.innerHTML = '<i class="fa-solid fa-circle-check text-emerald-600"></i> Aprobado por el sistema';
-
-        // Actualizar cada fila individual a Aprobado
+        // Actualizar cada fila individual a Aprobado y archivado en OneDrive
         documentosActuales.forEach(docKey => {
           const rowStatus = $('status-val-' + docKey);
           if (rowStatus) {
             rowStatus.className = "flex items-center gap-1.5 text-xs font-medium text-emerald-700 bg-emerald-50 border border-emerald-200 px-3 py-1.5 rounded-full";
-            rowStatus.innerHTML = '<i class="fa-solid fa-check"></i> Verificado y archivado';
+            rowStatus.innerHTML = '<i class="fa-solid fa-check"></i> Validado y en OneDrive';
           }
         });
 
-        // Mostrar bloque final de éxito
-        $('bloque-exito-final').classList.remove('hidden');
-        $('subtitulo-etapa').innerText = 'El proceso ha finalizado exitosamente.';
+        // Transición breve a Etapa 4 (Finalizado)
+        setTimeout(() => {
+          $('seccion-etapa3').classList.add('hidden');
+          $('seccion-etapa4').classList.remove('hidden');
+          $('subtitulo-etapa').innerText = 'Trámite completado exitosamente.';
+        }, 1200);
+
       }, 3500);
+    });
+
+    // Botón de finalizar y reiniciar formulario completo
+    $('btn-finalizar-reiniciar')?.addEventListener('click', () => {
+      location.reload();
     });
   </script>
 </body>
