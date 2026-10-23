@@ -90,27 +90,34 @@
       </div>
 
       <form id="form-titular" class="space-y-4 text-sm" onsubmit="return false;">
+        <!-- Los 3 primeros campos actualizados sin valores preseleccionados -->
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div>
             <label class="block text-gray-700 font-medium mb-1.5 text-xs">Calidad <span class="text-red-500">*</span></label>
             <select id="calidad" class="w-full bg-white border border-gray-300 rounded-xl px-3 py-2.5 text-xs text-[#232429] focus:outline-none focus:border-[#FD7519]">
+              <option value="" disabled selected>Seleccione opción</option>
               <option value="1">Cliente</option>
               <option value="2">Proveedores</option>
             </select>
+            <p id="err-calidad" class="text-red-500 text-[11px] mt-1 hidden"></p>
           </div>
           <div>
             <label class="block text-gray-700 font-medium mb-1.5 text-xs">Nacionalidad <span class="text-red-500">*</span></label>
             <select id="nacionalidad" class="w-full bg-white border border-gray-300 rounded-xl px-3 py-2.5 text-xs text-[#232429] focus:outline-none focus:border-[#FD7519]">
+              <option value="" disabled selected>Seleccione opción</option>
               <option value="2">Nacional</option>
               <option value="1">Extranjero</option>
             </select>
+            <p id="err-nacionalidad" class="text-red-500 text-[11px] mt-1 hidden"></p>
           </div>
           <div>
             <label class="block text-gray-700 font-medium mb-1.5 text-xs">Persona <span class="text-red-500">*</span></label>
             <select id="tipoPersona" class="w-full bg-white border border-gray-300 rounded-xl px-3 py-2.5 text-xs text-[#232429] focus:outline-none focus:border-[#FD7519]">
+              <option value="" disabled selected>Seleccione opción</option>
               <option value="1">Natural</option>
               <option value="2">Jurídica</option>
             </select>
+            <p id="err-tipoPersona" class="text-red-500 text-[11px] mt-1 hidden"></p>
           </div>
         </div>
 
@@ -391,7 +398,7 @@
     });
 
     function limpiarErroresCampos() {
-      const campos = ['correoInstitucional', 'nombre', 'cedula', 'fechaExpedicionCedula', 'lugarNacimiento', 'paisNacimiento', 'nit', 'celular', 'direccion'];
+      const campos = ['calidad', 'nacionalidad', 'tipoPersona', 'correoInstitucional', 'nombre', 'cedula', 'fechaExpedicionCedula', 'lugarNacimiento', 'paisNacimiento', 'nit', 'celular', 'direccion'];
       campos.forEach(id => {
         const input = $(id);
         const err = $('err-' + id);
@@ -405,6 +412,9 @@
       limpiarErroresCampos();
       let hayErrores = false;
 
+      const calidad = $('calidad').value;
+      const nacionalidad = $('nacionalidad').value;
+      const tipoPersona = $('tipoPersona').value;
       const correo = $('correoInstitucional').value.trim();
       const nombre = $('nombre').value.trim();
       const cedula = $('cedula').value.trim();
@@ -416,6 +426,9 @@
       const direccion = $('direccion').value.trim();
       const autorizacion = $('check-autorizacion').checked;
 
+      if (!calidad) { mostrarErrorCampo('calidad', 'Selecciona una opción.'); hayErrores = true; }
+      if (!nacionalidad) { mostrarErrorCampo('nacionalidad', 'Selecciona una opción.'); hayErrores = true; }
+      if (!tipoPersona) { mostrarErrorCampo('tipoPersona', 'Selecciona una opción.'); hayErrores = true; }
       if (!correo || !correo.includes('@')) { mostrarErrorCampo('correoInstitucional', 'Ingresa un correo electrónico válido.'); hayErrores = true; }
       if (!nombre) { mostrarErrorCampo('nombre', 'Este campo es obligatorio.'); hayErrores = true; }
       if (!/^\d{6,}$/.test(cedula)) { mostrarErrorCampo('cedula', 'Debe ser numérica y tener mínimo 6 dígitos.'); hayErrores = true; }
@@ -470,113 +483,61 @@
               <div class="flex items-center gap-2 flex-wrap">
                 <i class="fa-solid fa-file-pdf brand-orange"></i>
                 <span class="font-semibold text-xs text-[#232429]">${info.titulo}</span>
-                <span id="badge-estado-${docKey}" class="text-[10px] bg-red-50 text-red-600 border border-red-200 px-2 py-0.5 rounded-full font-medium">Obligatorio</span>
+                <span id="badge-estado-${docKey}" class="text-[10px] bg-red-50 text-red-600 border border-red-200 px-2 py-0.5 rounded-full font-medium">Pendiente</span>
               </div>
-              <p class="text-[11px] text-gray-500 pl-5">${info.desc}</p>
+              <p class="text-[11px] text-gray-500">${info.desc}</p>
             </div>
-            <div class="flex items-center gap-3">
-              <div id="status-area-${docKey}">
-                <label for="file-${docKey}" class="inline-flex items-center gap-1.5 text-xs bg-white border border-gray-300 text-gray-700 px-3.5 py-2 rounded-xl font-medium hover:bg-gray-100 transition-colors cursor-pointer shadow-xs">
-                  <i class="fa-solid fa-cloud-arrow-up text-[#FD7519]"></i> Seleccionar archivo
-                </label>
-                <input type="file" id="file-${docKey}" accept=".pdf" data-doc="${docKey}" class="hidden">
-              </div>
+            <div class="flex items-center gap-2">
+              <label class="cursor-pointer bg-white border border-gray-300 hover:bg-gray-100 text-gray-700 text-xs font-semibold px-3 py-2 rounded-xl transition-colors shadow-xs flex items-center gap-1.5">
+                <i class="fa-solid fa-upload text-gray-500"></i> Adjuntar PDF
+                <input type="file" accept=".pdf" class="hidden" onchange="cargarDocumento('${docKey}', this)">
+              </label>
+              <span id="nombre-archivo-${docKey}" class="text-[11px] text-gray-500 max-w-[150px] truncate"></span>
             </div>
           </div>
         `;
       });
-
-      documentosActuales.forEach(docKey => {
-        $('file-' + docKey)?.addEventListener('change', (e) => {
-          const file = e.target.files[0];
-          const area = $('status-area-' + docKey);
-          const badge = $('badge-estado-' + docKey);
-          if (!file) return;
-
-          if (!(file.type === 'application/pdf' || file.name.toLowerCase().endsWith('.pdf'))) {
-            alert('Por favor selecciona un archivo en formato PDF válido.');
-            return;
-          }
-
-          const fileUrl = URL.createObjectURL(file);
-          estadoDocumentos[docKey] = { status: 'valid', fileUrl, fileName: file.name };
-          const tamanoMB = (file.size / (1024*1024)).toFixed(1) + ' MB';
-          
-          if (badge) {
-            badge.className = "text-[10px] bg-emerald-50 text-emerald-700 border border-emerald-200 px-2 py-0.5 rounded-full font-medium";
-            badge.innerText = "Cargado";
-          }
-
-          area.innerHTML = `
-            <div class="flex items-center gap-2 text-xs bg-emerald-50 border border-emerald-200 text-emerald-800 px-3 py-2 rounded-xl">
-              <i class="fa-solid fa-circle-check text-emerald-600"></i>
-              <div class="truncate max-w-[120px]" title="${file.name}">${file.name}</div>
-              <span class="text-[10px] text-gray-500">(${tamanoMB})</span>
-              <button type="button" onclick="previsualizarPDF('${docKey}')" class="bg-white border border-emerald-300 text-emerald-700 hover:bg-emerald-100 p-2 rounded-lg font-medium transition-colors cursor-pointer" title="Ver documento">
-                <i class="fa-solid fa-eye"></i>
-              </button>
-              <button type="button" onclick="resetInput('${docKey}')" class="text-gray-400 hover:text-red-600 ml-1 cursor-pointer" title="Eliminar archivo">
-                <i class="fa-solid fa-xmark"></i>
-              </button>
-            </div>
-          `;
-        });
-      });
     }
 
-    window.previsualizarPDF = function(docKey) {
-      if (estadoDocumentos[docKey]?.fileUrl) {
-        window.open(estadoDocumentos[docKey].fileUrl, '_blank');
+    function cargarDocumento(docKey, input) {
+      if (input.files && input.files[0]) {
+        const file = input.files[0];
+        estadoDocumentos[docKey] = {
+          status: 'loaded',
+          fileUrl: URL.createObjectURL(file),
+          fileName: file.name
+        };
+        $('nombre-archivo-' + docKey).innerText = file.name;
+        const badge = $('badge-estado-' + docKey);
+        badge.className = 'text-[10px] bg-emerald-50 text-emerald-700 border border-emerald-200 px-2 py-0.5 rounded-full font-medium';
+        badge.innerText = 'Cargado';
       }
-    };
-
-    window.resetInput = function(docKey) {
-      if (estadoDocumentos[docKey]?.fileUrl) {
-        URL.revokeObjectURL(estadoDocumentos[docKey].fileUrl);
-      }
-      estadoDocumentos[docKey] = { status: 'empty', fileUrl: '', fileName: '' };
-      
-      const area = $('status-area-' + docKey);
-      const badge = $('badge-estado-' + docKey);
-
-      if (badge) {
-        badge.className = "text-[10px] bg-red-50 text-red-600 border border-red-200 px-2 py-0.5 rounded-full font-medium";
-        badge.innerText = "Obligatorio";
-      }
-
-      area.innerHTML = `
-        <label for="file-${docKey}" class="inline-flex items-center gap-1.5 text-xs bg-white border border-gray-300 text-gray-700 px-3.5 py-2 rounded-xl font-medium hover:bg-gray-100 transition-colors cursor-pointer shadow-xs">
-          <i class="fa-solid fa-cloud-arrow-up text-[#FD7519]"></i> Seleccionar archivo
-        </label>
-        <input type="file" id="file-${docKey}" accept=".pdf" data-doc="${docKey}" class="hidden">
-      `;
-      $('file-' + docKey)?.addEventListener('change', arguments.callee);
-    };
+    }
 
     $('btn-ejecutar')?.addEventListener('click', () => {
       if (validarFormularioTitular()) return;
 
+      const calidad = $('calidad').value;
+      const nacionalidad = $('nacionalidad').value;
+      const tipoPersona = $('tipoPersona').value;
+
+      documentosActuales = obtenerRequisitosRequeridos(calidad, nacionalidad, tipoPersona);
+      renderizarPanelDocumentos();
+
       $('form-titular').classList.add('hidden');
       $('resumen-titular').classList.remove('hidden');
       $('btn-editar').classList.remove('hidden');
-      $('alerta-exito').classList.remove('hidden');
-      $('seccion-documentos').classList.remove('hidden');
-      $('seccion-navegacion').classList.remove('hidden');
       $('alerta-cambio').classList.add('hidden');
-      
-      $('badge-paso-1').innerHTML = '<i class="fa-solid fa-check text-xs"></i>';
-      $('badge-paso-1').className = 'w-7 h-7 rounded-full bg-emerald-600 text-white flex items-center justify-center text-xs font-bold';
-      $('subtitulo-etapa').innerText = 'Se validan los datos y, si son correctos, se muestra la carga de documentos requeridos.';
+      $('alerta-exito').classList.remove('hidden');
 
-      const c = $('calidad').options[$('calidad').selectedIndex].text;
-      const n = $('nacionalidad').options[$('nacionalidad').selectedIndex].text;
-      const p = $('tipoPersona').options[$('tipoPersona').selectedIndex].text;
-      $('res-perfil').innerText = `${c} - ${n} - Persona ${p}`;
+      $('res-perfil').innerText = $('calidad').options[$('calidad').selectedIndex].text + ' / ' + $('nacionalidad').options[$('nacionalidad').selectedIndex].text + ' / ' + $('tipoPersona').options[$('tipoPersona').selectedIndex].text;
       $('res-nombre').innerText = $('nombre').value;
       $('res-correo').innerText = $('correoInstitucional').value;
 
-      documentosActuales = obtenerRequisitosRequeridos($('calidad').value, $('nacionalidad').value, $('tipoPersona').value);
-      renderizarPanelDocumentos();
+      $('seccion-documentos').classList.remove('hidden');
+      $('seccion-navegacion').classList.remove('hidden');
+      $('subtitulo-etapa').innerText = 'Adjunta los documentos requeridos según la información suministrada.';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 
     $('btn-editar')?.addEventListener('click', () => {
@@ -586,83 +547,35 @@
       $('alerta-exito').classList.add('hidden');
       $('alerta-cambio').classList.remove('hidden');
       $('seccion-documentos').classList.add('hidden');
-      $('seccion-etapa3').classList.add('hidden');
-      $('seccion-etapa4').classList.add('hidden');
       $('seccion-navegacion').classList.add('hidden');
-      $('badge-paso-1').innerText = '1';
-      $('badge-paso-1').className = 'w-7 h-7 rounded-full bg-[#012820] text-white flex items-center justify-center text-xs font-bold';
-      $('subtitulo-etapa').innerText = 'Por favor actualiza tu información para continuar.';
     });
 
-    $('btn-volver')?.addEventListener('click', () => location.reload());
-
-    // TRANSICIÓN A LA ETAPA 3 Y LUEGO A LA ETAPA 4
     $('btn-continuar')?.addEventListener('click', () => {
-      const todosValidos = documentosActuales.every(d => estadoDocumentos[d]?.status === 'valid');
-      if (!todosValidos) {
-        alert('Por favor adjunta todos los documentos obligatorios en formato PDF antes de continuar.');
+      const faltantes = documentosActuales.some(docKey => estadoDocumentos[docKey].status !== 'loaded');
+      if (faltantes) {
+        alert('Por favor adjunta todos los documentos requeridos antes de continuar.');
         return;
       }
 
-      // Ocultar sección de documentos y navegación provisional
       $('seccion-documentos').classList.add('hidden');
-      $('seccion-navegacion').classList.add('hidden');
-      $('subtitulo-etapa').innerText = 'Procesando validación interna mediante Azure y almacenamiento en OneDrive institucional.';
-
-      // Mostrar Etapa 3
       $('seccion-etapa3').classList.remove('hidden');
-      
-      // Renderizar listado de validación de documentos
-      const contenedorVal = $('contenedor-validacion-docs');
-      contenedorVal.innerHTML = '';
-      
-      let totalCargados = documentosActuales.length;
-      $('resumen-total-docs').innerText = `${totalCargados} documentos cargados para validación con Azure`;
+      $('seccion-navegacion').classList.add('hidden');
+      $('subtitulo-etapa').innerText = 'Procesando validación interna.';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
 
-      documentosActuales.forEach(docKey => {
-        const info = catalogoDocs[docKey];
-        const fileName = estadoDocumentos[docKey].fileName || 'documento.pdf';
-        
-        contenedorVal.innerHTML += `
-          <div class="bg-gray-50 border border-gray-200 rounded-xl p-4 flex items-center justify-between gap-3 shadow-xs" id="val-row-${docKey}">
-            <div class="flex items-center gap-3">
-              <i class="fa-solid fa-file-pdf text-red-500 text-lg"></i>
-              <div>
-                <span class="font-semibold text-xs text-[#232429] block">${info.titulo}</span>
-                <span class="text-[11px] text-gray-500">${fileName}</span>
-              </div>
-            </div>
-            <div id="status-val-${docKey}" class="flex items-center gap-1.5 text-xs font-medium text-amber-700 bg-amber-50 border border-amber-200 px-3 py-1.5 rounded-full">
-              <i class="fa-solid fa-spinner fa-spin text-amber-600"></i> Analizando (Azure)...
-            </div>
-          </div>
-        `;
-      });
-
-      // SIMULACIÓN DE RESPUESTA DE AZURE Y ONEDRIVE (Visto bueno tras 3.5 segundos)
       setTimeout(() => {
-        // Actualizar cada fila individual a Aprobado y archivado en OneDrive
-        documentosActuales.forEach(docKey => {
-          const rowStatus = $('status-val-' + docKey);
-          if (rowStatus) {
-            rowStatus.className = "flex items-center gap-1.5 text-xs font-medium text-emerald-700 bg-emerald-50 border border-emerald-200 px-3 py-1.5 rounded-full";
-            rowStatus.innerHTML = '<i class="fa-solid fa-check"></i> Validado y en OneDrive';
-          }
-        });
-
-        // Transición breve a Etapa 4 (Finalizado)
+        $('etiqueta-estado-global').className = 'text-xs bg-emerald-50 text-emerald-800 border border-emerald-200 px-3 py-1 rounded-full font-medium flex items-center gap-1.5';
+        $('etiqueta-estado-global').innerHTML = '<i class="fa-solid fa-circle-check text-emerald-600"></i> Validación completada con éxito';
+        
         setTimeout(() => {
           $('seccion-etapa3').classList.add('hidden');
           $('seccion-etapa4').classList.remove('hidden');
-          $('subtitulo-etapa').innerText = 'Trámite completado exitosamente.';
-        }, 1200);
-
-      }, 3500);
+        }, 1500);
+      }, 2500);
     });
 
-    // Botón de finalizar y reiniciar formulario completo
     $('btn-finalizar-reiniciar')?.addEventListener('click', () => {
-      location.reload();
+      window.location.reload();
     });
   </script>
 </body>
