@@ -233,6 +233,16 @@
           <i class="fa-solid fa-file-word"></i> Descargar Solicitud de Factura (.docx)
         </a>
       </div>
+
+      <!-- Botón Validar documentos reubicado dentro de la tarjeta de la Etapa 2 -->
+      <div id="seccion-navegacion" class="hidden pt-4 border-t border-gray-100 flex items-center justify-between">
+        <button id="btn-volver" class="px-5 py-2.5 bg-white border border-gray-300 text-gray-700 text-xs font-semibold rounded-xl hover:bg-gray-100 transition-colors shadow-xs cursor-pointer">
+          Volver
+        </button>
+        <button id="btn-continuar" class="px-6 py-2.5 btn-green-inst text-xs font-semibold rounded-xl transition-colors shadow-sm cursor-pointer flex items-center gap-1.5">
+          Validar documentos <i class="fa-solid fa-arrow-right ml-1"></i>
+        </button>
+      </div>
     </div>
 
     <!-- ETAPA 3: Procesando, Analizando (Azure) y Validación -->
@@ -278,16 +288,6 @@
           <i class="fa-solid fa-rotate-right"></i> Finalizar proceso
         </button>
       </div>
-    </div>
-
-    <!-- Navegación final -->
-    <div id="seccion-navegacion" class="hidden flex items-center justify-between pt-2">
-      <button id="btn-volver" class="px-5 py-2.5 bg-white border border-gray-300 text-gray-700 text-xs font-semibold rounded-xl hover:bg-gray-100 transition-colors shadow-xs cursor-pointer">
-        Volver
-      </button>
-      <button id="btn-continuar" class="px-6 py-2.5 btn-green-inst text-xs font-semibold rounded-xl transition-colors shadow-sm cursor-pointer">
-        Continuar al análisis <i class="fa-solid fa-arrow-right ml-1"></i>
-      </button>
     </div>
 
   </div>
