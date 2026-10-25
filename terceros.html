@@ -405,9 +405,9 @@
     </div>
   </div>
 
-  <!-- VENTANA AUXILIAR (MODAL) PARA VISUALIZAR Y DESCARGAR FORMATOS DE LA UNIVERSIDAD -->
+  <!-- VENTANA AUXILIAR (MODAL) PARA VISUALIZAR IMAGEN Y DESCARGAR FORMATOS DE LA UNIVERSIDAD -->
   <div id="modal-visor-formato" class="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4 hidden backdrop-blur-xs">
-    <div class="bg-white rounded-2xl max-w-2xl w-full h-[80vh] flex flex-col shadow-2xl overflow-hidden border border-gray-200">
+    <div class="bg-white rounded-2xl max-w-2xl w-full h-[85vh] flex flex-col shadow-2xl overflow-hidden border border-gray-200">
       <!-- Encabezado de la ventana -->
       <div class="p-4 border-b border-gray-200 flex items-center justify-between bg-gray-50">
         <div class="flex items-center gap-2">
@@ -418,15 +418,15 @@
           <i class="fa-solid fa-xmark"></i>
         </button>
       </div>
-      <!-- Contenido de vista previa (iframe / visor integrado) -->
-      <div class="flex-1 bg-gray-100 p-2">
-        <iframe id="iframe-formato" src="" class="w-full h-full rounded-xl border border-gray-300 bg-white" frameborder="0"></iframe>
+      <!-- Contenedor con la imagen de previsualización -->
+      <div class="flex-1 bg-gray-100 p-4 overflow-y-auto flex items-center justify-center">
+        <img id="img-formato-preview" src="" alt="Vista previa del documento" class="max-w-full h-auto rounded-xl shadow-md border border-gray-300 bg-white object-contain" />
       </div>
       <!-- Pie de la ventana con opción de descarga y cerrar -->
       <div class="p-3 border-t border-gray-200 bg-gray-50 flex items-center justify-between">
-        <span class="text-[11px] text-gray-500">Puedes revisar el archivo antes de descargarlo.</span>
+        <span class="text-[11px] text-gray-500">Puedes revisar la imagen antes de realizar la descarga.</span>
         <div class="flex items-center gap-2">
-          <a id="btn-descargar-modal" href="#" download class="px-4 py-2 btn-green-inst text-xs font-semibold rounded-xl transition-colors shadow-xs inline-flex items-center gap-1.5 cursor-pointer">
+          <a id="btn-descargar-modal" href="#" download class="px-4 py-2.5 btn-green-inst text-xs font-semibold rounded-xl transition-colors shadow-xs inline-flex items-center gap-1.5 cursor-pointer">
             <i class="fa-solid fa-download"></i> Descargar archivo
           </a>
           <button type="button" onclick="cerrarModalFormato()" class="px-4 py-2 bg-white border border-gray-300 text-gray-700 text-xs font-semibold rounded-xl hover:bg-gray-100 transition-colors shadow-xs cursor-pointer">
@@ -454,24 +454,24 @@
     }
 
     function abrirModalFormato(tipo) {
-      const iframe = document.getElementById('iframe-formato');
+      const imgPreview = document.getElementById('img-formato-preview');
       const titulo = document.getElementById('titulo-modal-formato');
       const icono = document.getElementById('icono-modal-formato');
       const btnDescargar = document.getElementById('btn-descargar-modal');
 
       if (tipo === 'xlsx') {
-        const ruta = 'assets/Formato único de creación de proveedores, compras bienes y servicios V.07.xlsx';
+        const rutaArchivo = 'assets/Formato único de creación de proveedores, compras bienes y servicios V.07.xlsx';
         titulo.innerText = 'Formato único de creación de proveedores (.xlsx)';
         icono.className = 'fa-solid fa-file-excel text-emerald-600 text-base';
-        iframe.src = ruta;
-        btnDescargar.href = ruta;
+        imgPreview.src = 'FORMATO ÚNICO DE CREACIÓN DE PROVEEDORES, COMPRAS DE BIENES Y SERVICIOS_page-0001.jpg';
+        btnDescargar.href = rutaArchivo;
         btnDescargar.setAttribute('download', 'Formato único de creación de proveedores, compras bienes y servicios V.07.xlsx');
       } else if (tipo === 'docx') {
-        const ruta = 'assets/Formato solicitud emisión factura creación cliente.docx';
+        const rutaArchivo = 'assets/Formato solicitud emisión factura creación cliente.docx';
         titulo.innerText = 'Formato solicitud de emisión de factura (.docx)';
         icono.className = 'fa-solid fa-file-word text-blue-600 text-base';
-        iframe.src = ruta;
-        btnDescargar.href = ruta;
+        imgPreview.src = 'FORMATO SOLICITUD DE EMISIÓN DE FACTURA_page-0001.jpg';
+        btnDescargar.href = rutaArchivo;
         btnDescargar.setAttribute('download', 'Formato solicitud emisión factura creación cliente.docx');
       }
 
@@ -480,7 +480,7 @@
 
     function cerrarModalFormato() {
       document.getElementById('modal-visor-formato').classList.add('hidden');
-      document.getElementById('iframe-formato').src = '';
+      document.getElementById('img-formato-preview').src = '';
     }
 
     const catalogoDocs = {
