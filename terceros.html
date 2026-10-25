@@ -239,7 +239,7 @@
       </div>
     </div>
 
-    <!-- ETAPA 3: Procesando, Analizando (Azure) y Validación -->
+    <!-- ETAPA 3: Procesando y Validación -->
     <div id="seccion-etapa3" class="bg-white border border-gray-200 rounded-2xl p-6 md:p-8 space-y-6 hidden shadow-sm">
       <div class="flex items-center justify-between border-b border-gray-100 pb-4">
         <div class="flex items-center gap-3">
@@ -296,7 +296,7 @@
       </div>
 
       <div class="p-6 md:p-8 overflow-y-auto space-y-4 text-xs text-gray-700 leading-relaxed max-h-[60vh] bg-white text-justify">
-        <p>Bienvenido al documento de política de privacidad de la Universidad El Bosque (en adelante LA UNIVERSIDAD). LA UNIVERSIDAD es una institución de educación superior constituida bajo la figura de Fundación. Los diferentes medios digitales y físicos que la UNIVERSIDAD pone a su disposición, tienen como objetivo brindar a la comunidad académica y al público en general la información institucional y académica en relación con los servicios y actividades que desarrolla. La Universidad no tiene interés comercial o de lucro respecto de los enlaces y contenidos que se publican. Salvo que expresamente se indique lo contrario, el acceso a los sitios y portales web de la UNIVERSIDAD es gratuito y libre.</p>
+        <p>Bienvenido al documento de política de privacidad de la Universidad El Bosque (en adelante LA UNIVERSIDAD). LA UNIVERSIDAD es una institución de educación superior constituida bajo la figura de Fundación. Los diferentes medios digitales y físicos que la UNIVERSIDAD pone a su disposición, tienen como objetivo brindar a la comunidad académica y al público en general la información institucional y académica en relación con los servicios y actividades que desarrolla. La Universidad no tiene interés comercial o de lucro respecto de los enlaces y contenidos que se publican. Salvo que expresamente se indique lo contrario, el acceso a los sitios y portales web de la UNIVERSIDAD is gratuito y libre.</p>
 
         <h3 class="font-bold text-gray-900 text-sm pt-2" style="text-align: left !important;">1. Aceptación y actualización de la política de privacidad</h3>
         <p>Al aceptar los términos de esta POLÍTICA DE PRIVACIDAD, Usted expresamente autoriza la recolección, almacenamiento, utilización, divulgación, transferencia, procesamiento y supresión de datos o información personal tal como se estipula en esta política de privacidad. Se entiende por “información o datos personales” cualquier información vinculada o que pueda asociarse a una o varias personas naturales determinadas o determinables. En caso que no esté de acuerdo con nuestra política de privacidad absténgase de entregar cualquier tipo de información. LA UNIVERSIDAD se reserva el derecho de actualizar y modificar en cualquier momento los términos de este documento.</p>
@@ -374,6 +374,32 @@
       <div class="pt-2 text-center">
         <button type="button" onclick="cerrarSelectorCorreo()" class="text-xs text-gray-500 hover:text-gray-700 font-medium cursor-pointer">
           Cancelar
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- VENTANA AUXILIAR (MODAL) PARA VISUALIZAR EL PDF EN LA MISMA PÁGINA -->
+  <div id="modal-visor-pdf" class="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4 hidden backdrop-blur-xs">
+    <div class="bg-white rounded-2xl max-w-2xl w-full h-[80vh] flex flex-col shadow-2xl overflow-hidden border border-gray-200">
+      <!-- Encabezado de la ventana -->
+      <div class="p-4 border-b border-gray-200 flex items-center justify-between bg-gray-50">
+        <div class="flex items-center gap-2">
+          <i class="fa-solid fa-file-pdf text-[#1EC038] text-base"></i>
+          <h3 id="titulo-visor-pdf" class="text-xs font-bold text-gray-800 truncate max-w-md">Visualización de documento</h3>
+        </div>
+        <button type="button" onclick="cerrarVisorPDF()" class="w-8 h-8 rounded-full bg-gray-200 hover:bg-gray-300 text-gray-700 flex items-center justify-center transition-colors cursor-pointer text-sm">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <!-- Contenido del visor (iframe embebido) -->
+      <div class="flex-1 bg-gray-100 p-2">
+        <iframe id="iframe-pdf" src="" class="w-full h-full rounded-xl border border-gray-300 bg-white" frameborder="0"></iframe>
+      </div>
+      <!-- Pie de la ventana con botón fácil para cerrar -->
+      <div class="p-3 border-t border-gray-200 bg-gray-50 flex items-center justify-end">
+        <button type="button" onclick="cerrarVisorPDF()" class="px-5 py-2 bg-white border border-gray-300 text-gray-700 text-xs font-semibold rounded-xl hover:bg-gray-100 transition-colors shadow-xs cursor-pointer">
+          Cerrar ventana
         </button>
       </div>
     </div>
@@ -560,8 +586,16 @@
 
     function verDocumento(docKey) {
       if (estadoDocumentos[docKey]?.fileUrl) {
-        window.open(estadoDocumentos[docKey].fileUrl, '_blank');
+        const docInfo = catalogoDocs[docKey];
+        $('titulo-visor-pdf').innerText = docInfo ? docInfo.titulo : 'Visualización de documento';
+        $('iframe-pdf').src = estadoDocumentos[docKey].fileUrl;
+        $('modal-visor-pdf').classList.remove('hidden');
       }
+    }
+
+    function cerrarVisorPDF() {
+      $('modal-visor-pdf').classList.add('hidden');
+      $('iframe-pdf').src = '';
     }
 
     function reiniciarDocumento(docKey) {
