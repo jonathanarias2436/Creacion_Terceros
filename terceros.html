@@ -218,14 +218,14 @@
 
       <div id="contenedor-documentos" class="space-y-3"></div>
 
-      <!-- Enlaces de descarga -->
+      <!-- Enlaces de descarga conectados al visor emergente -->
       <div class="pt-4 border-t border-gray-100 flex flex-wrap gap-3">
-        <a id="btn-descargar-xlsx" href="assets/Formato único de creación de proveedores, compras bienes y servicios V.07.xlsx" download="Formato único de creación de proveedores, compras bienes y servicios V.07.xlsx" class="inline-flex items-center gap-1.5 text-xs bg-white border border-[#FD7519] text-[#FD7519] px-3.5 py-2.5 rounded-xl font-medium hover:bg-orange-50 transition-colors shadow-xs cursor-pointer">
+        <button type="button" onclick="abrirModalFormato('xlsx')" class="inline-flex items-center gap-1.5 text-xs bg-white border border-[#FD7519] text-[#FD7519] px-3.5 py-2.5 rounded-xl font-medium hover:bg-orange-50 transition-colors shadow-xs cursor-pointer">
           <i class="fa-solid fa-file-excel"></i> Descargar Formato Proveedores (.xlsx)
-        </a>
-        <a id="btn-descargar-docx" href="assets/Formato solicitud emisión factura creación cliente.docx" download="Formato solicitud emisión factura creación cliente.docx" class="inline-flex items-center gap-1.5 text-xs bg-white border border-[#FD7519] text-[#FD7519] px-3.5 py-2.5 rounded-xl font-medium hover:bg-orange-50 transition-colors shadow-xs cursor-pointer">
+        </button>
+        <button type="button" onclick="abrirModalFormato('docx')" class="inline-flex items-center gap-1.5 text-xs bg-white border border-[#FD7519] text-[#FD7519] px-3.5 py-2.5 rounded-xl font-medium hover:bg-orange-50 transition-colors shadow-xs cursor-pointer">
           <i class="fa-solid fa-file-word"></i> Descargar Solicitud de Factura (.docx)
-        </a>
+        </button>
       </div>
 
       <!-- Botón Validar documentos ubicado dentro del contenedor -->
@@ -296,7 +296,7 @@
       </div>
 
       <div class="p-6 md:p-8 overflow-y-auto space-y-4 text-xs text-gray-700 leading-relaxed max-h-[60vh] bg-white text-justify">
-        <p>Bienvenido al documento de política de privacidad de la Universidad El Bosque (en adelante LA UNIVERSIDAD). LA UNIVERSIDAD es una institución de educación superior constituida bajo la figura de Fundación. Los diferentes medios digitales y físicos que la UNIVERSIDAD pone a su disposición, tienen como objetivo brindar a la comunidad académica y al público en general la información institucional y académica en relación con los servicios y actividades que desarrolla. La Universidad no tiene interés comercial o de lucro respecto de los enlaces y contenidos que se publican. Salvo que expresamente se indique lo contrario, el acceso a los sitios y portales web de la UNIVERSIDAD is gratuito y libre.</p>
+        <p>Bienvenido al documento de política de privacidad de la Universidad El Bosque (en adelante LA UNIVERSIDAD). LA UNIVERSIDAD es una institución de educación superior constituida bajo la figura de Fundación. Los diferentes medios digitales y físicos que la UNIVERSIDAD pone a su disposición, tienen como objetivo brindar a la comunidad académica y al público en general la información institucional y académica en relación con los servicios y actividades que desarrolla. La Universidad no tiene interés comercial o de lucro respecto de los enlaces y contenidos que se publican. Salvo que expresamente se indique lo contrario, el acceso a los sitios y portales web de la UNIVERSIDAD es gratuito y libre.</p>
 
         <h3 class="font-bold text-gray-900 text-sm pt-2" style="text-align: left !important;">1. Aceptación y actualización de la política de privacidad</h3>
         <p>Al aceptar los términos de esta POLÍTICA DE PRIVACIDAD, Usted expresamente autoriza la recolección, almacenamiento, utilización, divulgación, transferencia, procesamiento y supresión de datos o información personal tal como se estipula en esta política de privacidad. Se entiende por “información o datos personales” cualquier información vinculada o que pueda asociarse a una o varias personas naturales determinadas o determinables. En caso que no esté de acuerdo con nuestra política de privacidad absténgase de entregar cualquier tipo de información. LA UNIVERSIDAD se reserva el derecho de actualizar y modificar en cualquier momento los términos de este documento.</p>
@@ -405,6 +405,38 @@
     </div>
   </div>
 
+  <!-- VENTANA AUXILIAR (MODAL) PARA VISUALIZAR Y DESCARGAR FORMATOS DE LA UNIVERSIDAD -->
+  <div id="modal-visor-formato" class="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4 hidden backdrop-blur-xs">
+    <div class="bg-white rounded-2xl max-w-2xl w-full h-[80vh] flex flex-col shadow-2xl overflow-hidden border border-gray-200">
+      <!-- Encabezado de la ventana -->
+      <div class="p-4 border-b border-gray-200 flex items-center justify-between bg-gray-50">
+        <div class="flex items-center gap-2">
+          <i id="icono-modal-formato" class="fa-solid fa-file-lines text-[#FD7519] text-base"></i>
+          <h3 id="titulo-modal-formato" class="text-xs font-bold text-gray-800 truncate max-w-md">Vista previa del formato</h3>
+        </div>
+        <button type="button" onclick="cerrarModalFormato()" class="w-8 h-8 rounded-full bg-gray-200 hover:bg-gray-300 text-gray-700 flex items-center justify-center transition-colors cursor-pointer text-sm">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <!-- Contenido de vista previa (iframe / visor integrado) -->
+      <div class="flex-1 bg-gray-100 p-2">
+        <iframe id="iframe-formato" src="" class="w-full h-full rounded-xl border border-gray-300 bg-white" frameborder="0"></iframe>
+      </div>
+      <!-- Pie de la ventana con opción de descarga y cerrar -->
+      <div class="p-3 border-t border-gray-200 bg-gray-50 flex items-center justify-between">
+        <span class="text-[11px] text-gray-500">Puedes revisar el archivo antes de descargarlo.</span>
+        <div class="flex items-center gap-2">
+          <a id="btn-descargar-modal" href="#" download class="px-4 py-2 btn-green-inst text-xs font-semibold rounded-xl transition-colors shadow-xs inline-flex items-center gap-1.5 cursor-pointer">
+            <i class="fa-solid fa-download"></i> Descargar archivo
+          </a>
+          <button type="button" onclick="cerrarModalFormato()" class="px-4 py-2 bg-white border border-gray-300 text-gray-700 text-xs font-semibold rounded-xl hover:bg-gray-100 transition-colors shadow-xs cursor-pointer">
+            Cerrar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script>
     function abrirSelectorCorreo(email, event) {
       event.preventDefault();
@@ -419,6 +451,36 @@
 
     function cerrarSelectorCorreo() {
       document.getElementById('modal-selector-correo').classList.add('hidden');
+    }
+
+    function abrirModalFormato(tipo) {
+      const iframe = document.getElementById('iframe-formato');
+      const titulo = document.getElementById('titulo-modal-formato');
+      const icono = document.getElementById('icono-modal-formato');
+      const btnDescargar = document.getElementById('btn-descargar-modal');
+
+      if (tipo === 'xlsx') {
+        const ruta = 'assets/Formato único de creación de proveedores, compras bienes y servicios V.07.xlsx';
+        titulo.innerText = 'Formato único de creación de proveedores (.xlsx)';
+        icono.className = 'fa-solid fa-file-excel text-emerald-600 text-base';
+        iframe.src = ruta;
+        btnDescargar.href = ruta;
+        btnDescargar.setAttribute('download', 'Formato único de creación de proveedores, compras bienes y servicios V.07.xlsx');
+      } else if (tipo === 'docx') {
+        const ruta = 'assets/Formato solicitud emisión factura creación cliente.docx';
+        titulo.innerText = 'Formato solicitud de emisión de factura (.docx)';
+        icono.className = 'fa-solid fa-file-word text-blue-600 text-base';
+        iframe.src = ruta;
+        btnDescargar.href = ruta;
+        btnDescargar.setAttribute('download', 'Formato solicitud emisión factura creación cliente.docx');
+      }
+
+      document.getElementById('modal-visor-formato').classList.remove('hidden');
+    }
+
+    function cerrarModalFormato() {
+      document.getElementById('modal-visor-formato').classList.add('hidden');
+      document.getElementById('iframe-formato').src = '';
     }
 
     const catalogoDocs = {
