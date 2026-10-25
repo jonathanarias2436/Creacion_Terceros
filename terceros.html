@@ -323,11 +323,21 @@
         <h3 class="font-bold text-gray-900 text-sm pt-2" style="text-align: left !important;">4. Deberes y facultades de LA UNIVERSIDAD</h3>
         <p>LA UNIVERSIDAD conservará la información bajo las condiciones de seguridad necesarias para impedir su adulteración, pérdida, consulta, uso o acceso no autorizado, y almacenará los datos personales hasta tanto resulte conveniente o necesario para sus fines institucionales.</p>
 
-        <!-- Bloque inferior estrictamente alineado a la izquierda -->
-        <div class="bg-gray-50 p-4 rounded-xl border border-gray-200 mt-6 space-y-1.5 text-[11px] text-gray-600 text-left" style="text-align: left !important;">
+        <!-- Bloque inferior con correos interactivos -->
+        <div class="bg-gray-50 p-4 rounded-xl border border-gray-200 mt-6 space-y-1.5 text-[11px] text-gray-600 text-left relative" style="text-align: left !important;">
           <p style="text-align: left !important;"><strong>Fecha de actualización:</strong> Octubre de 2017.</p>
-          <p style="text-align: left !important;"><strong>Inquietudes y sugerencias:</strong> atencionalusuario@unbosque.edu.co</p>
-          <p style="text-align: left !important;"><strong>Informar irregularidades (Habeas Data):</strong> habeasdata@unbosque.edu.co</p>
+          <p style="text-align: left !important;">
+            <strong>Inquietudes y sugerencias:</strong> 
+            <button type="button" onclick="abrirSelectorCorreo('atencionalusuario@unbosque.edu.co', event)" class="text-[#FD7519] font-medium hover:underline cursor-pointer focus:outline-none">
+              atencionalusuario@unbosque.edu.co
+            </button>
+          </p>
+          <p style="text-align: left !important;">
+            <strong>Informar irregularidades (Habeas Data):</strong> 
+            <button type="button" onclick="abrirSelectorCorreo('habeasdata@unbosque.edu.co', event)" class="text-[#FD7519] font-medium hover:underline cursor-pointer focus:outline-none">
+              habeasdata@unbosque.edu.co
+            </button>
+          </p>
         </div>
       </div>
 
@@ -343,7 +353,49 @@
     </div>
   </div>
 
+  <!-- MODAL / SELECTOR DE CORREO (GMAIL, OUTLOOK, PREDETERMINADO) -->
+  <div id="modal-selector-correo" class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-2xl max-w-sm w-full p-6 shadow-2xl space-y-4 border border-gray-200">
+      <div class="text-center space-y-1">
+        <h3 class="text-sm font-bold text-gray-800">Enviar correo electrónico</h3>
+        <p id="txt-correo-destino" class="text-xs text-gray-500 font-mono"></p>
+      </div>
+      <div class="space-y-2 pt-2">
+        <a id="link-gmail" href="#" target="_blank" class="w-full flex items-center justify-center gap-2 bg-red-600 hover:bg-red-700 text-white py-2.5 px-4 rounded-xl text-xs font-semibold transition-colors shadow-xs">
+          <i class="fa-brands fa-google"></i> Abrir con Gmail
+        </a>
+        <a id="link-outlook" href="#" target="_blank" class="w-full flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white py-2.5 px-4 rounded-xl text-xs font-semibold transition-colors shadow-xs">
+          <i class="fa-brands fa-microsoft"></i> Abrir con Outlook.com
+        </a>
+        <a id="link-default" href="#" class="w-full flex items-center justify-center gap-2 bg-gray-100 hover:bg-gray-200 text-gray-700 py-2.5 px-4 rounded-xl text-xs font-semibold transition-colors border border-gray-300">
+          <i class="fa-solid fa-envelope"></i> Aplicativo predeterminado
+        </a>
+      </div>
+      <div class="pt-2 text-center">
+        <button type="button" onclick="cerrarSelectorCorreo()" class="text-xs text-gray-500 hover:text-gray-700 font-medium cursor-pointer">
+          Cancelar
+        </button>
+      </div>
+    </div>
+  </div>
+
   <script>
+    function abrirSelectorCorreo(email, event) {
+      event.preventDefault();
+      document.getElementById('txt-correo-destino').innerText = email;
+      
+      // Enlaces dinámicos
+      document.getElementById('link-gmail').href = `https://mail.google.com/mail/?view=cm&fs=1&to=${email}`;
+      document.getElementById('link-outlook').href = `https://outlook.live.com/owa/?path=/mail/action/compose&to=${email}`;
+      document.getElementById('link-default').href = `mailto:${email}`;
+      
+      document.getElementById('modal-selector-correo').classList.remove('hidden');
+    }
+
+    function cerrarSelectorCorreo() {
+      document.getElementById('modal-selector-correo').classList.add('hidden');
+    }
+
     const catalogoDocs = {
       'prov_creacion': { titulo: 'Formato único de creación de proveedores', desc: 'Diligenciado y firmado en formato PDF.', obligatorio: true },
       'prov_rut': { titulo: 'Registro Único Tributario - RUT', desc: 'Documento oficial actualizado en formato PDF.', obligatorio: true },
@@ -545,7 +597,6 @@
       const nacionalidadTxt = nacionalidadSel.options[nacionalidadSel.selectedIndex].text;
       const tipoPersonaTxt = tipoPersonaSel.options[tipoPersonaSel.selectedIndex].text;
 
-      // Reflejar calidad / nacionalidad / persona en el campo Perfil del resumen
       $('res-perfil').innerText = `${calidadTxt} / ${nacionalidadTxt} / ${tipoPersonaTxt}`;
       $('res-nombre').innerText = $('nombre').value;
       $('res-correo').innerText = $('correoInstitucional').value;
