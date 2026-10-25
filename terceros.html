@@ -384,7 +384,6 @@
       event.preventDefault();
       document.getElementById('txt-correo-destino').innerText = email;
       
-      // Enlaces dinámicos
       document.getElementById('link-gmail').href = `https://mail.google.com/mail/?view=cm&fs=1&to=${email}`;
       document.getElementById('link-outlook').href = `https://outlook.live.com/owa/?path=/mail/action/compose&to=${email}`;
       document.getElementById('link-default').href = `mailto:${email}`;
@@ -547,7 +546,7 @@
             </div>
             <div class="flex items-center gap-2">
               <button onclick="verDocumento('${docKey}')" class="px-3 py-2 bg-white border border-gray-300 text-gray-700 text-xs font-semibold rounded-xl hover:bg-gray-100 transition-colors cursor-pointer inline-flex items-center gap-1">
-                <i class="fa-solid fa-eye text-[#FD7519]"></i> Ver PDF
+                <i class="fa-solid fa-eye text-[#1EC038]"></i> Ver PDF
               </button>
               <button onclick="reiniciarDocumento('${docKey}')" class="px-3 py-2 bg-white border border-red-300 text-red-600 text-xs font-semibold rounded-xl hover:bg-red-50 transition-colors cursor-pointer">
                 Cambiar
