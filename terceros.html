@@ -323,7 +323,7 @@
         <h3 class="font-bold text-gray-900 text-sm pt-2" style="text-align: left !important;">4. Deberes y facultades de LA UNIVERSIDAD</h3>
         <p>LA UNIVERSIDAD conservará la información bajo las condiciones de seguridad necesarias para impedir su adulteración, pérdida, consulta, uso o acceso no autorizado, y almacenará los datos personales hasta tanto resulte conveniente o necesario para sus fines institucionales.</p>
 
-        <!-- Bloque inferior corregido y estrictamente alineado a la izquierda -->
+        <!-- Bloque inferior estrictamente alineado a la izquierda -->
         <div class="bg-gray-50 p-4 rounded-xl border border-gray-200 mt-6 space-y-1.5 text-[11px] text-gray-600 text-left" style="text-align: left !important;">
           <p style="text-align: left !important;"><strong>Fecha de actualización:</strong> Octubre de 2017.</p>
           <p style="text-align: left !important;"><strong>Inquietudes y sugerencias:</strong> atencionalusuario@unbosque.edu.co</p>
@@ -538,8 +538,15 @@
       $('btn-editar').classList.remove('hidden');
 
       const calidadSel = $('calidad');
-      const perfilTxt = calidadSel.options[calidadSel.selectedIndex].text;
-      $('res-perfil').innerText = perfilTxt;
+      const nacionalidadSel = $('nacionalidad');
+      const tipoPersonaSel = $('tipoPersona');
+
+      const calidadTxt = calidadSel.options[calidadSel.selectedIndex].text;
+      const nacionalidadTxt = nacionalidadSel.options[nacionalidadSel.selectedIndex].text;
+      const tipoPersonaTxt = tipoPersonaSel.options[tipoPersonaSel.selectedIndex].text;
+
+      // Reflejar calidad / nacionalidad / persona en el campo Perfil del resumen
+      $('res-perfil').innerText = `${calidadTxt} / ${nacionalidadTxt} / ${tipoPersonaTxt}`;
       $('res-nombre').innerText = $('nombre').value;
       $('res-correo').innerText = $('correoInstitucional').value;
       $('resumen-titular').classList.remove('hidden');
